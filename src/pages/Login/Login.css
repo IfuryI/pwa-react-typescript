@@ -1,5 +1,8 @@
-.container, .group {
+.container {
     height: 100%;
+}
+
+.container, .group {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -7,10 +10,35 @@
     gap: 0.5rem 0;
 }
 
-.group {
-    width: 40%;
+.header-and-translate {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
 }
 
-.group > * {
+.group {
+    width: 70vw;
+    align-items: flex-start;
+}
+
+.terms-check {
+    display: flex;
+    align-items: center;
+}
+
+#terms-link {
+    text-decoration: dashed gray;
+}
+
+.additional-signup-methods {
     width: 100%;
+    text-align: center;
+}
+
+.additional-methods {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
 }
