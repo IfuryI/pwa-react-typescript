@@ -23,13 +23,15 @@ export const appRouter = createBrowserRouter([
   //   ],
   // },
   {
-    path: '/login',
-    element: <Login/>
+    path: '/',
+    element: <Login/>,
+    errorElement: <NotFound />,
   },
   {
-    index: true,
+
     path: '/registration',
-    element: <Registration.Layout/>
+    element: <Registration.Layout/>,
+    errorElement: <NotFound />,
   }
 ], {
   basename: '/pwa-react-typescript/'
