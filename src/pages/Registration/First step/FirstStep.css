@@ -1,0 +1,15 @@
+.date-container > * {
+    width: 100%
+}
+
+.form-item {
+    margin-bottom: 1rem;
+}
+
+.r-mt-1 {
+    margin-top: 0.25rem;
+}
+
+.r-mt-2 {
+    margin-top: 0.5rem;
+}
