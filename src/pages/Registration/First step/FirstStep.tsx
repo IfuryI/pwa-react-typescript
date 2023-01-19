@@ -1,40 +1,40 @@
 import { TextField, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider/LocalizationProvider";
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
 import './FirstStep.css';
-type Gender = 'M' | 'F';
+import { PersonalInfo, User } from "../../../models/user";
+import * as moment from 'moment';
 
-interface PersonalInfo {
-  firstName: string;
-  lastName: string;
-  gender: Gender;
-  birthday: Date;
+export interface FirstStepProps {
+  user: User;
+  stepValid: (valid: boolean) => void;
+  userInfoChange: (info: Partial<User>) => void;
 }
 
-export const FirstStep = (): JSX.Element => {
-
+export const FirstStep = ({ user, stepValid, userInfoChange }: FirstStepProps): JSX.Element => {
   const { register, control, handleSubmit, watch, formState: { errors, } } = useForm<PersonalInfo>({
     defaultValues: {
-      firstName: '',
-      lastName: '',
-      gender: 'M',
-      birthday: undefined
+      firstName: user.firstName,
+      lastName: user.lastName,
+      gender: user.gender,
+      birthday: user.birthday
     },
     mode: 'all'
   });
 
   useEffect(() => {
-    const subss = watch(({ gender }) => {
-      console.log(gender);
-
-      // const hasErrors = !!errors.email || !!errors.password;
+    const subss = watch(({ firstName, lastName, gender, birthday }) => {
+      // console.log(firstName, lastName, gender, birthday);
+      const valid = !!firstName && !!lastName //|| !errors.birthday;
+      stepValid(valid);
+      userInfoChange({ firstName, lastName, birthday, gender });
       // setSubmitBtnDisabled(hasErrors || !(email && password && termsAccepted))      
     });
     return () => subss.unsubscribe();
-  }, [watch, errors]);
+  }, [watch, errors, stepValid]);
 
   return <>
     <div className="form-item">
@@ -42,7 +42,9 @@ export const FirstStep = (): JSX.Element => {
         error={!!errors.firstName}
         variant="outlined"
         size="small"
-        {...register('firstName', { required: 'First name is required' })}
+        {...register('firstName', {
+            required: 'First name is required',
+          })}
         helperText={errors.firstName?.message ?? ''} />
     </div>
 
@@ -78,15 +80,25 @@ export const FirstStep = (): JSX.Element => {
       </FormControl>
     </div>
     <div className="date-container r-mt-2">
-      <LocalizationProvider dateAdapter={AdapterMoment}>
-        <MobileDatePicker
-          label="Birthdate"
-          inputFormat="MM/DD/YYYY"
-          value={new Date()}
-          onChange={() => { }}
-          renderInput={(params) => <TextField {...params} />}
-        />
-      </LocalizationProvider>
+      <Controller
+        name='birthday'
+        control={control}
+        render={({ field: { onChange, onBlur, value, ref } }) => (
+          <LocalizationProvider dateAdapter={AdapterMoment}>
+            <MobileDatePicker
+              label="Birthdate"
+              inputFormat="MM/DD/YYYY"
+              {...register('birthday')}
+              value={ value }
+              onChange={(date) => {                
+                onChange((date as unknown as moment.Moment).toDate());
+              }}
+              ref={ref}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
+        )}
+      />
     </div>
 </>
 }

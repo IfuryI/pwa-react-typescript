@@ -1,7 +1,10 @@
 import { Button, Step, StepLabel, Stepper } from "@mui/material";
 import { useState } from "react";
+import { User } from "../../models/user";
 import { FirstStep } from "./First step/FirstStep";
 import './Layout.css';
+import { SecondStep } from "./Second step/SecondStep";
+import { ThirdStep } from "./Third step/ThirdStep";
 
 interface StepItem {
   label: string;
@@ -12,11 +15,23 @@ const steps: StepItem[] = [
   { label: 'Personal', index: 0 },
   { label: 'Phone', index: 1 },
   { label: 'Verification', index: 2 },
-  { label: 'Summary', index: 3 },
+  { label: 'Photo', index: 3 },
+  { label: 'Summary', index: 4 },
 ];
 
 export const Layout = (): JSX.Element => {
   const [activeStep, setActiveStep] = useState(0);
+  const [firstStepValid, setFirstStepValid] = useState(false);
+  const [secondStepValid, setSecondStepValid] = useState(false);
+
+  const user: User = {
+    firstName: '',
+    lastName: '',
+    gender: 'M',
+    birthday: new Date(),
+    phone: ''
+  }
+  const [userInfo, setUserInfo] = useState(user);
 
   const nextStep = () => setActiveStep(activeStep + 1);
 
@@ -39,7 +54,16 @@ export const Layout = (): JSX.Element => {
       })}
     </Stepper>
     <div className="form-container">
-      {activeStep === 0 && <FirstStep />}
+      {activeStep === 0 && <FirstStep user={userInfo}
+        stepValid={setFirstStepValid}
+        userInfoChange={(updatedUserInfo: Partial<User>) => {          
+          setUserInfo({ ...userInfo, ...updatedUserInfo });
+        }}/>}
+      {activeStep === 1 && <SecondStep user={userInfo}
+        stepValid={setSecondStepValid}
+        phoneChanged={(phone) => {setUserInfo({ ...userInfo, phone })}}
+      />}
+      {activeStep === 2 && <ThirdStep/>}
     </div>
     <div className="buttons-container">
       <div className="buttons-container-column">
@@ -51,11 +75,20 @@ export const Layout = (): JSX.Element => {
       <div className="buttons-container-column">
         {
           activeStep < steps.length - 1 &&
-          <Button fullWidth variant="outlined" onClick={nextStep}>Next</Button>
+          <Button fullWidth
+            variant="outlined"
+            disabled={(activeStep === 0 && !firstStepValid) || (activeStep === 1  && !secondStepValid)}
+            onClick={nextStep}>
+              Next
+            </Button>
         }
         {
           activeStep === steps.length -1 &&
-          <Button fullWidth variant="outlined" onClick={onFinish}>Finish</Button>
+          <Button fullWidth
+            variant="outlined"
+            onClick={onFinish}>
+              Finish
+          </Button>
         }
       </div>
     </div>
