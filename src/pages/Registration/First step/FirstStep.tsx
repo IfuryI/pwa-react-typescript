@@ -27,7 +27,6 @@ export const FirstStep = ({ user, stepValid, userInfoChange }: FirstStepProps): 
 
   useEffect(() => {
     const subss = watch(({ firstName, lastName, gender, birthday }) => {
-      // console.log(firstName, lastName, gender, birthday);
       const valid = !!firstName && !!lastName //|| !errors.birthday;
       stepValid(valid);
       userInfoChange({ firstName, lastName, birthday, gender });
