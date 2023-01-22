@@ -1,7 +1,9 @@
 import { Button, Step, StepLabel, Stepper } from "@mui/material";
 import { useState } from "react";
 import { User } from "../../models/user";
+import { FifthStep } from "./Fifth step/FifthStep";
 import { FirstStep } from "./First step/FirstStep";
+import { ForthStep } from "./Forth step/ForthStep";
 import './Layout.css';
 import { SecondStep } from "./Second step/SecondStep";
 import { ThirdStep } from "./Third step/ThirdStep";
@@ -29,7 +31,8 @@ export const Layout = (): JSX.Element => {
     lastName: '',
     gender: 'M',
     birthday: new Date(),
-    phone: ''
+    phone: '',
+    photo: null
   }
   const [userInfo, setUserInfo] = useState(user);
 
@@ -64,6 +67,12 @@ export const Layout = (): JSX.Element => {
         phoneChanged={(phone) => {setUserInfo({ ...userInfo, phone })}}
       />}
       {activeStep === 2 && <ThirdStep/>}
+      { activeStep === 3 && <ForthStep user={userInfo}
+        photoChange={(photo) => {
+          setUserInfo({ ...userInfo, photo })
+        }}/>
+      }
+      {activeStep === 4 && <FifthStep user={userInfo}/>}
     </div>
     <div className="buttons-container">
       <div className="buttons-container-column">

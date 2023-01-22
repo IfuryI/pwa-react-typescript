@@ -9,4 +9,5 @@ export type PersonalInfo = {
 
 export type User = PersonalInfo & {
     phone: string;
+    photo: File | null;
 };

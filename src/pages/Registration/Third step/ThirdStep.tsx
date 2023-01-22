@@ -38,12 +38,11 @@ export const ThirdStep = (): JSX.Element => {
             <small className='otp-description'>A verification code has been sent to your mobile device</small>
             <Button className='send-again-button'
                 variant="outlined"
-                disabled={timer > 0}
+                disabled={activateTimer && timer > 0}
                 onClick={resetCode}>
-              Send again
+              Send
             </Button>
-            { timer > 0 && <small>You can send new one after {timer} seconds</small>}
-            <input type="file" name="" id="" />
+            { activateTimer && timer > 0 && <small>You can send new one after {timer} seconds</small>}
         </div>
     );
 }
