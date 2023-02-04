@@ -1,4 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
+import { Layout } from "../pages/Layout/Layout";
 import { Login } from "../pages/Login/Login";
 import { NotFound } from "../pages/NotFound";
 import * as Registration from "../pages/Registration/Layout";
@@ -16,7 +17,8 @@ export const appRouter = createBrowserRouter([
     errorElement: <NotFound />,
   },
   {
-    path: '/'
+    path: '/',
+    element: <Layout/>
   }
 ], {
   basename: '/pwa-react-typescript/'
