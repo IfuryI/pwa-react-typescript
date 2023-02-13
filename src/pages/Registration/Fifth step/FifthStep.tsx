@@ -1,31 +1,30 @@
-import moment from 'moment';
-import { useEffect } from 'react';
-import { User } from '../../../models/user';
-import './FifthStep.css';
+import moment from 'moment'
+import { useEffect } from 'react'
+import { type User } from '../../../models/user'
+import './FifthStep.css'
 
 export interface FifthStepProps {
-    user: User
+  user: User
 }
 
-export const FifthStep = ({user}: FifthStepProps): JSX.Element => {
+export const FifthStep = ({ user }: FifthStepProps): JSX.Element => {
+  useEffect(() => {
+    const img = document.getElementById('img')
+    if (user.photo != null) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        // @ts-expect-error
+        img?.setAttribute('src', reader.result)
+      }
+      reader.readAsDataURL(user.photo)
+    }
+    return () => {}
+  }, [user])
 
-    useEffect(() => {
-        const img = document.getElementById('img');
-        if (user.photo) {
-            const reader = new FileReader();
-            reader.onloadend = () => {
-                //@ts-ignore
-                img?.setAttribute('src', reader.result);
-            };
-            reader.readAsDataURL(user.photo);
-        }
-        return () => {};
-    }, [user])
-
-    return <div className='user-summary-info'>
+  return <div className='user-summary-info'>
         <h3>Check yor data</h3>
         <div className='avatar-and-name'>
-            <img id='img' src="#" alt="avatar" className={user.photo ? '' : 'imageless'} />
+            <img id='img' src="#" alt="avatar" className={(user.photo != null) ? '' : 'imageless'} />
             <div>
                 <span>{ user.firstName }</span><br />
                 <span>{ user.lastName }</span>

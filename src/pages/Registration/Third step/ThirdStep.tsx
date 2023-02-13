@@ -1,32 +1,32 @@
-import { Button } from '@mui/material';
-import { useEffect, useState } from 'react';
-import OtpInput from 'react-otp-input';
-import './ThirdStep.css';
+import { Button } from '@mui/material'
+import { useEffect, useState } from 'react'
+import OtpInput from 'react-otp-input'
+import './ThirdStep.css'
 
 export const ThirdStep = (): JSX.Element => {
-    const [otp, handleChangeOtp] = useState('');
-    const [timer, setTimer] = useState(15)
-    const [activateTimer, setActivateTimer] = useState(false);
-    useEffect(() => {        
-        if (activateTimer) {
-            const interval = setInterval(() => {
-                setTimer(timer - 1);
-            },
-            1000);
-            if (timer <= 0) {
-                setActivateTimer(false);
-            }
-            return () => clearInterval(interval);
-        }
-        return () => {};
-    }, [timer, activateTimer]);
-
-    const resetCode = () => {
-        setTimer(15);
-        setActivateTimer(true);
+  const [otp, handleChangeOtp] = useState('')
+  const [timer, setTimer] = useState(15)
+  const [activateTimer, setActivateTimer] = useState(false)
+  useEffect(() => {
+    if (activateTimer) {
+      const interval = setInterval(() => {
+        setTimer(timer - 1)
+      },
+      1000)
+      if (timer <= 0) {
+        setActivateTimer(false)
+      }
+      return () => { clearInterval(interval) }
     }
+    return () => {}
+  }, [timer, activateTimer])
 
-    return (
+  const resetCode = (): void => {
+    setTimer(15)
+    setActivateTimer(true)
+  }
+
+  return (
         <div className='otp-container'>
             <h3>Verification code</h3>
                 <OtpInput value={otp}
@@ -44,5 +44,5 @@ export const ThirdStep = (): JSX.Element => {
             </Button>
             { activateTimer && timer > 0 && <small>You can send new one after {timer} seconds</small>}
         </div>
-    );
+  )
 }

@@ -1,5 +1,5 @@
 export const NotFound = () => {
-    return <>
+  return <>
         <h1>PAGE NOT FOUND</h1>
     </>
 }
