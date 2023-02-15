@@ -1,10 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;700&family=Lato:wght@400;700&display=swap');
 
-/* Set core root defaults */
-html:focus-within {
-  scroll-behavior: smooth;
-}
-
 /* Set core body defaults */
 html {
   height: 100%;
@@ -12,27 +7,4 @@ html {
 
 #root{
   height: 100%;
-}
-h1,
-h2 {
-  font-family: Cabin;
-  font-weight: 500;
-}
-
-h2 {
-  font-size: 1.5rem;
-}
-
-p {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 130%;
-  opacity: 50%;
-}
-
-
-
-.debug {
-  border: 2px solid red;
 }
