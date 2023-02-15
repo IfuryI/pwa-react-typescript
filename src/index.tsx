@@ -3,9 +3,7 @@ import ReactDOM from 'react-dom/client'
 import './index.scss'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import reportWebVitals from './reportWebVitals'
-import { BrowserRouter, RouterProvider } from 'react-router-dom'
-import { appRouter } from './routes/routes'
-import Router from './routes/router'
+import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 
 const root = ReactDOM.createRoot(
