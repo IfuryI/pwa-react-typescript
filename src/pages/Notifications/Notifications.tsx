@@ -1,8 +1,4 @@
-import React from 'react'
-
-type Props = {}
-
-const Notifications = (props: Props) => {
+const Notifications: React.FunctionComponent = () => {
   return (
     <h2>Notifications</h2>
   )

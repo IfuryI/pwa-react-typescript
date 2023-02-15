@@ -1,6 +1,6 @@
 import Router from './routes/router'
 
-function App() {
+const App: React.FunctionComponent = () => {
   return (
     <>
       <Router />

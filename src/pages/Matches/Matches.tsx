@@ -1,8 +1,4 @@
-import React from 'react'
-
-type Props = {}
-
-const Matches = (props: Props) => {
+const Matches: React.FunctionComponent = () => {
   return (
     <h2>Your matches</h2>
   )

@@ -1,8 +1,4 @@
-import React from 'react'
-
-type Props = {}
-
-const Search = (props: Props) => {
+const Search: React.FunctionComponent = () => {
   return (
     <h2>Search</h2>
   )

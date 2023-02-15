@@ -1,8 +1,4 @@
-import React from 'react'
-
-type Props = {}
-
-const Household = (props: Props) => {
+const Household: React.FunctionComponent = () => {
   return (
     <h2>Household</h2>
   )
