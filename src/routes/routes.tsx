@@ -1,26 +1,25 @@
 import { createBrowserRouter } from 'react-router-dom'
-import { Layout } from '../pages/Layout/Layout'
+import MainLayout from '../components/layout/Main/MainLayout'
 import { Login } from '../pages/Login/Login'
 import { NotFound } from '../pages/NotFound'
 import * as Registration from '../pages/Registration/Layout'
 
 export const appRouter = createBrowserRouter([
   {
-    path: '/login',
+    path: '/auth/login',
     element: <Login/>,
     errorElement: <NotFound />
   },
   {
 
-    path: '/registration',
+    path: '/auth/registration',
     element: <Registration.Layout/>,
     errorElement: <NotFound />
   },
   {
     index: true,
     path: '/',
-    element: <Layout/>
+    element: <MainLayout />
   }
-], {
-  basename: '/pwa-react-typescript/'
-})
+])
+
