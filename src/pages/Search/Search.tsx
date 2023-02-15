@@ -4,7 +4,7 @@ type Props = {}
 
 const Search = (props: Props) => {
   return (
-    <div>Search</div>
+    <h2>Search</h2>
   )
 }
 

@@ -5,15 +5,20 @@ import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter } from 'react-router-dom'
 import App from './App'
+import { ThemeProvider, unstable_createMuiStrictModeTheme } from '@mui/material/styles'
+import { defaultTheme } from './styles/defaultTheme'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 )
 
+
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <App />
+      <ThemeProvider theme={ defaultTheme } >
+        <App />
+      </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>
 )

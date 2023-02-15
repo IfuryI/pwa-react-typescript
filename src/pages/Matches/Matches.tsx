@@ -4,7 +4,7 @@ type Props = {}
 
 const Matches = (props: Props) => {
   return (
-    <div>Matches</div>
+    <h2>Your matches</h2>
   )
 }
 

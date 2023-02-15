@@ -1,6 +1,6 @@
 @use '../../../styles/_colors.scss' as *;
 
-.navButton, .navIcon {
+.navButton, .navButton__icon {
     width: 2rem;
     height: 2rem;
     cursor: pointer;
@@ -13,13 +13,13 @@
     transition: .3s;
 }
 
-.navButton:hover, .navIcon:hover, .navButton.active, .navIcon.active {
+.navButton:hover, .navButton__icon:hover, .navButton.navButton--active, .navButton__icon.navButton__icon--active {
     width: 2.5rem;
     height: 2.5rem;
 }
 
 
-.navIcon:hover, .navIcon.active {
+.navButton__icon:hover, .navButton__icon.navButton__icon--active {
     stroke: $accent-color;
     stroke-width: 3px;
 }

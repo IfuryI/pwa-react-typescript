@@ -11,8 +11,8 @@ type Props = {
 
 const NavButton = (props: Props) => {
     return (
-        <Link to={props.to} className={`navButton ${props.active ? "active" : ""}`} >
-           <props.icon className={`navIcon ${props.active ? "active" : ""}`} />
+        <Link to={props.to} className={`navButton ${props.active ? "navButton--active" : ""}`} >
+           <props.icon className={`navButton__icon ${props.active ? "navButton__icon--active" : ""}`} />
         </Link>
     )
 }

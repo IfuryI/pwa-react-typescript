@@ -27,9 +27,9 @@ const NavBar = (props: Props) => {
 
     return (
         <div className="navbar" id="myNavbar">
-            <nav className="navbox">
-                {menu.map((menu) => (
-                    <NavButton to={menu.to} icon={menu.icon} active={locBase === menu.abbr ? true : false} />
+            <nav className="navbar__navbox">
+                {menu.map((menu, i) => (
+                    <NavButton key={i} to={menu.to} icon={menu.icon} active={locBase === menu.abbr ? true : false} />
                 ))
                 }
                 
