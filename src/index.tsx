@@ -1,10 +1,13 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './index.css'
+import './index.scss'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import reportWebVitals from './reportWebVitals'
-import { RouterProvider } from 'react-router-dom'
-import { appRouter } from './routes/routes'
+import { BrowserRouter } from 'react-router-dom'
+import { ThemeProvider } from '@mui/material/styles'
+import { defaultTheme } from './styles/defaultTheme'
+import Router from './routes/router'
+import CssBaseline from '@mui/material/CssBaseline'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -12,7 +15,12 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <RouterProvider router={appRouter} />
+    <BrowserRouter basename="/pwa-react-typescript">
+      <ThemeProvider theme={ defaultTheme } >
+      <CssBaseline />
+        <Router />
+      </ThemeProvider>
+    </BrowserRouter>
   </React.StrictMode>
 )
 

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { redirect, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import styles from './Layout.module.css'
 
 interface NavItem {
@@ -17,7 +17,7 @@ const items: NavItem[] = [
 ]
 
 export const Layout = (): JSX.Element => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const [navItems, setNavItems] = useState(items)
   const onItemSelect = (item: NavItem): void => {
     setNavItems(navItems.map(i => ({
