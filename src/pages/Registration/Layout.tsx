@@ -45,7 +45,7 @@ export const Layout = (): JSX.Element => {
     setActiveStep(0)
   }
 
-  return <div className="registeration-layout">
+  return <div className="registeration-layout App">
     <Stepper activeStep={activeStep} alternativeLabel>
       {steps.map((step, index) => {
         const stepProps: { completed?: boolean } = {}

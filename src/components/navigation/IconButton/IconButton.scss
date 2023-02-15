@@ -1,0 +1,11 @@
+@use '../../../styles/_colors' as *;
+
+.iconButton {
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+    transition: .3s;
+}
+.iconbutton path{
+    transition: stroke .3s;
+}

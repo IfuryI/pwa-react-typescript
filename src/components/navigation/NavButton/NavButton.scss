@@ -1,0 +1,25 @@
+@use '../../../styles/_colors.scss' as *;
+
+.navButton, .navIcon {
+    width: 2rem;
+    height: 2rem;
+    cursor: pointer;
+    padding: 0;
+    border: 0;
+    background-color: transparent;
+    stroke: transparent;
+    stroke-width: 0px;
+    stroke-linejoin: round;
+    transition: .3s;
+}
+
+.navButton:hover, .navIcon:hover, .navButton.active, .navIcon.active {
+    width: 2.5rem;
+    height: 2.5rem;
+}
+
+
+.navIcon:hover, .navIcon.active {
+    stroke: $accent-color;
+    stroke-width: 3px;
+}

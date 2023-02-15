@@ -46,31 +46,31 @@ export const Login = () => {
 
   const onSubmit = (data: SignUpForm) => {
     console.log(data)
-    navigate('/registration')
+    navigate('/auth/registration')
   }
 
-  return <div className="container">
+  return <div className="App container">
     <div className="header-and-translate">
-        <h3>Let's start</h3>
-        <IconButton aria-label="translate"><TranslateIcon/></IconButton>
-      </div>
+      <h3>Let's start</h3>
+      <IconButton aria-label="translate"><TranslateIcon /></IconButton>
+    </div>
     <div className="group">
       <TextField fullWidth label="e-mail"
-        error={ !(errors.email == null) }
+        error={!(errors.email == null)}
         variant="outlined"
         size="small"
-        { ...register('email', { pattern: emailPatternValidator, required: 'Email is required' }) }
-        helperText={ errors.email?.message ?? '' }/>
+        {...register('email', { pattern: emailPatternValidator, required: 'Email is required' })}
+        helperText={errors.email?.message ?? ''} />
 
       <TextField fullWidth label="password"
-        error={ !(errors.password == null) }
+        error={!(errors.password == null)}
         variant="outlined"
         size="small"
-        { ...register('password', { required: 'Password is required', minLength: minLength(8) })}
-        helperText={ errors.password?.message ?? '' }/>
+        {...register('password', { required: 'Password is required', minLength: minLength(8) })}
+        helperText={errors.password?.message ?? ''} />
 
       <div className="terms-check">
-        <Checkbox {...register('termsAccepted')}/>
+        <Checkbox {...register('termsAccepted')} />
         <label>I read and agree with <a id="terms-link" href="#">Terms</a> of service</label>
       </div>
 
@@ -78,15 +78,15 @@ export const Login = () => {
         onClick={handleSubmit(onSubmit)}
         fullWidth
         variant="outlined">
-          Sign Up
-        </Button>
+        Sign Up
+      </Button>
     </div>
     <div className="additional-signup-methods">
-    <h3>Or</h3>
+      <h3>Or</h3>
       <div className="additional-methods">
-        <IconButton aria-label="google"><GoogleIcon/></IconButton>
-        <IconButton aria-label="facebook"><FacebookIcon/></IconButton>
-        <IconButton aria-label="apple"><AppleIcon/></IconButton>
+        <IconButton aria-label="google"><GoogleIcon /></IconButton>
+        <IconButton aria-label="facebook"><FacebookIcon /></IconButton>
+        <IconButton aria-label="apple"><AppleIcon /></IconButton>
       </div>
     </div>
   </div>
