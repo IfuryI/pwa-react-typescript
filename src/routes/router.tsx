@@ -1,5 +1,4 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import MainLayout from '../components/layout/Main/MainLayout'
 import Household from '../pages/Household/Household'
 import { Login } from '../pages/Login/Login'
 import Matches from '../pages/Matches/Matches'
@@ -7,6 +6,7 @@ import Notifications from '../pages/Notifications/Notifications'
 import Profile from '../pages/Profile/Profile'
 import Search from '../pages/Search/Search'
 import * as Registration from '../pages/Registration/Layout'
+import MainLayout from '../layouts/Main/MainLayout'
 
 const Router: React.FunctionComponent = () => {
   return (

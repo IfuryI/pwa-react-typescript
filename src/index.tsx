@@ -4,9 +4,10 @@ import './index.scss'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter } from 'react-router-dom'
-import App from './App'
 import { ThemeProvider } from '@mui/material/styles'
 import { defaultTheme } from './styles/defaultTheme'
+import Router from './routes/router'
+import CssBaseline from '@mui/material/CssBaseline'
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -16,7 +17,8 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <ThemeProvider theme={ defaultTheme } >
-        <App />
+      <CssBaseline />
+        <Router />
       </ThemeProvider>
     </BrowserRouter>
   </React.StrictMode>

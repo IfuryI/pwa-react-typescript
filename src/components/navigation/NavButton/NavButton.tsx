@@ -1,6 +1,6 @@
 import { type FunctionComponent, type SVGProps } from 'react'
 import { Link } from 'react-router-dom'
-import './NavButton.scss'
+import styles from './NavButton.module.scss'
 
 interface Props {
   type?: string
@@ -11,8 +11,8 @@ interface Props {
 
 const NavButton: React.FunctionComponent<Props> = (props: Props) => {
   return (
-    <Link to={props.to} className={`navButton ${props.active === true ? 'navButton--active' : ''}`} >
-      <props.icon className={`navButton__icon ${props.active === true ? 'navButton__icon--active' : ''}`} />
+    <Link to={props.to} className={`${styles.navButton} ${props.active === true ? styles.navButton_active : ''}`} >
+      <props.icon className={`${styles.navButton__icon} ${props.active === true ? styles.navButton__icon_active : ''}`} />
     </Link>
   )
 }

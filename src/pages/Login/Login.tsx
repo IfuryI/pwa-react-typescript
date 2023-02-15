@@ -49,7 +49,7 @@ export const Login = () => {
     navigate('/auth/registration')
   }
 
-  return <div className="App container">
+  return <div className="container">
     <div className="header-and-translate">
       <h3>Let's start</h3>
       <IconButton aria-label="translate"><TranslateIcon /></IconButton>

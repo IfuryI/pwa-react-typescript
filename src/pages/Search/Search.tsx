@@ -1,6 +1,8 @@
+import styles from '../../styles/utility.module.scss'
+
 const Search: React.FunctionComponent = () => {
   return (
-    <h2>Search</h2>
+    <h2 className={styles.headerTemp}>Search</h2>
   )
 }
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import './NavBar.scss'
-import NavButton from '../../navigation/NavButton/NavButton'
+import styles from './NavBar.module.scss'
+import NavButton from '../NavButton/NavButton'
 import { ReactComponent as ProfileSvg } from '../../../assets/nav-bar/Profile.svg'
 import { ReactComponent as HouseholdSvg } from '../../../assets/nav-bar/Household.svg'
 import { ReactComponent as SearchSvg } from '../../../assets/nav-bar/Search.svg'
@@ -24,8 +24,8 @@ const NavBar: React.FunctionComponent = () => {
   }, [location])
 
   return (
-    <div className="navbar" id="myNavbar">
-      <nav className="navbar__navbox">
+    <div className={styles.navbar}>
+      <nav className={styles.navbar__navbox}>
         {menu.map((menu, i) => (
           <NavButton key={i} to={menu.to} icon={menu.icon} active={locBase === menu.abbr} />
         ))
