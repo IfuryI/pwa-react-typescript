@@ -1,6 +1,6 @@
-import { type Gender, type User } from "../models/user";
+import { type Gender, type User } from '../models/user'
 import { makeAutoObservable } from 'mobx'
-import { RootStore } from './RootStore'
+import { type RootStore } from './RootStore'
 
 export class UserStore implements User {
   firstName = ''
@@ -12,15 +12,22 @@ export class UserStore implements User {
 
   rootStore: RootStore
 
-  constructor(rootStore: RootStore) {
+  constructor (rootStore: RootStore) {
     makeAutoObservable(this, { rootStore: false })
     this.rootStore = rootStore
   }
 
-  setFirstName(firstName: string) { this.firstName = firstName }
-  setLastName(lastName: string) { this.lastName = lastName }
+  setFirstName (firstName: string): void { this.firstName = firstName }
+  setLastName (lastName: string): void { this.lastName = lastName }
+  setGender (gender: Gender): void { this.gender = gender }
+  setBirthday (birthday: Date): void { this.birthday = birthday }
+  setPhone (phone: string): void { this.phone = phone }
 
-  getUser = () => {
-    return this
+  saveToLocalStorage = (): void => {
+
+  }
+
+  loadFromLocalStorage = (): void => {
+
   }
 }

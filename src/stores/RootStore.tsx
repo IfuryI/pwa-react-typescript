@@ -1,8 +1,8 @@
-import {UserStore} from './UserStore'
+import { UserStore } from './UserStore'
 
 export class RootStore {
-    userStore: UserStore
-    constructor() {
-        this.userStore = new UserStore(this);
-    }
+  userStore: UserStore
+  constructor () {
+    this.userStore = new UserStore(this)
+  }
 }

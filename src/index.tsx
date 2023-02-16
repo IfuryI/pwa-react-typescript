@@ -11,13 +11,11 @@ import type { PaletteMode } from '@mui/material'
 import { getTheme } from './styles/defaultTheme'
 import { StoreProvider } from './utils/StoreProvider'
 import { RootStore } from './stores/RootStore'
-import { configure } from 'mobx';
-configure({ enforceActions: "always" })
-
+import { configure } from 'mobx'
+configure({ enforceActions: 'always' })
 
 const App = (): JSX.Element => {
   const [mode, setMode] = useState<PaletteMode>('light')
-
 
   // just for tests
   // @ts-ignore
@@ -27,7 +25,7 @@ const App = (): JSX.Element => {
 
   const theme = React.useMemo(() => createTheme(getTheme(mode)), [mode])
 
-  const store = new RootStore();
+  const store = new RootStore()
 
   return <React.StrictMode>
     <BrowserRouter basename="/pwa-react-typescript/">
