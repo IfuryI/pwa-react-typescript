@@ -1,25 +1,22 @@
 @use '../../../styles/_colors.scss' as *;
 
-.navButton, .navButton__icon {
+.navButton {
     width: 2rem;
     height: 2rem;
     cursor: pointer;
-    padding: 0;
-    border: 0;
-    background-color: transparent;
-    stroke: transparent;
-    stroke-width: 0px;
-    stroke-linejoin: round;
-    transition: .3s;
-}
+    transition: .1s;
+    -webkit-tap-highlight-color: transparent;
 
-.navButton:hover, .navButton__icon:hover, .navButton.navButton_active, .navButton__icon.navButton__icon_active {
-    width: 2.5rem;
-    height: 2.5rem;
-}
+    & .navButton__icon {
+        stroke: var(--text-color);
+    }
 
+    &_active {
+        transform: scale(1.15);
 
-.navButton__icon:hover, .navButton__icon.navButton__icon_active {
-    stroke: $accent-color;
-    stroke-width: 3px;
+        & .navButton__icon {
+            stroke: $accent-color;
+            stroke-width: 2px;
+        }
+    }
 }

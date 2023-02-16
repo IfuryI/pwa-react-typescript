@@ -1,3 +1,4 @@
+import { PaletteMode, Theme } from '@mui/material'
 import { createTheme } from '@mui/material/styles'
 
 declare module "@mui/material/styles" {
@@ -18,6 +19,20 @@ declare module "@mui/material/Button" {
     accent: true;
   }
 }
+export const getTheme = (mode: PaletteMode): Theme => {
+  return mode === 'dark'
+    ? darkTheme
+    : defaultTheme
+}
+
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+    background: {
+      default: '#0D1B2A'
+    }
+  }
+})
 
 export const defaultTheme = createTheme({
   palette: {

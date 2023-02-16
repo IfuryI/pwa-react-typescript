@@ -1,10 +1,22 @@
 @import url('https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;700&family=Lato:wght@400;700&display=swap');
 
 /* Set core body defaults */
-html {
+html, body {
   height: 100%;
 }
 
 #root{
   height: 100%;
+}
+
+// we must define variables at root scss
+// otherwise we can't bypass styles incapsulation
+:root {
+  // Variables for light palete
+  --text-color: black;
+
+  .dark {
+    // Variables for dark palete
+    --text-color: white;
+  }
 }
