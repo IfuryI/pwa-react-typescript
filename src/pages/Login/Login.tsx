@@ -7,6 +7,7 @@ import TranslateIcon from '@mui/icons-material/Translate'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
+import { defaultTheme } from '../../styles/defaultTheme'
 
 interface SignUpForm {
   email: string
@@ -77,7 +78,8 @@ export const Login = () => {
       <Button disabled={submitBtnDusabled}
         onClick={handleSubmit(onSubmit)}
         fullWidth
-        variant="outlined">
+        variant="outlined"
+        color="accent">
         Sign Up
       </Button>
     </div>

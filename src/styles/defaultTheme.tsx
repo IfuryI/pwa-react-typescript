@@ -1,12 +1,31 @@
 import { createTheme } from '@mui/material/styles'
 
+declare module "@mui/material/styles" {
+  interface Palette {
+    accent: {
+      main: string
+    }
+  }
+  interface PaletteOptions {
+    accent?: {
+      main: string
+    }
+  }
+}
+
+declare module "@mui/material/Button" {
+  interface ButtonPropsColorOverrides {
+    accent: true;
+  }
+}
+
 export const defaultTheme = createTheme({
   palette: {
     primary: {
-      main: '#F55D3E'
+      main: '#53B3CB'
     },
     secondary: {
-      main: '#53B3CB'
+      main: '#F9C22E'
     },
     background: {
       default: '#FFFBFF'
@@ -16,8 +35,8 @@ export const defaultTheme = createTheme({
       secondary: 'rgba(13,27,42,0.54)',
       disabled: 'rgba(13,27,42,0.38)'
     },
-    info: {
-      main: '#F9C22E'
+    accent: {
+      main:'#F55D3E'
     }
   },
   typography: {
