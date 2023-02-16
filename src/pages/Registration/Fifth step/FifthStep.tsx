@@ -1,13 +1,16 @@
 import moment from 'moment'
 import { useEffect } from 'react'
 import { type User } from '../../../models/user'
+import { useStore } from '../../../utils/StoreProvider'
 import './FifthStep.css'
+import { observer } from 'mobx-react-lite'
 
 export interface FifthStepProps {
   user: User
 }
 
-export const FifthStep = ({ user }: FifthStepProps): JSX.Element => {
+export const FifthStep = observer(({ user }: FifthStepProps): JSX.Element => {
+  const store = useStore();
   useEffect(() => {
     const img = document.getElementById('img')
     if (user.photo != null) {
@@ -26,8 +29,8 @@ export const FifthStep = ({ user }: FifthStepProps): JSX.Element => {
         <div className='avatar-and-name'>
             <img id='img' src="#" alt="avatar" className={(user.photo != null) ? '' : 'imageless'} />
             <div>
-                <span>{ user.firstName }</span><br />
-                <span>{ user.lastName }</span>
+                <span>{ store.userStore.firstName }</span><br />
+                <span>{ store.userStore.lastName }</span>
             </div>
         </div>
         <div className='birthday'>
@@ -43,4 +46,4 @@ export const FifthStep = ({ user }: FifthStepProps): JSX.Element => {
             <p>{ user.gender === 'M' ? 'Male' : 'Female' }</p>
         </div>
     </div>
-}
+})

@@ -11,9 +11,13 @@ import type { PaletteMode } from '@mui/material'
 import { getTheme } from './styles/defaultTheme'
 import { StoreProvider } from './utils/StoreProvider'
 import { RootStore } from './stores/RootStore'
+import { configure } from 'mobx';
+configure({ enforceActions: "always" })
+
 
 const App = (): JSX.Element => {
   const [mode, setMode] = useState<PaletteMode>('light')
+
 
   // just for tests
   // @ts-ignore
