@@ -9,6 +9,8 @@ import Router from './routes/router'
 import CssBaseline from '@mui/material/CssBaseline'
 import type { PaletteMode } from '@mui/material'
 import { getTheme } from './styles/defaultTheme'
+import { StoreProvider } from './utils/StoreProvider'
+import { RootStore } from './stores/RootStore'
 
 const App = (): JSX.Element => {
   const [mode, setMode] = useState<PaletteMode>('light')
@@ -21,12 +23,16 @@ const App = (): JSX.Element => {
 
   const theme = React.useMemo(() => createTheme(getTheme(mode)), [mode])
 
+  const store = new RootStore();
+
   return <React.StrictMode>
     <BrowserRouter basename="/pwa-react-typescript/">
-      <ThemeProvider theme={ theme } >
-      <CssBaseline />
+      <ThemeProvider theme={theme} >
+        <CssBaseline />
         <div style={{ height: '100%' }} className={mode === 'light' ? '' : 'dark'}>
-          <Router />
+          <StoreProvider store={store}>
+            <Router />
+          </StoreProvider>
         </div>
       </ThemeProvider>
     </BrowserRouter>

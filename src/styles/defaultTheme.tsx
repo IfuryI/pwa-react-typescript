@@ -1,7 +1,7 @@
-import { PaletteMode, Theme } from '@mui/material'
+import { type PaletteMode, type Theme } from '@mui/material'
 import { createTheme } from '@mui/material/styles'
 
-declare module "@mui/material/styles" {
+declare module '@mui/material/styles' {
   interface Palette {
     accent: {
       main: string
@@ -14,9 +14,9 @@ declare module "@mui/material/styles" {
   }
 }
 
-declare module "@mui/material/Button" {
+declare module '@mui/material/Button' {
   interface ButtonPropsColorOverrides {
-    accent: true;
+    accent: true
   }
 }
 export const getTheme = (mode: PaletteMode): Theme => {
@@ -51,7 +51,7 @@ export const defaultTheme = createTheme({
       disabled: 'rgba(13,27,42,0.38)'
     },
     accent: {
-      main:'#F55D3E'
+      main: '#F55D3E'
     }
   },
   typography: {
