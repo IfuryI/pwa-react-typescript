@@ -7,11 +7,12 @@ import Profile from '../pages/Profile/Profile'
 import Search from '../pages/Search/Search'
 import * as Registration from '../pages/Registration/Layout'
 import MainLayout from '../layouts/Main/MainLayout'
+import { NotFound } from '../pages/NotFound'
 
 const Router: React.FunctionComponent = () => {
   return (
     <Routes>
-      <Route path="/" element={<MainLayout />} >
+      <Route path="/" element={<MainLayout />} errorElement={<NotFound/>} >
         <Route path="profile" element={<Profile />} />
         <Route path="household" element={<Household />} />
         <Route path="search" element={<Search />} />
@@ -22,7 +23,7 @@ const Router: React.FunctionComponent = () => {
         <Route path="/*" element={<Navigate to="profile" replace />} />
       </Route>
 
-      <Route path="/auth">
+      <Route path="/auth" errorElement={<NotFound/>}>
         <Route path="login" element={<Login />} />
         <Route path="registration" element={<Registration.Layout />} />
         <Route path="/auth" element={<Navigate to="login" replace />} />

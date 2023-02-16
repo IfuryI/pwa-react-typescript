@@ -12,7 +12,7 @@ interface Props {
 const NavButton: React.FunctionComponent<Props> = (props: Props) => {
   return (
     <Link to={props.to} className={`${styles.navButton} ${props.active === true ? styles.navButton_active : ''}`} >
-      <props.icon className={`${styles.navButton__icon} ${props.active === true ? styles.navButton__icon_active : ''}`} />
+      <props.icon className={`${styles.navButton__icon}`} />
     </Link>
   )
 }
