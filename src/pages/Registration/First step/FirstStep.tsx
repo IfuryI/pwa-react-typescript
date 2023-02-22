@@ -7,8 +7,6 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 import './FirstStep.css'
 import { type PersonalInfo, type User } from '../../../models/user'
 import type * as moment from 'moment'
-import { observer } from 'mobx-react-lite'
-import { useStore } from '../../../utils/StoreProvider'
 
 export interface FirstStepProps {
   user: User
@@ -16,8 +14,7 @@ export interface FirstStepProps {
   userInfoChange: (info: Partial<User>) => void
 }
 
-export const FirstStep = observer(({ user, stepValid, userInfoChange }: FirstStepProps): JSX.Element => {
-  const store = useStore()
+export const FirstStep = ({ user, stepValid, userInfoChange }: FirstStepProps): JSX.Element => {
   const { register, control, handleSubmit, watch, formState: { errors } } = useForm<PersonalInfo>({
     defaultValues: {
       firstName: user.firstName,
@@ -103,4 +100,4 @@ export const FirstStep = observer(({ user, stepValid, userInfoChange }: FirstSte
       />
     </div>
 </>
-})
+}
