@@ -37,10 +37,13 @@ const darkTheme = createTheme({
 export const defaultTheme = createTheme({
   palette: {
     primary: {
-      main: '#53B3CB'
+      main: '#2E86AB'
     },
     secondary: {
       main: '#F9C22E'
+    },
+    error: {
+      main: '#FF36AB',
     },
     background: {
       default: '#FFFBFF'
@@ -56,16 +59,39 @@ export const defaultTheme = createTheme({
   },
   typography: {
     fontFamily: 'Lato, sans-serif',
-    fontSize: 16,
     h1: {
       fontFamily: 'Cabin, sans-serif',
-      fontSize: 24,
-      fontWeight: 500
+      fontWeight: 500,
+      fontSize: '1.5rem'
     },
     h2: {
       fontFamily: 'Cabin, sans-serif',
-      fontSize: 20,
-      fontWeight: 500
+      fontWeight: 500,
+      fontSize: '1.25rem'
+    },
+    body1: {
+      fontSize: '1rem',
+      lineHeight: '130%'
     }
-  }
+  },
+  components: {
+    MuiButton: {
+      styleOverrides : {
+        root: {
+          fontWeight: 700,
+          borderRadius: '5rem',
+          textTransform: 'none'
+        }
+      }
+    }
+  },
+  shape: {
+    borderRadius: 8
+  },
+  shadows: [
+    'none',
+    '0px 24px 48px rgba(40, 6, 40, 0.1), 0px 12.15px 20.925px rgba(40, 6, 40, 0.0675), 0px 4.8px 7.8px rgba(40, 6, 40, 0.05), 0px 1.05px 2.775px rgba(40, 6, 40, 0.0325)',
+    '0px 24px 48px rgba(40, 6, 40, 0.1), 0px 12.15px 20.925px rgba(40, 6, 40, 0.0675), 0px 4.8px 7.8px rgba(40, 6, 40, 0.05), 0px 1.05px 2.775px rgba(40, 6, 40, 0.0325)',
+    'none','none','none','none','none','none','none','none','none','none','none','none','none','none','none','none','none','none','none','none','none','none'
+  ]
 })

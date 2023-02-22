@@ -26,7 +26,7 @@ const App = (): JSX.Element => {
   const theme = React.useMemo(() => createTheme(getTheme(mode)), [mode])
 
   const store = new RootStore()
-
+  
   return <React.StrictMode>
     <BrowserRouter basename="/pwa-react-typescript/">
       <ThemeProvider theme={theme} >
