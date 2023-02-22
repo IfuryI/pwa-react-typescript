@@ -8,6 +8,7 @@
     -webkit-tap-highlight-color: transparent;
 
     & .navButton__icon {
+        stroke-width: 0px;
         stroke: var(--text-color);
     }
 

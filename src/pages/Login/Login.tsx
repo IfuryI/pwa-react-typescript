@@ -77,7 +77,8 @@ export const Login = () => {
       <Button disabled={submitBtnDusabled}
         onClick={handleSubmit(onSubmit)}
         fullWidth
-        variant="outlined">
+        variant="contained"
+        >
         Sign Up
       </Button>
     </div>
