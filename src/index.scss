@@ -14,9 +14,13 @@ html, body {
 :root {
   // Variables for light palete
   --text-color: black;
+  --bg-color: #FFFBFF;
+  --secondary-bg-color: #fff;
 
   .dark {
     // Variables for dark palete
     --text-color: white;
+    --bg-color: #0D1B2A;
+    --secondary-bg-color: #192B3E;
   }
 }
