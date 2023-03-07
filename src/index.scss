@@ -13,10 +13,14 @@ html, body {
 // otherwise we can't bypass styles incapsulation
 :root {
   // Variables for light palete
+  --bg-color: #FFFBFF;
+  --secondary-bg-color: #fff;
   --text-color: #0D1B2A;
 
   .dark {
     // Variables for dark palete
     --text-color: white;
+    --bg-color: #0D1B2A;
+    --secondary-bg-color: #192B3E;
   }
 }

@@ -1,0 +1,12 @@
+.matchesContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 24px;
+}
+
+.matchCard {
+    background-color: var(--secondary-bg-color);
+    height: 200px;
+    border-radius: 16px;
+}
