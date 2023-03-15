@@ -12,8 +12,11 @@ import { NotFound } from '../pages/NotFound'
 const Router: React.FunctionComponent = () => {
   return (
     <Routes>
-      <Route path="/" element={<MainLayout />} errorElement={<NotFound/>} >
-        <Route path="profile" element={<Profile />} />
+      <Route path="/" element={<MainLayout />} errorElement={<NotFound />} >
+        <Route path="profile">
+          <Route path='' element={<Profile />} />
+          <Route path="basicquestions" element={<Household />} />
+        </Route>
         <Route path="household" element={<Household />} />
         <Route path="search" element={<Search />} />
         <Route path="search/:id" element={<Search />} />
@@ -23,7 +26,7 @@ const Router: React.FunctionComponent = () => {
         <Route path="/*" element={<Navigate to="profile" replace />} />
       </Route>
 
-      <Route path="/auth" errorElement={<NotFound/>}>
+      <Route path="/auth" errorElement={<NotFound />}>
         <Route path="login" element={<Login />} />
         <Route path="registration" element={<Registration.Layout />} />
         <Route path="/auth" element={<Navigate to="login" replace />} />
