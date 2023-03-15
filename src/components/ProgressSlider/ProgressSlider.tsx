@@ -17,7 +17,7 @@ const ProgressSlider: React.FunctionComponent<Props> = (props: Props) => {
       gap: '.5rem',
       overflowX: 'auto',
       scrollbarWidth: 'none',
-      '&::-webkit-scrollbar': { width: 0 },
+      '&::-webkit-scrollbar': { display: 'none' },
       marginX: '-1rem',
       paddingX: '1rem'
     }}>

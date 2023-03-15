@@ -8,6 +8,7 @@ import Search from '../pages/Search/Search'
 import * as Registration from '../pages/Registration/Layout'
 import MainLayout from '../layouts/Main/MainLayout'
 import { NotFound } from '../pages/NotFound'
+import QuestionnaireBasic from 'src/layouts/QuestionnaireBasic/QuestionnaireBasic'
 
 const Router: React.FunctionComponent = () => {
   return (
@@ -15,7 +16,9 @@ const Router: React.FunctionComponent = () => {
       <Route path="/" element={<MainLayout />} errorElement={<NotFound />} >
         <Route path="profile">
           <Route path='' element={<Profile />} />
-          <Route path="basicquestions" element={<Household />} />
+          <Route path="questionnaire-basic-info" element={<QuestionnaireBasic />}>
+            <Route path='' element={<Household />} />
+          </Route>
         </Route>
         <Route path="household" element={<Household />} />
         <Route path="search" element={<Search />} />

@@ -1,5 +1,4 @@
-import { Box, LinearProgress, Typography } from '@mui/material'
-import { defaultTheme } from 'src/styles/defaultTheme'
+import { Box, LinearProgress, Typography, useTheme } from '@mui/material'
 
 export type SliderState = 'Active' | 'Disabled' | 'Inactive'
 
@@ -9,6 +8,7 @@ export interface ProgressSliderProps {
   state?: SliderState
 }
 const ProgressSliderItem: React.FunctionComponent<ProgressSliderProps> = (props: ProgressSliderProps) => {
+  const theme = useTheme()
   return (
     <Box sx={{ opacity: `${props.state !== 'Active' ? '50%' : '100%'}`, textAlign: 'center', paddingBottom: '1.5rem' }}>
       <Typography
@@ -17,7 +17,7 @@ const ProgressSliderItem: React.FunctionComponent<ProgressSliderProps> = (props:
           paddingX: '1rem',
           paddingBottom: '.125rem',
           fontWeight: props.state !== 'Active' ? '300' : '600',
-          color: props.state === undefined || props.state === 'Disabled' ? defaultTheme.palette.text.disabled : defaultTheme.palette.primary.main
+          color: props.state === undefined || props.state === 'Disabled' ? theme.palette.text.disabled : theme.palette.primary.main
         }}>
         {props.text}
       </Typography>
@@ -27,8 +27,7 @@ const ProgressSliderItem: React.FunctionComponent<ProgressSliderProps> = (props:
           borderRadius: 2,
           backgroundColor: 'transparent',
           borderWidth: 1,
-          // Need to change defaultTheme to getTheme
-          borderColor: props.state === undefined || props.state === 'Disabled' ? defaultTheme.palette.text.disabled : defaultTheme.palette.primary.main,
+          borderColor: props.state === undefined || props.state === 'Disabled' ? theme.palette.text.disabled : theme.palette.primary.main,
           borderStyle: 'solid'
         }} value={props.progress}
       />
