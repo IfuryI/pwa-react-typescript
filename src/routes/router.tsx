@@ -9,6 +9,13 @@ import * as Registration from '../pages/Registration/Layout'
 import MainLayout from '../layouts/Main/MainLayout'
 import { NotFound } from '../pages/NotFound'
 import QuestionnaireBasic from 'src/layouts/QuestionnaireBasic/QuestionnaireBasic'
+import Who from 'src/pages/Profile/BasicQuestions/Who/Who'
+import Pets from 'src/pages/Profile/BasicQuestions/Pets/Pets'
+import Smoking from 'src/pages/Profile/BasicQuestions/Smoking/Smoking'
+import Languages from 'src/pages/Profile/BasicQuestions/Languages/Languages'
+import About from 'src/pages/Profile/BasicQuestions/About/About'
+import Contacts from 'src/pages/Profile/BasicQuestions/Contacts/Contacts'
+import Apartment from 'src/pages/Profile/BasicQuestions/Apartment/Apartment'
 
 const Router: React.FunctionComponent = () => {
   return (
@@ -16,8 +23,14 @@ const Router: React.FunctionComponent = () => {
       <Route path="/" element={<MainLayout />} errorElement={<NotFound />} >
         <Route path="profile">
           <Route path='' element={<Profile />} />
-          <Route path="questionnaire-basic-info" element={<QuestionnaireBasic />}>
-            <Route path='' element={<Household />} />
+          <Route path="questionnaire-basic-info" element={<QuestionnaireBasic />} errorElement={<NotFound />}>
+            <Route path='who' element={<Who />} />
+            <Route path='pets' element={<Pets />} />
+            <Route path='smoking' element={<Smoking />} />
+            <Route path='languages' element={<Languages />} />
+            <Route path='about' element={<About />} />
+            <Route path='contacts' element={<Contacts />} />
+            <Route path='apartment' element={<Apartment />} />
           </Route>
         </Route>
         <Route path="household" element={<Household />} />

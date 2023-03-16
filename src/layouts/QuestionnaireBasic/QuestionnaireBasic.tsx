@@ -4,13 +4,13 @@ import { type ProgressSliderProps } from 'src/components/ProgressSlider/Progress
 
 const QuestionnaireBasic: React.FunctionComponent = () => {
   const items: ProgressSliderProps[] = [
-    { text: 'family', progress: 100, state: 'Inactive' },
-    { text: 'pets', progress: 30, state: 'Active' },
-    { text: 'smoking', progress: 100, state: 'Inactive' },
-    { text: 'languages', progress: 0 },
-    { text: 'about', progress: 0 },
-    { text: 'contacts', progress: 0 },
-    { text: 'apartment building', progress: 0 }
+    { text: 'who', progress: 100, state: 'Inactive', to: 'who' },
+    { text: 'pets', progress: 30, state: 'Active', to: 'pets' },
+    { text: 'smoking', progress: 100, state: 'Inactive', to: 'smoking' },
+    { text: 'languages', progress: 0, to: 'languages' },
+    { text: 'about', progress: 0, to: 'about' },
+    { text: 'contacts', progress: 0, to: 'contacts' },
+    { text: 'apartment', progress: 0, to: 'apartment' }
   ]
   return (
     <>
