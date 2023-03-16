@@ -1,9 +1,16 @@
 import { Box } from '@mui/material'
+import { useOutletContext } from 'react-router-dom'
 
 import ProgressSliderItem, { type ProgressSliderProps } from './ProgressSliderItem/ProgressSliderItem'
 
 interface Props {
   items: ProgressSliderProps[]
+  setActive: React.Dispatch<React.SetStateAction<string>>
+}
+
+interface ContextType {
+  setActive: React.Dispatch<React.SetStateAction<string>>
+  setPercent: React.Dispatch<React.SetStateAction<number>>
 }
 
 const ProgressSlider: React.FunctionComponent<Props> = (props: Props) => {
@@ -23,10 +30,15 @@ const ProgressSlider: React.FunctionComponent<Props> = (props: Props) => {
     }}>
       {props.items.map((item: ProgressSliderProps) => {
         return (
-          <ProgressSliderItem key={item.text} {...item} />
+          <ProgressSliderItem key={item.text} item={item} setActive={props.setActive} />
         )
       })}
     </Box>
   )
 }
 export default ProgressSlider
+
+// any type
+export const useActive: any = () => {
+  return useOutletContext<ContextType>()
+}
