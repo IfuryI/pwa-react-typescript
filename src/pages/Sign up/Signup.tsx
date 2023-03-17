@@ -49,10 +49,10 @@ export const SignUp = (): JSX.Element => {
   }
 
   const sxSMButtons: SxProps = {
-    color: theme.palette.text.primary,
     display: 'flex',
     gap: '1rem',
-    paddingY: '.75rem'
+    paddingY: '.75rem',
+    justifyContent: 'left',
   }
 
   return <>
