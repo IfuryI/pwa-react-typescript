@@ -1,5 +1,5 @@
 import { Box, Button, Divider, IconButton, InputAdornment, type SxProps, TextField, Typography, useTheme } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useForm, type ValidationRule } from 'react-hook-form'
 import { ReactComponent as GoogleIcon } from '../../assets/sm-icons/GoogleIcon.svg'
 import { ReactComponent as AppleIcon } from '../../assets/sm-icons/AppleIcon.svg'
@@ -25,7 +25,7 @@ const minLength = (length: number): ValidationRule<number> => ({
 })
 
 export const SignUp = (): JSX.Element => {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<SignUpForm>({
+  const { register, handleSubmit, getValues, formState: { errors, isValid } } = useForm<SignUpForm>({
     defaultValues: {
       email: '',
       password: '',
@@ -34,18 +34,8 @@ export const SignUp = (): JSX.Element => {
     mode: 'all'
   })
 
-  const [submitBtnDisabled, setSubmitBtnDisabled] = useState(true)
   const navigate = useNavigate()
   const theme = useTheme()
-
-  useEffect(() => {
-    const password = watch('password')
-    const confirmPassword = watch('confirmPassword')
-    const email = watch('email')
-    const hasErrors = !!errors.email || !!errors.password || !!errors.confirmPassword
-
-    setSubmitBtnDisabled(hasErrors || !(email && password && confirmPassword && password === confirmPassword))
-  }, [watch('password'), watch('confirmPassword'), watch('email')])
 
   const [showPassword, setShowPassword] = useState(false)
 
@@ -108,7 +98,10 @@ export const SignUp = (): JSX.Element => {
         size="small"
         {...register('confirmPassword', {
           required: 'Required',
-          minLength: minLength(8)
+          minLength: minLength(8),
+          validate: {
+            samePassword: value => (value === getValues().password) || 'Passwords won\'t match'
+          }
         })}
         InputProps={{
           endAdornment: (
@@ -121,7 +114,7 @@ export const SignUp = (): JSX.Element => {
         }}
         helperText={errors.confirmPassword?.message ?? ''} />
 
-      <Button disabled={submitBtnDisabled}
+      <Button disabled={!isValid}
         onClick={() => handleSubmit(onSubmit)}
         fullWidth
         variant="contained"
