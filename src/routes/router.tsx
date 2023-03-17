@@ -9,7 +9,7 @@ import * as Registration from '../pages/Registration/Layout'
 import MainLayout from '../layouts/Main/MainLayout'
 import { NotFound } from '../pages/NotFound'
 import QuestionnaireBasic from 'src/layouts/QuestionnaireBasic/QuestionnaireBasic'
-import BasicInfo from './questionnaire/BasicInfo'
+import BasicInfo from './profile/questionnaire/BasicInfo'
 
 const Router: React.FunctionComponent = () => {
   return (
@@ -19,6 +19,12 @@ const Router: React.FunctionComponent = () => {
           <Route path='' element={<Profile />} />
           <Route path="questionnaire-basic-info" element={<QuestionnaireBasic />} errorElement={<NotFound />}>
             {BasicInfo}
+          </Route>
+          [/*future*/]
+          <Route path='about'>
+            <Route path='' element={<Profile />} />
+            <Route path='basic-questions' element={<Profile />} />
+            <Route path='additional-questions' element={<Profile />} />
           </Route>
         </Route>
         <Route path="household" element={<Household />} />

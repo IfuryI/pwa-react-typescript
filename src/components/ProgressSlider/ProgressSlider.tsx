@@ -5,7 +5,7 @@ import ProgressSliderItem, { type ProgressSliderProps } from './ProgressSliderIt
 
 interface Props {
   items: ProgressSliderProps[]
-  setActive: React.Dispatch<React.SetStateAction<string>>
+  setActive: (active: string) => void
 }
 
 interface ContextType {
