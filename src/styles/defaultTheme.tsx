@@ -1,5 +1,6 @@
 import { type PaletteMode, type Theme } from '@mui/material'
 import { createTheme } from '@mui/material/styles'
+import { type TypographyOptions } from '@mui/material/styles/createTypography'
 
 declare module '@mui/material/styles' {
   interface Palette {
@@ -25,6 +26,24 @@ export const getTheme = (mode: PaletteMode): Theme => {
     : defaultTheme
 }
 
+const typography: TypographyOptions = {
+  fontFamily: 'Lato, sans-serif',
+  h1: {
+    fontFamily: 'Cabin, sans-serif',
+    fontWeight: 500,
+    fontSize: '1.5rem'
+  },
+  h2: {
+    fontFamily: 'Cabin, sans-serif',
+    fontWeight: 500,
+    fontSize: '1.25rem'
+  },
+  body1: {
+    fontSize: '1rem',
+    lineHeight: '130%'
+  }
+}
+
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
@@ -32,7 +51,8 @@ const darkTheme = createTheme({
       default: '#0D1B2A',
       paper: '#192B3E'
     }
-  }
+  },
+  typography
 })
 
 export const defaultTheme = createTheme({
@@ -58,6 +78,7 @@ export const defaultTheme = createTheme({
       main: '#F55D3E'
     }
   },
+
   typography: {
     fontFamily: 'Lato, sans-serif',
     h1: {

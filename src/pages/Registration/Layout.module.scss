@@ -1,18 +1,24 @@
-.registeration-layout {
+.registerationLayout {
     --container-margin: 1rem;
     padding: var(--container-margin);
-    height: calc(100vh - (2 * var(--container-margin)));
+    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    gap: 0.5rem 0;
 }
 
-.buttons-container {
+.layoutContent {
+    flex: 1;
+}
+
+.buttonsContainer {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 0 1rem;
+
+    &Column{
+        width: 100%;
+    }
 }
 
-.buttons-container-column {
-    width: 100%;
-}

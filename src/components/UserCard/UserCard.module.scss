@@ -1,0 +1,36 @@
+#img {
+  width: 100%;
+  height: 100%;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.userCard {
+  height: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  position: relative;
+
+  &Content {
+    height: 100%;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+  }
+
+  &Footer {
+    background-color: rgba(0, 0, 0, 0.5607843137);
+    color: white;
+    padding: 0.5rem 1rem;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}

@@ -9,6 +9,7 @@ export class UserStore implements User {
   birthday = new Date()
   phone = ''
   photo = null
+  avatar = null
 
   rootStore: RootStore
 

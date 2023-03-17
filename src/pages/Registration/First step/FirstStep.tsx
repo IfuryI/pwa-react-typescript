@@ -1,21 +1,21 @@
-import { TextField, FormControl, InputLabel, Select, MenuItem } from '@mui/material'
+import { TextField, FormControl, InputLabel, Select, MenuItem, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useForm, Controller } from 'react-hook-form'
 import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker'
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider/LocalizationProvider'
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
-import './FirstStep.css'
-import { type PersonalInfo, type User } from '../../../models/user'
-import type * as moment from 'moment'
+import styles from './FirstStep.module.scss'
+import { type EmptyPersonalInfo, type NewUser } from '../../../models/user'
+import moment from 'moment'
 
 export interface FirstStepProps {
-  user: User
+  user: NewUser
   stepValid: (valid: boolean) => void
-  userInfoChange: (info: Partial<User>) => void
+  userInfoChange: (info: Partial<NewUser>) => void
 }
 
 export const FirstStep = ({ user, stepValid, userInfoChange }: FirstStepProps): JSX.Element => {
-  const { register, control, handleSubmit, watch, formState: { errors } } = useForm<PersonalInfo>({
+  const { register, control, handleSubmit, watch, formState: { errors } } = useForm<EmptyPersonalInfo>({
     defaultValues: {
       firstName: user.firstName,
       lastName: user.lastName,
@@ -35,69 +35,70 @@ export const FirstStep = ({ user, stepValid, userInfoChange }: FirstStepProps): 
     return () => { subss.unsubscribe() }
   }, [watch, errors, stepValid])
 
-  return <>
-    <div className="form-item">
-      <TextField fullWidth label="First name"
-        error={!(errors.firstName == null)}
-        variant="outlined"
-        size="small"
-        {...register('firstName', {
-          required: 'First name is required'
-        })}
-        helperText={errors.firstName?.message ?? ''} />
-    </div>
+  return <div className={styles.container}>
+    <Typography variant='h1' >Tell us about yourself</Typography>
+    <div className={styles.formContainer}>
+        <TextField fullWidth label="First name"
+          error={!(errors.firstName == null)}
+          variant="outlined"
+          size="small"
+          {...register('firstName', {
+            required: 'First name is required'
+          })}
+          helperText={errors.firstName?.message ?? ''} />
 
-    <div className="form-item">
-      <TextField className="r-mt-2" fullWidth label="Last name"
-        error={!(errors.lastName == null)}
-        variant="outlined"
-        size="small"
-        {...register('lastName', { required: 'Last name is required' })}
-        helperText={errors.lastName?.message ?? ''} />
-    </div>
+        <TextField fullWidth label="Last name"
+          error={!(errors.lastName == null)}
+          variant="outlined"
+          size="small"
+          {...register('lastName', { required: 'Last name is required' })}
+          helperText={errors.lastName?.message ?? ''} />
 
-    <div className="form-item">
-      <FormControl fullWidth size="small">
-        <InputLabel id="gender-select-label">Gender</InputLabel>
+        <FormControl fullWidth size="small">
+          <InputLabel id="gender-select-label">Gender</InputLabel>
+          <Controller
+            render={({ field: { onChange, onBlur, value, ref } }) =>
+              <Select labelId="gender-select-label"
+                id="gender-select"
+                defaultValue={user.gender}
+                label="Gender"
+                onChange={onChange} // send value to hook form
+                onBlur={onBlur} // notify when input is touched
+                value={value} // return updated value
+                ref={ref}>
+                <MenuItem value={'M'}>M</MenuItem>
+                <MenuItem value={'F'}>F</MenuItem>
+              </Select>
+            }
+            name='gender'
+            control={control}
+          />
+        </FormControl>
+
         <Controller
-          render={({ field: { onChange, onBlur, value, ref } }) =>
-            <Select labelId="gender-select-label"
-              id="gender-select"
-              defaultValue='M'
-              label="Gender"
-              onChange={onChange} // send value to hook form
-              onBlur={onBlur} // notify when input is touched
-              value={value} // return updated value
-              ref={ref}>
-              <MenuItem value={'M'}>M</MenuItem>
-              <MenuItem value={'F'}>F</MenuItem>
-            </Select>
-          }
-          name='gender'
+          name='birthday'
           control={control}
+          render={({ field: { onChange, onBlur, value, ref } }) => (
+            <LocalizationProvider dateAdapter={AdapterMoment}>
+              <MobileDatePicker
+                label="Birthdate"
+                inputFormat="MM/DD/YYYY"
+                {...register('birthday')}
+                value={value}
+                onChange={(date) => {
+                  onChange((date as unknown as moment.Moment).toDate())
+                }}
+                ref={ref}
+                renderInput={(params) => <TextField {...params} onChange={(event) => {
+                  const value = event.target.value
+                  if (value.length > 0 && moment(value, 'DD/MM/YYYY', true).isValid()) {
+                    onChange(moment(value, 'DD/MM/YYYY', true).toDate())
+                  }
+                }} />}
+              />
+            </LocalizationProvider>
+          )}
         />
-      </FormControl>
     </div>
-    <div className="date-container r-mt-2">
-      <Controller
-        name='birthday'
-        control={control}
-        render={({ field: { onChange, onBlur, value, ref } }) => (
-          <LocalizationProvider dateAdapter={AdapterMoment}>
-            <MobileDatePicker
-              label="Birthdate"
-              inputFormat="MM/DD/YYYY"
-              {...register('birthday')}
-              value={ value }
-              onChange={(date) => {
-                onChange((date as unknown as moment.Moment).toDate())
-              }}
-              ref={ref}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </LocalizationProvider>
-        )}
-      />
-    </div>
-</>
+  </div>
 }

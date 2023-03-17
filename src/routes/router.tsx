@@ -10,6 +10,10 @@ import MainLayout from '../layouts/Main/MainLayout'
 import { NotFound } from '../pages/NotFound'
 import QuestionnaireBasic from 'src/layouts/QuestionnaireBasic/QuestionnaireBasic'
 import BasicInfo from './profile/questionnaire/BasicInfo'
+import { SignUp } from 'src/pages/Sign up/Signup'
+import { TermsAndConditions } from 'src/pages/TermsAndConditions/TermsAndConditions'
+import { AuthLayout } from 'src/layouts/Auth/AuthLayout'
+
 
 const Router: React.FunctionComponent = () => {
   return (
@@ -36,8 +40,10 @@ const Router: React.FunctionComponent = () => {
         <Route path="/*" element={<Navigate to="profile" replace />} />
       </Route>
 
-      <Route path="/auth" errorElement={<NotFound />}>
+      <Route path="/auth" element={<AuthLayout/>} errorElement={<NotFound/>}>
         <Route path="login" element={<Login />} />
+        <Route path='signup' element={<SignUp/>}></Route>
+        <Route path='terms' element={<TermsAndConditions/>}></Route>
         <Route path="registration" element={<Registration.Layout />} />
         <Route path="/auth" element={<Navigate to="login" replace />} />
         <Route path="/auth/*" element={<Navigate to="login" replace />} />
