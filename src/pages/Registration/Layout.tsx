@@ -1,10 +1,11 @@
 import { Button, Step, StepLabel, Stepper } from '@mui/material'
+import moment from 'moment'
 import { useState } from 'react'
-import { type User } from '../../models/user'
+import { NewUser, type User } from '../../models/user'
 import { FifthStep } from './Fifth step/FifthStep'
 import { FirstStep } from './First step/FirstStep'
-import { ForthStep } from './Forth step/ForthStep'
-import './Layout.css'
+import { ForthStep } from './Forth-Step/ForthStep'
+import styles from './Layout.module.scss'
 import { SecondStep } from './Second step/SecondStep'
 import { ThirdStep } from './Third step/ThirdStep'
 
@@ -26,13 +27,14 @@ export const Layout = (): JSX.Element => {
   const [firstStepValid, setFirstStepValid] = useState(false)
   const [secondStepValid, setSecondStepValid] = useState(false)
 
-  const user: User = {
-    firstName: '',
-    lastName: '',
+  const user: NewUser = {
+    firstName: undefined,
+    lastName: undefined,
     gender: 'M',
-    birthday: new Date(),
-    phone: '',
-    photo: null
+    birthday: moment(new Date()).subtract({ years: 18}).toDate(),
+    phone: undefined,
+    photo: undefined,
+    avatar: undefined
   }
   const [userInfo, setUserInfo] = useState(user)
 
@@ -45,7 +47,14 @@ export const Layout = (): JSX.Element => {
     setActiveStep(0)
   }
 
-  return <div className="registeration-layout">
+  const isUser = (user: NewUser): user is User => {
+    return user.firstName !== undefined
+      && user.lastName !== undefined
+      && user.birthday !== undefined
+      && user.gender !== undefined
+  }
+
+  return <div className={styles.registerationLayout}>
     <Stepper activeStep={activeStep} alternativeLabel>
       {steps.map((step, index) => {
         const stepProps: { completed?: boolean } = {}
@@ -56,10 +65,10 @@ export const Layout = (): JSX.Element => {
         )
       })}
     </Stepper>
-    <div className="form-container">
+    <div className={styles.layoutContent}>
       {activeStep === 0 && <FirstStep user={userInfo}
         stepValid={setFirstStepValid}
-        userInfoChange={(updatedUserInfo: Partial<User>) => {
+        userInfoChange={(updatedUserInfo: Partial<NewUser>) => {
           setUserInfo({ ...userInfo, ...updatedUserInfo })
         }}/>}
       {activeStep === 1 && <SecondStep user={userInfo}
@@ -68,24 +77,26 @@ export const Layout = (): JSX.Element => {
       />}
       {activeStep === 2 && <ThirdStep/>}
       { activeStep === 3 && <ForthStep user={userInfo}
-        photoChange={(photo) => {
-          setUserInfo({ ...userInfo, photo })
+        photoChange={({ profilePhoto, avatarPhoto }: { profilePhoto: File, avatarPhoto: File }) => {
+          setUserInfo({ ...userInfo, photo: profilePhoto, avatar: avatarPhoto })
         }}/>
       }
-      {activeStep === 4 && <FifthStep user={userInfo}/>}
+      {(activeStep === 4 && isUser(userInfo)) && <FifthStep
+        user={userInfo}
+        onEditStep={setActiveStep}/>}
     </div>
-    <div className="buttons-container">
-      <div className="buttons-container-column">
+    <div className={styles.buttonsContainer}>
+      <div className={styles.buttonsСontainerСolumn}>
         {
-          activeStep !== 0 &&
-          <Button fullWidth variant="outlined" onClick={previousStep}>Back</Button>
+          (activeStep === 1 || activeStep === 3) &&
+          <Button fullWidth variant="outlined" onClick={nextStep}>Skip</Button>
         }
       </div>
-      <div className="buttons-container-column">
+      <div className={styles.buttonsСontainerСolumn}>
         {
           activeStep < steps.length - 1 &&
           <Button fullWidth
-            variant="outlined"
+            variant="contained"
             disabled={(activeStep === 0 && !firstStepValid) || (activeStep === 1 && !secondStepValid)}
             onClick={nextStep}>
               Next
@@ -94,7 +105,7 @@ export const Layout = (): JSX.Element => {
         {
           activeStep === steps.length - 1 &&
           <Button fullWidth
-            variant="outlined"
+            variant="contained"
             onClick={onFinish}>
               Finish
           </Button>

@@ -5,7 +5,7 @@ import GoogleIcon from '@mui/icons-material/Google'
 import FacebookIcon from '@mui/icons-material/Facebook'
 import TranslateIcon from '@mui/icons-material/Translate'
 import React, { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { useForm, type ValidationRule } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 
 interface SignUpForm {
@@ -15,16 +15,16 @@ interface SignUpForm {
 }
 
 const emailPatternValidator = {
-  value: /.+\@.+\..+/,
+  value: /.+@.+\..+/,
   message: 'Incorrect email pattern'
 }
 
-const minLength = (length: number) => ({
+const minLength = (length: number): ValidationRule<number> => ({
   value: length,
   message: `Min length ${length} symbols`
 })
 
-export const Login = () => {
+export const Login = (): JSX.Element => {
   const [submitBtnDusabled, setSubmitBtnDisabled] = useState(true)
   const navigate = useNavigate()
   const { register, handleSubmit, watch, formState: { errors } } = useForm<SignUpForm>({
@@ -44,7 +44,7 @@ export const Login = () => {
     return () => { subss.unsubscribe() }
   }, [watch, errors])
 
-  const onSubmit = (data: SignUpForm) => {
+  const onSubmit = (data: SignUpForm): void => {
     console.log(data)
     navigate('/auth/registration')
   }
@@ -78,7 +78,7 @@ export const Login = () => {
         onClick={handleSubmit(onSubmit)}
         fullWidth
         variant="contained"
-        >
+      >
         Sign Up
       </Button>
     </div>

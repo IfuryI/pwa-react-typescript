@@ -1,5 +1,6 @@
 import { type PaletteMode, type Theme } from '@mui/material'
 import { createTheme } from '@mui/material/styles'
+import { type TypographyOptions } from '@mui/material/styles/createTypography'
 
 declare module '@mui/material/styles' {
   interface Palette {
@@ -25,6 +26,24 @@ export const getTheme = (mode: PaletteMode): Theme => {
     : defaultTheme
 }
 
+const typography: TypographyOptions = {
+  fontFamily: 'Lato, sans-serif',
+  h1: {
+    fontFamily: 'Cabin, sans-serif',
+    fontWeight: 500,
+    fontSize: '1.5rem'
+  },
+  h2: {
+    fontFamily: 'Cabin, sans-serif',
+    fontWeight: 500,
+    fontSize: '1.25rem'
+  },
+  body1: {
+    fontSize: '1rem',
+    lineHeight: '130%'
+  }
+}
+
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
@@ -32,7 +51,8 @@ const darkTheme = createTheme({
       default: '#0D1B2A',
       paper: '#192B3E'
     }
-  }
+  },
+  typography
 })
 
 export const defaultTheme = createTheme({
@@ -44,7 +64,7 @@ export const defaultTheme = createTheme({
       main: '#F9C22E'
     },
     error: {
-      main: '#FF36AB',
+      main: '#FF36AB'
     },
     background: {
       default: '#FFFBFF'
@@ -58,26 +78,10 @@ export const defaultTheme = createTheme({
       main: '#F55D3E'
     }
   },
-  typography: {
-    fontFamily: 'Lato, sans-serif',
-    h1: {
-      fontFamily: 'Cabin, sans-serif',
-      fontWeight: 500,
-      fontSize: '1.5rem'
-    },
-    h2: {
-      fontFamily: 'Cabin, sans-serif',
-      fontWeight: 500,
-      fontSize: '1.25rem'
-    },
-    body1: {
-      fontSize: '1rem',
-      lineHeight: '130%'
-    }
-  },
+  typography,
   components: {
     MuiButton: {
-      styleOverrides : {
+      styleOverrides: {
         root: {
           fontWeight: 700,
           borderRadius: '5rem',
@@ -93,6 +97,6 @@ export const defaultTheme = createTheme({
     'none',
     '0px 24px 48px rgba(40, 6, 40, 0.1), 0px 12.15px 20.925px rgba(40, 6, 40, 0.0675), 0px 4.8px 7.8px rgba(40, 6, 40, 0.05), 0px 1.05px 2.775px rgba(40, 6, 40, 0.0325)',
     '0px 24px 48px rgba(40, 6, 40, 0.1), 0px 12.15px 20.925px rgba(40, 6, 40, 0.0675), 0px 4.8px 7.8px rgba(40, 6, 40, 0.05), 0px 1.05px 2.775px rgba(40, 6, 40, 0.0325)',
-    'none','none','none','none','none','none','none','none','none','none','none','none','none','none','none','none','none','none','none','none','none','none'
+    'none', 'none', 'none', 'none', 'none', 'none', 'none', 'none', 'none', 'none', 'none', 'none', 'none', 'none', 'none', 'none', 'none', 'none', 'none', 'none', 'none', 'none'
   ]
 })

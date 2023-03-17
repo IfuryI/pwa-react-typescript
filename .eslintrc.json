@@ -20,5 +20,6 @@
         "only-warn"
     ],
     "rules": {
+        "no-extra-boolean-cast": "off"
     }
 }
