@@ -19,8 +19,16 @@ interface ProgressSliderItemProps {
 const ProgressSliderItem: React.FunctionComponent<ProgressSliderItemProps> = (props: ProgressSliderItemProps) => {
   const theme = useTheme()
   return (
-    <Link to={props.item.state === undefined || props.item.state === 'Disabled' ? '#' : props.item.to} onClick={()=>{props.item.state != 'Disabled' && props.setActive(props.item.to)}} className={styles.routerLink__reset}>
-      <Box sx={{ opacity: `${props.item.state !== 'Active' ? '50%' : '100%'}`, textAlign: 'center', paddingBottom: '1.5rem' }}>
+    <Link
+      to={props.item.state === undefined || props.item.state === 'Disabled' ? '#' : props.item.to}
+      onClick={() => { props.item.state !== 'Disabled' && props.setActive(props.item.to) }}
+      className={styles.routerLink__reset}
+    >
+      <Box sx={{
+        opacity: `${props.item.state !== 'Active' ? '50%' : '100%'}`,
+        textAlign: 'center',
+        paddingBottom: '1.5rem'
+      }}>
         <Typography
           variant={`${props.item.state !== 'Active' ? 'subtitle1' : 'body1'}`}
           sx={{
