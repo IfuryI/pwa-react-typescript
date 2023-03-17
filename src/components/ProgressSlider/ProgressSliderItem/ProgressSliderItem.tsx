@@ -7,13 +7,14 @@ type SliderState = 'Active' | 'Disabled' | 'Inactive'
 export interface ProgressSliderProps {
   text: string
   progress: number
+  of?: number
   state?: SliderState
   to: string
 }
 
 interface ProgressSliderItemProps {
   item: ProgressSliderProps
-  setActive: React.Dispatch<React.SetStateAction<string>>
+  setActive: (active: string) => void
 }
 
 const ProgressSliderItem: React.FunctionComponent<ProgressSliderItemProps> = (props: ProgressSliderItemProps) => {

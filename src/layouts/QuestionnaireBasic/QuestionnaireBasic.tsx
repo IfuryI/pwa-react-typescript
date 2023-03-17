@@ -3,7 +3,7 @@ import ProgressSlider from 'src/components/ProgressSlider/ProgressSlider'
 import useProgressSlider from 'src/components/ProgressSlider/useProgressSlider'
 
 const QuestionnaireBasic: React.FunctionComponent = () => {
-  const [items, setPercent, setActive] = useProgressSlider({
+  const { items, setPercent, setActive } = useProgressSlider({
     items: [
       { text: 'who', progress: 0, to: 'who', state: 'Active' },
       { text: 'pets', progress: 0, to: 'pets' },

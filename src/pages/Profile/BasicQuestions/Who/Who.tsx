@@ -5,6 +5,7 @@ import { useActive } from 'src/components/ProgressSlider/ProgressSlider'
 const Who: React.FunctionComponent = () => {
   const navigate = useNavigate()
   const { setActive, setPercent } = useActive()
+  const total:number = 3
   return (
     <>
       <Typography variant='h1'>Who’s searching</Typography>
@@ -16,7 +17,7 @@ const Who: React.FunctionComponent = () => {
           <Button variant='text'
           sx={{ flex: '1' }}
           onClick={() => {
-            setPercent(50, 'who')
+            setPercent(2, total, 'who')
           }}>
             50 Percent
           </Button>
