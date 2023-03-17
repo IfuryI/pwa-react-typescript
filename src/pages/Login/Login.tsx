@@ -59,7 +59,7 @@ export const Login = (): JSX.Element => {
       <Typography variant='h1'>Log in</Typography>
       <Typography>New to roommate.host? <Link to='/auth/signup'><Typography component='span' sx={{ color: theme.palette.primary.main }}>Sign up</Typography></Link></Typography>
     </Box>
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem', width: '100%' }}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem', width: '100%', alignItems: 'center' }}>
       <TextField fullWidth label="e-mail"
         error={!(errors.email == null)}
         variant="outlined"
@@ -86,11 +86,11 @@ export const Login = (): JSX.Element => {
       />
 
       <Button disabled={!isValid}
-        onClick={() => handleSubmit(onSubmit)}
-        fullWidth
+        onClick={(e) => { void handleSubmit(onSubmit)(e) }}
         variant="contained"
+        sx={{ width: '50%' }}
       >
-        Sign Up
+        Log in
       </Button>
     </Box>
     <Box sx={{ width: '100%', alignItems: 'center', marginY: '1.5rem' }}>

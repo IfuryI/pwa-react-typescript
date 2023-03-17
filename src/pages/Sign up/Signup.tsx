@@ -115,12 +115,12 @@ export const SignUp = (): JSX.Element => {
         helperText={errors.confirmPassword?.message ?? ''} />
 
       <Button disabled={!isValid}
-        onClick={() => handleSubmit(onSubmit)}
+        onClick={(e) => { void handleSubmit(onSubmit)(e) }}
         fullWidth
         variant="contained"
-        sx={{ color: theme.palette.background.paper, width: '50%' }}
+        sx={{ width: '50%' }}
       >
-        Sign Up
+        Sign up
       </Button>
     </Box>
     <Box sx={{ width: '100%', alignItems: 'center', marginY: '1.5rem' }}>
