@@ -52,13 +52,13 @@ export const SignUp = (): JSX.Element => {
     display: 'flex',
     gap: '1rem',
     paddingY: '.75rem',
-    justifyContent: 'left',
+    justifyContent: 'left'
   }
 
   return <>
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '.5rem', alignItems: 'center' }}>
       <Typography variant='h1'>Sign Up</Typography>
-      <Typography variant='body1'>Already have an account? <Link to='./login'><Typography component='span' sx={{ color: theme.palette.primary.main }}>Log in</Typography></Link></Typography>
+      <Typography variant='body1'>Already have an account? <Link to='/auth/login'><Typography component='span' sx={{ color: theme.palette.primary.main }}>Log in</Typography></Link></Typography>
     </Box>
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%', marginTop: '1.5rem', alignItems: 'center' }}>
       <TextField fullWidth label="E-mail"

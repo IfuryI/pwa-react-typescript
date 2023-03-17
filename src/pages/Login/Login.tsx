@@ -1,12 +1,13 @@
-import { Button, Checkbox, IconButton, TextField } from '@mui/material'
+import { Box, Button, Divider, IconButton, InputAdornment, type SxProps, TextField, Typography, useTheme } from '@mui/material'
 import './Login.css'
-import AppleIcon from '@mui/icons-material/Apple'
-import GoogleIcon from '@mui/icons-material/Google'
-import FacebookIcon from '@mui/icons-material/Facebook'
-import TranslateIcon from '@mui/icons-material/Translate'
-import React, { useState } from 'react'
+import { ReactComponent as GoogleIcon } from '../../assets/sm-icons/GoogleIcon.svg'
+import { ReactComponent as AppleIcon } from '../../assets/sm-icons/AppleIcon.svg'
+import { ReactComponent as FacebookIcon } from '../../assets/sm-icons/FacebookIcon.svg'
+import { useState } from 'react'
 import { useForm, type ValidationRule } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import styles from '../../styles/utility.module.scss'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 
 interface SignUpForm {
   email: string
@@ -24,37 +25,41 @@ const minLength = (length: number): ValidationRule<number> => ({
   message: `Min length ${length} symbols`
 })
 
+const sxSMButtons: SxProps = {
+  display: 'flex',
+  gap: '1rem',
+  paddingY: '.75rem',
+  justifyContent: 'left'
+}
+
 export const Login = (): JSX.Element => {
-  const [submitBtnDusabled, setSubmitBtnDisabled] = useState(true)
   const navigate = useNavigate()
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<SignUpForm>({
+  const theme = useTheme()
+  const { register, handleSubmit, formState: { errors, isValid } } = useForm<SignUpForm>({
     defaultValues: {
       email: '',
-      password: '',
-      termsAccepted: false
+      password: ''
     },
     mode: 'all'
   })
 
-  React.useEffect(() => {
-    const subss = watch(({ email, password, termsAccepted }) => {
-      const hasErrors = !(errors.email == null) || !(errors.password == null)
-      setSubmitBtnDisabled(hasErrors || !(email && password && termsAccepted))
-    })
-    return () => { subss.unsubscribe() }
-  }, [watch, errors])
+  const [showPassword, setShowPassword] = useState(false)
+  const handleClickShowPassword = (): void => { setShowPassword((show) => !show) }
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    event.preventDefault()
+  }
 
   const onSubmit = (data: SignUpForm): void => {
     console.log(data)
     navigate('/auth/registration')
   }
 
-  return <div className="container">
-    <div className="header-and-translate">
-      <h3>Let's start</h3>
-      <IconButton aria-label="translate"><TranslateIcon /></IconButton>
-    </div>
-    <div className="group">
+  return <>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '.5rem', alignItems: 'center' }}>
+      <Typography variant='h1'>Log in</Typography>
+      <Typography>New to roommate.host? <Link to='/auth/signup'><Typography component='span' sx={{ color: theme.palette.primary.main }}>Sign up</Typography></Link></Typography>
+    </Box>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem', width: '100%' }}>
       <TextField fullWidth label="e-mail"
         error={!(errors.email == null)}
         variant="outlined"
@@ -63,32 +68,44 @@ export const Login = (): JSX.Element => {
         helperText={errors.email?.message ?? ''} />
 
       <TextField fullWidth label="password"
+        type={showPassword ? 'text' : 'password'}
         error={!(errors.password == null)}
         variant="outlined"
         size="small"
         {...register('password', { required: 'Password is required', minLength: minLength(8) })}
-        helperText={errors.password?.message ?? ''} />
+        helperText={errors.password?.message ?? ''}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword}>
+                {showPassword ? <Visibility /> : <VisibilityOff />}
+              </IconButton>
+            </InputAdornment>
+          )
+        }}
+      />
 
-      <div className="terms-check">
-        <Checkbox {...register('termsAccepted')} />
-        <label>I read and agree with <a id="terms-link" href="#">Terms</a> of service</label>
-      </div>
-
-      <Button disabled={submitBtnDusabled}
-        onClick={handleSubmit(onSubmit)}
+      <Button disabled={!isValid}
+        onClick={() => handleSubmit(onSubmit)}
         fullWidth
         variant="contained"
       >
         Sign Up
       </Button>
-    </div>
-    <div className="additional-signup-methods">
-      <h3>Or</h3>
-      <div className="additional-methods">
-        <IconButton aria-label="google"><GoogleIcon /></IconButton>
-        <IconButton aria-label="facebook"><FacebookIcon /></IconButton>
-        <IconButton aria-label="apple"><AppleIcon /></IconButton>
-      </div>
-    </div>
-  </div>
+    </Box>
+    <Box sx={{ width: '100%', alignItems: 'center', marginY: '1.5rem' }}>
+      <Divider><Typography variant='h2'>or</Typography></Divider>
+    </Box>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '.5rem', width: '100%' }}>
+      <Button variant="outlined" sx={sxSMButtons}>
+        <GoogleIcon className={styles.smIcon} />Log in with Google
+      </Button>
+      <Button variant="outlined" sx={sxSMButtons}>
+        <FacebookIcon className={styles.smIcon} />Log in with Facebook
+      </Button>
+      <Button variant="outlined" sx={sxSMButtons}>
+        <AppleIcon className={styles.smIcon} />Log in with Apple
+      </Button>
+    </Box>
+  </>
 }

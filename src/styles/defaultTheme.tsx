@@ -71,7 +71,8 @@ export const defaultTheme = createTheme({
       main: '#FF36AB'
     },
     background: {
-      default: '#FFFBFF'
+      default: '#FFFBFF',
+      paper: '#FFFFFF'
     },
     text: {
       primary: '#0d1b2a',
@@ -92,6 +93,9 @@ export const defaultTheme = createTheme({
           fontWeight: 600,
           borderRadius: '5rem',
           textTransform: 'none'
+        },
+        containedPrimary: {
+          color: '#FFFFFF'
         }
       }
     }
