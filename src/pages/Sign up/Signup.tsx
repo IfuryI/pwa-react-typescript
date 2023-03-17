@@ -1,11 +1,12 @@
-import { Button, Divider, TextField } from '@mui/material'
+import { Box, Button, Divider, IconButton, InputAdornment, type SxProps, TextField, Typography, useTheme } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useForm, type ValidationRule } from 'react-hook-form'
-import styles from './Signup.module.scss'
-import AppleIcon from '@mui/icons-material/Apple'
-import GoogleIcon from '@mui/icons-material/Google'
-import FacebookIcon from '@mui/icons-material/Facebook'
-import { useNavigate } from 'react-router-dom'
+import { ReactComponent as GoogleIcon } from '../../assets/sm-icons/GoogleIcon.svg'
+import { ReactComponent as AppleIcon } from '../../assets/sm-icons/AppleIcon.svg'
+import { ReactComponent as FacebookIcon } from '../../assets/sm-icons/FacebookIcon.svg'
+import { Link, useNavigate } from 'react-router-dom'
+import styles from '../../styles/utility.module.scss'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 
 interface SignUpForm {
   email: string
@@ -35,6 +36,7 @@ export const SignUp = (): JSX.Element => {
 
   const [submitBtnDisabled, setSubmitBtnDisabled] = useState(true)
   const navigate = useNavigate()
+  const theme = useTheme()
 
   useEffect(() => {
     const password = watch('password')
@@ -43,68 +45,104 @@ export const SignUp = (): JSX.Element => {
     const hasErrors = !!errors.email || !!errors.password || !!errors.confirmPassword
 
     setSubmitBtnDisabled(hasErrors || !(email && password && confirmPassword && password === confirmPassword))
-    return () => { }
   }, [watch('password'), watch('confirmPassword'), watch('email')])
+
+  const [showPassword, setShowPassword] = useState(false)
+
+  const handleClickShowPassword = (): void => { setShowPassword((show) => !show) }
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    event.preventDefault()
+  }
 
   const onSubmit = (data: SignUpForm): void => {
     navigate('/auth/terms')
   }
 
+  const sxSMButtons: SxProps = {
+    color: theme.palette.text.primary,
+    display: 'flex',
+    gap: '1rem',
+    paddingY: '.75rem'
+  }
+
   return <>
-  <div className={styles.headerSection}>
-      <h2>Sign Up</h2>
-      <small>Already have an account? <a href='./login'>Log in</a></small>
-    </div>
-    <div className={styles.group}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '.5rem', alignItems: 'center' }}>
+      <Typography variant='h1'>Sign Up</Typography>
+      <Typography variant='body1'>Already have an account? <Link to='./login'><Typography component='span' sx={{ color: theme.palette.primary.main }}>Log in</Typography></Link></Typography>
+    </Box>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%', marginTop: '1.5rem', alignItems: 'center' }}>
       <TextField fullWidth label="E-mail"
         error={!(errors.email == null)}
+        autoComplete='off'
         variant="outlined"
         size="small"
         {...register('email', { pattern: emailPatternValidator, required: 'Email is required' })}
         helperText={errors.email?.message ?? ''} />
 
       <TextField fullWidth label="Password"
+        type={showPassword ? 'text' : 'password'}
         error={!(errors.password == null)}
+        autoComplete='new-password'
         variant="outlined"
         size="small"
         {...register('password', {
           required: 'Required',
           minLength: minLength(8)
         })}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword}>
+                {showPassword ? <Visibility /> : <VisibilityOff />}
+              </IconButton>
+            </InputAdornment>
+          )
+        }}
         helperText={errors.password?.message ?? ''} />
 
       <TextField fullWidth label="Confirm password"
+        type={showPassword ? 'text' : 'password'}
         error={!(errors.confirmPassword == null)}
+        autoComplete='off'
         variant="outlined"
         size="small"
         {...register('confirmPassword', {
           required: 'Required',
           minLength: minLength(8)
         })}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword}>
+                {showPassword ? <Visibility /> : <VisibilityOff />}
+              </IconButton>
+            </InputAdornment>
+          )
+        }}
         helperText={errors.confirmPassword?.message ?? ''} />
 
       <Button disabled={submitBtnDisabled}
-        onClick={handleSubmit(onSubmit)}
+        onClick={() => handleSubmit(onSubmit)}
         fullWidth
         variant="contained"
+        sx={{ color: theme.palette.background.paper, width: '50%' }}
       >
         Sign Up
       </Button>
-    </div>
-    <div className={styles.divider}>
-      <Divider>OR</Divider>
-      <h3>Sign up with</h3>
-    </div>
-    <div className={styles.buttons}>
-      <Button variant="outlined" size='small' startIcon={<GoogleIcon />}>
-        Google
+    </Box>
+    <Box sx={{ width: '100%', alignItems: 'center', marginY: '1.5rem' }}>
+      <Divider><Typography variant='h2'>or</Typography></Divider>
+    </Box>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '.5rem', width: '100%' }}>
+      <Button variant="outlined" sx={sxSMButtons}>
+        <GoogleIcon className={styles.smIcon} />Sign up with Google
       </Button>
-      <Button variant="outlined" size='small' startIcon={<FacebookIcon />}>
-        Facebook
+      <Button variant="outlined" sx={sxSMButtons}>
+        <FacebookIcon className={styles.smIcon} />Sign up with Facebook
       </Button>
-      <Button variant="outlined" size='small' startIcon={<AppleIcon />}>
-        Apple
+      <Button variant="outlined" sx={sxSMButtons}>
+        <AppleIcon className={styles.smIcon} />Sign up with Apple
       </Button>
-    </div>
+    </Box>
   </>
 }

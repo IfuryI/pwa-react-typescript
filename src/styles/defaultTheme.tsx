@@ -30,16 +30,20 @@ const typography: TypographyOptions = {
   fontFamily: 'Lato, sans-serif',
   h1: {
     fontFamily: 'Cabin, sans-serif',
-    fontWeight: 500,
+    fontWeight: 600,
     fontSize: '1.5rem'
   },
   h2: {
     fontFamily: 'Cabin, sans-serif',
-    fontWeight: 500,
+    fontWeight: 600,
     fontSize: '1.25rem'
   },
   body1: {
     fontSize: '1rem',
+    lineHeight: '130%'
+  },
+  subtitle1: {
+    fontSize: '0.75rem',
     lineHeight: '130%'
   }
 }
@@ -79,33 +83,13 @@ export const defaultTheme = createTheme({
     }
   },
 
-  typography: {
-    fontFamily: 'Lato, sans-serif',
-    h1: {
-      fontFamily: 'Cabin, sans-serif',
-      fontWeight: 500,
-      fontSize: '1.5rem',
-      marginBottom: '1.5rem'
-    },
-    h2: {
-      fontFamily: 'Cabin, sans-serif',
-      fontWeight: 500,
-      fontSize: '1.25rem'
-    },
-    body1: {
-      fontSize: '1rem',
-      lineHeight: '130%'
-    },
-    subtitle1: {
-      fontSize: '0.75rem',
-      lineHeight: '130%'
-    }
-  },
+  typography,
   components: {
     MuiButton: {
       styleOverrides: {
         root: {
-          fontWeight: 700,
+          fontSize: '1rem',
+          fontWeight: 600,
           borderRadius: '5rem',
           textTransform: 'none'
         }
