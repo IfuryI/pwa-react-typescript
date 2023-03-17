@@ -5,7 +5,7 @@ import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined'
 import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined'
 import InstagramIcon from '@mui/icons-material/Instagram'
 import TelegramIcon from '@mui/icons-material/Telegram'
-import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined';
+import KeyboardArrowUpOutlinedIcon from '@mui/icons-material/KeyboardArrowUpOutlined'
 import type { Match } from 'models'
 import { useState } from 'react'
 
