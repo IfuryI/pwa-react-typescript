@@ -1,3 +1,10 @@
 .debug {
     border: 2px solid red;
 }
+
+.routerLink__reset{
+    text-decoration: none;
+    cursor: pointer;
+    transition: .1s;
+    -webkit-tap-highlight-color: transparent;
+}

@@ -9,6 +9,9 @@ html, body {
   height: 100%;
 }
 
+a {
+  text-decoration: none;
+}
 // we must define variables at root scss
 // otherwise we can't bypass styles incapsulation
 :root {

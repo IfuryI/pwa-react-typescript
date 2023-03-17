@@ -58,7 +58,7 @@ const darkTheme = createTheme({
 export const defaultTheme = createTheme({
   palette: {
     primary: {
-      main: '#2E86AB'
+      main: '#2EAB67'
     },
     secondary: {
       main: '#F9C22E'
@@ -78,7 +78,29 @@ export const defaultTheme = createTheme({
       main: '#F55D3E'
     }
   },
-  typography,
+
+  typography: {
+    fontFamily: 'Lato, sans-serif',
+    h1: {
+      fontFamily: 'Cabin, sans-serif',
+      fontWeight: 500,
+      fontSize: '1.5rem',
+      marginBottom: '1.5rem'
+    },
+    h2: {
+      fontFamily: 'Cabin, sans-serif',
+      fontWeight: 500,
+      fontSize: '1.25rem'
+    },
+    body1: {
+      fontSize: '1rem',
+      lineHeight: '130%'
+    },
+    subtitle1: {
+      fontSize: '0.75rem',
+      lineHeight: '130%'
+    }
+  },
   components: {
     MuiButton: {
       styleOverrides: {

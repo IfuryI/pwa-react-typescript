@@ -1,8 +1,10 @@
-import styles from '../../styles/utility.module.scss'
+import { Typography } from '@mui/material'
 
 const Household: React.FunctionComponent = () => {
   return (
-    <h2 className={styles.headerTemp}>Household</h2>
+    <>
+      <Typography variant='h1'>Household</Typography>
+    </>
   )
 }
 

@@ -8,15 +8,29 @@ import Search from '../pages/Search/Search'
 import * as Registration from '../pages/Registration/Layout'
 import MainLayout from '../layouts/Main/MainLayout'
 import { NotFound } from '../pages/NotFound'
+import QuestionnaireBasic from 'src/layouts/QuestionnaireBasic/QuestionnaireBasic'
+import BasicInfo from './profile/questionnaire/BasicInfo'
 import { SignUp } from 'src/pages/Sign up/Signup'
 import { TermsAndConditions } from 'src/pages/TermsAndConditions/TermsAndConditions'
 import { AuthLayout } from 'src/layouts/Auth/AuthLayout'
 
+
 const Router: React.FunctionComponent = () => {
   return (
     <Routes>
-      <Route path="/" element={<MainLayout />} errorElement={<NotFound/>} >
-        <Route path="profile" element={<Profile />} />
+      <Route path="/" element={<MainLayout />} errorElement={<NotFound />} >
+        <Route path="profile">
+          <Route path='' element={<Profile />} />
+          <Route path="questionnaire-basic-info" element={<QuestionnaireBasic />} errorElement={<NotFound />}>
+            {BasicInfo}
+          </Route>
+          [/*future*/]
+          <Route path='about'>
+            <Route path='' element={<Profile />} />
+            <Route path='basic-questions' element={<Profile />} />
+            <Route path='additional-questions' element={<Profile />} />
+          </Route>
+        </Route>
         <Route path="household" element={<Household />} />
         <Route path="search" element={<Search />} />
         <Route path="search/:id" element={<Search />} />
