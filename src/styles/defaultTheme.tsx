@@ -84,8 +84,7 @@ export const defaultTheme = createTheme({
     h1: {
       fontFamily: 'Cabin, sans-serif',
       fontWeight: 500,
-      fontSize: '1.5rem',
-      marginBottom: '1.5rem'
+      fontSize: '1.5rem'
     },
     h2: {
       fontFamily: 'Cabin, sans-serif',
@@ -104,6 +103,9 @@ export const defaultTheme = createTheme({
   components: {
     MuiButton: {
       styleOverrides: {
+        contained: {
+          color: 'white',
+        },
         root: {
           fontWeight: 700,
           borderRadius: '5rem',

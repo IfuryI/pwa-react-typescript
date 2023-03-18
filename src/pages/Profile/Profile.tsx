@@ -9,7 +9,7 @@ const Profile: React.FunctionComponent = observer(() => {
     <>
       <Typography variant='h1'>Profile</Typography>
       <Link to="/auth/login">Login</Link>
-      <Link to="/auth/registration">Registration</Link>
+      <Link to="/auth/signup">Sign up</Link>
       <Link to="/profile/questionnaire-basic-info/who">Questionnaire Basics</Link>
     </>
   )
