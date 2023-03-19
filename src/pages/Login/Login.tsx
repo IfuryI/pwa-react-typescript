@@ -61,6 +61,7 @@ export const Login = (): JSX.Element => {
     </Box>
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem', width: '100%', alignItems: 'center' }}>
       <TextField fullWidth label="e-mail"
+        type='email'
         error={!(errors.email == null)}
         variant="outlined"
         size="small"

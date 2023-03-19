@@ -62,6 +62,7 @@ export const SignUp = (): JSX.Element => {
     </Box>
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%', marginTop: '1.5rem', alignItems: 'center' }}>
       <TextField fullWidth label="E-mail"
+        type='email'
         error={!(errors.email == null)}
         autoComplete='off'
         variant="outlined"
