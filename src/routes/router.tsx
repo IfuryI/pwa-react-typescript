@@ -11,7 +11,6 @@ import BasicInfo from './profile/questionnaire/BasicInfo'
 import AuthRoutes from './auth'
 import { AuthLayout } from 'src/layouts/Auth/AuthLayout'
 
-
 const Router: React.FunctionComponent = () => {
   return (
     <Routes>

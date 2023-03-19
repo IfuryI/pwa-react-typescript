@@ -1,5 +1,4 @@
 import { Box, Button, Divider, IconButton, InputAdornment, type SxProps, TextField, Typography, useTheme } from '@mui/material'
-import './Login.css'
 import { ReactComponent as GoogleIcon } from '../../assets/sm-icons/GoogleIcon.svg'
 import { ReactComponent as AppleIcon } from '../../assets/sm-icons/AppleIcon.svg'
 import { ReactComponent as FacebookIcon } from '../../assets/sm-icons/FacebookIcon.svg'
