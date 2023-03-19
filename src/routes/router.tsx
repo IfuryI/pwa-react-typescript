@@ -1,17 +1,14 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Household from '../pages/Household/Household'
-import { Login } from '../pages/Login/Login'
 import Matches from '../pages/Matches/Matches'
 import Notifications from '../pages/Notifications/Notifications'
 import Profile from '../pages/Profile/Profile'
 import Search from '../pages/Search/Search'
-import * as Registration from '../pages/Registration/Layout'
 import MainLayout from '../layouts/Main/MainLayout'
 import { NotFound } from '../pages/NotFound'
 import QuestionnaireBasic from 'src/layouts/QuestionnaireBasic/QuestionnaireBasic'
 import BasicInfo from './profile/questionnaire/BasicInfo'
-import { SignUp } from 'src/pages/Sign up/Signup'
-import { TermsAndConditions } from 'src/pages/TermsAndConditions/TermsAndConditions'
+import AuthRoutes from './auth'
 import { AuthLayout } from 'src/layouts/Auth/AuthLayout'
 
 
@@ -41,10 +38,7 @@ const Router: React.FunctionComponent = () => {
       </Route>
 
       <Route path="/auth" element={<AuthLayout/>} errorElement={<NotFound/>}>
-        <Route path="login" element={<Login />} />
-        <Route path='signup' element={<SignUp/>}></Route>
-        <Route path='terms' element={<TermsAndConditions/>}></Route>
-        <Route path="registration" element={<Registration.Layout />} />
+        {AuthRoutes}
         <Route path="/auth" element={<Navigate to="login" replace />} />
         <Route path="/auth/*" element={<Navigate to="login" replace />} />
       </Route>

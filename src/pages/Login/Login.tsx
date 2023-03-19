@@ -9,10 +9,10 @@ import { Link, useNavigate } from 'react-router-dom'
 import styles from '../../styles/utility.module.scss'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 
+
 interface SignUpForm {
   email: string
   password: string
-  termsAccepted: boolean
 }
 
 const emailPatternValidator = {
@@ -49,9 +49,9 @@ export const Login = (): JSX.Element => {
     event.preventDefault()
   }
 
+
   const onSubmit = (data: SignUpForm): void => {
-    console.log(data)
-    navigate('/auth/registration')
+    navigate('/profile')
   }
 
   return <>
@@ -62,11 +62,13 @@ export const Login = (): JSX.Element => {
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem', width: '100%', alignItems: 'center' }}>
       <TextField fullWidth label="e-mail"
         type='email'
+
         error={!(errors.email == null)}
         variant="outlined"
         size="small"
         {...register('email', { pattern: emailPatternValidator, required: 'Email is required' })}
         helperText={errors.email?.message ?? ''} />
+
 
       <TextField fullWidth label="password"
         type={showPassword ? 'text' : 'password'}
@@ -108,5 +110,6 @@ export const Login = (): JSX.Element => {
         <AppleIcon className={styles.smIcon} />Log in with Apple
       </Button>
     </Box>
+
   </>
 }

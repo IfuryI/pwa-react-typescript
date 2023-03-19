@@ -88,6 +88,9 @@ export const defaultTheme = createTheme({
   components: {
     MuiButton: {
       styleOverrides: {
+        contained: {
+          color: 'white',
+        },
         root: {
           fontSize: '1rem',
           fontWeight: 600,
