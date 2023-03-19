@@ -1,28 +1,28 @@
 .userSummaryInfo {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem 0;
 }
 
 #userAvatar {
-    width: 40px;
-    height: 40px;
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-    border-radius: 100%;
+  width: 40px;
+  height: 40px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  border-radius: 100%;
 }
 
 .cardHeader {
-    padding: 8px 16px 0 16px !important;
+  padding: 8px 16px 0 16px !important;
 }
 
 .cardContent {
-    padding: 0 10px 0px 72px !important;
+  padding: 0 10px 0px 72px !important;
 }
 
 .userPhone {
-    display: flex;
-    column-gap: 4px;
-    align-items: center;
+  display: flex;
+  column-gap: 4px;
+  align-items: center;
 }

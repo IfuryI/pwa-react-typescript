@@ -1,14 +1,15 @@
-.container, .formContainer {
-    display: flex;
-    flex-direction: column;
+.container,
+.formContainer {
+  display: flex;
+  flex-direction: column;
 }
 
 .container {
-    height: 100%;
-    gap: 1rem 0;
-    justify-content: center;
+  height: 100%;
+  gap: 1rem 0;
+  justify-content: center;
 }
 
 .formContainer {
-    gap: 1.5rem 0;
+  gap: 1.5rem 0;
 }

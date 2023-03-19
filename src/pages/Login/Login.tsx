@@ -1,17 +1,15 @@
-import { Button, Checkbox, IconButton, TextField } from '@mui/material'
-import './Login.css'
+import { Button, Divider, TextField, Typography } from '@mui/material'
+import styles from './Login.module.scss'
 import AppleIcon from '@mui/icons-material/Apple'
 import GoogleIcon from '@mui/icons-material/Google'
 import FacebookIcon from '@mui/icons-material/Facebook'
-import TranslateIcon from '@mui/icons-material/Translate'
 import React, { useState } from 'react'
 import { useForm, type ValidationRule } from 'react-hook-form'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 interface SignUpForm {
   email: string
   password: string
-  termsAccepted: boolean
 }
 
 const emailPatternValidator = {
@@ -30,65 +28,63 @@ export const Login = (): JSX.Element => {
   const { register, handleSubmit, watch, formState: { errors } } = useForm<SignUpForm>({
     defaultValues: {
       email: '',
-      password: '',
-      termsAccepted: false
+      password: ''
     },
     mode: 'all'
   })
 
   React.useEffect(() => {
-    const subss = watch(({ email, password, termsAccepted }) => {
+    const subss = watch(({ email, password }) => {
       const hasErrors = !(errors.email == null) || !(errors.password == null)
-      setSubmitBtnDisabled(hasErrors || !(email && password && termsAccepted))
+      setSubmitBtnDisabled(hasErrors || !(email && password))
     })
     return () => { subss.unsubscribe() }
   }, [watch, errors])
 
   const onSubmit = (data: SignUpForm): void => {
-    console.log(data)
-    navigate('/auth/registration')
+    navigate('/profile')
   }
 
-  return <div className="container">
-    <div className="header-and-translate">
-      <h3>Let's start</h3>
-      <IconButton aria-label="translate"><TranslateIcon /></IconButton>
-    </div>
-    <div className="group">
-      <TextField fullWidth label="e-mail"
+  return <>
+    <Typography variant='h1'>Log In</Typography>
+    <Typography>New to Roommate? <Link to='../signup'>Sign Up</Link></Typography>
+    <div className={styles.group}>
+      <TextField fullWidth label="E-mail"
         error={!(errors.email == null)}
         variant="outlined"
         size="small"
         {...register('email', { pattern: emailPatternValidator, required: 'Email is required' })}
         helperText={errors.email?.message ?? ''} />
 
-      <TextField fullWidth label="password"
+      <TextField fullWidth label="Password"
+        type='password'
         error={!(errors.password == null)}
         variant="outlined"
         size="small"
         {...register('password', { required: 'Password is required', minLength: minLength(8) })}
         helperText={errors.password?.message ?? ''} />
 
-      <div className="terms-check">
-        <Checkbox {...register('termsAccepted')} />
-        <label>I read and agree with <a id="terms-link" href="#">Terms</a> of service</label>
-      </div>
-
       <Button disabled={submitBtnDusabled}
         onClick={handleSubmit(onSubmit)}
         fullWidth
-        variant="contained"
-      >
-        Sign Up
+        variant="contained">
+        Log In
       </Button>
     </div>
-    <div className="additional-signup-methods">
-      <h3>Or</h3>
-      <div className="additional-methods">
-        <IconButton aria-label="google"><GoogleIcon /></IconButton>
-        <IconButton aria-label="facebook"><FacebookIcon /></IconButton>
-        <IconButton aria-label="apple"><AppleIcon /></IconButton>
-      </div>
+    <div className={styles.divider}>
+      <Divider>OR</Divider>
+      <h3>Log In with</h3>
     </div>
-  </div>
+    <div className={styles.buttons}>
+      <Button variant="outlined" size='small' startIcon={<GoogleIcon />}>
+        Google
+      </Button>
+      <Button variant="outlined" size='small' startIcon={<FacebookIcon />}>
+        Facebook
+      </Button>
+      <Button variant="outlined" size='small' startIcon={<AppleIcon />}>
+        Apple
+      </Button>
+    </div>
+  </>
 }

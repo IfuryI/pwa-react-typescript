@@ -1,11 +1,11 @@
-import { Button, Divider, TextField } from '@mui/material'
+import { Button, Divider, TextField, Typography } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useForm, type ValidationRule } from 'react-hook-form'
 import styles from './Signup.module.scss'
 import AppleIcon from '@mui/icons-material/Apple'
 import GoogleIcon from '@mui/icons-material/Google'
 import FacebookIcon from '@mui/icons-material/Facebook'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 interface SignUpForm {
   email: string
@@ -52,8 +52,8 @@ export const SignUp = (): JSX.Element => {
 
   return <>
   <div className={styles.headerSection}>
-      <h2>Sign Up</h2>
-      <small>Already have an account? <a href='./login'>Log in</a></small>
+      <Typography variant='h1'>Sign Up</Typography>
+      <Typography>Already have an account? <Link to='../login'>Log In</Link></Typography>
     </div>
     <div className={styles.group}>
       <TextField fullWidth label="E-mail"
@@ -64,6 +64,7 @@ export const SignUp = (): JSX.Element => {
         helperText={errors.email?.message ?? ''} />
 
       <TextField fullWidth label="Password"
+        type='password'
         error={!(errors.password == null)}
         variant="outlined"
         size="small"
@@ -74,6 +75,7 @@ export const SignUp = (): JSX.Element => {
         helperText={errors.password?.message ?? ''} />
 
       <TextField fullWidth label="Confirm password"
+        type='password'
         error={!(errors.confirmPassword == null)}
         variant="outlined"
         size="small"
@@ -93,7 +95,7 @@ export const SignUp = (): JSX.Element => {
     </div>
     <div className={styles.divider}>
       <Divider>OR</Divider>
-      <h3>Sign up with</h3>
+      <h3>Sign Up with</h3>
     </div>
     <div className={styles.buttons}>
       <Button variant="outlined" size='small' startIcon={<GoogleIcon />}>
