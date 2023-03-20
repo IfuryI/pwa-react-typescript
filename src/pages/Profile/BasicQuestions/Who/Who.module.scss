@@ -1,7 +1,6 @@
 .AloneBox {
     display: flex;
     height: 100%;
-
     align-items: center;
     justify-content: center;
 }
@@ -24,7 +23,7 @@
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
-    height: 100%;
+    height: calc(100% - 3.5rem);
 }
 
 .who__head {
@@ -45,6 +44,7 @@
 
 .who__persons {
     flex-grow: 1;
+    overflow: auto;
 }
 
 .who__nav {

@@ -72,7 +72,7 @@ const Couple: React.FunctionComponent = () => {
         </ToggleButtonGroup>
       </Box>
       <Box className={styles.who__add}>
-        <Typography className={styles.who__addText}>If your partner have an account you can create a group</Typography>
+        <Typography variant='body2'>If your partner have an account you can create a group</Typography>
         <Button variant='outlined' onClick={handleOpen}>Add partner</Button>
       </Box>
       <Box className={styles.who__persons}>

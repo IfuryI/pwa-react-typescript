@@ -1,17 +1,17 @@
-import { User } from "./user";
+import { User } from "./user"
 
 export interface WhoFriends {
-    count?: number;
-    people?: ( string | User )[]
+    count?: number
+    people: ( string | User )[]
 }
 export interface WhoCouple {
-    kind?: 'MF' | 'MM' | 'FF' | 'other' | undefined;
+    kind?: 'MF' | 'MM' | 'FF' | 'other' | undefined
     partner?: string | User
 }
 export interface WhoFamily {
     adults?: number
     kids?: number
-    people?: ( string | User )[]
+    people: ( string | User )[]
 }
 
 export interface Pet {

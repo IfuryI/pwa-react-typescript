@@ -17,7 +17,7 @@ const PersonCard = (props: Props): JSX.Element => {
     <Box className={styles.personCard}>
       <Avatar className={styles.personCard__avatar} />
       <Typography className={styles.personCard__text}>
-        {typeof props.person === 'string' ? props.person : `${props.person.firstName} ${calculateAge(props.person.birthday)}`}
+        {typeof props.person === 'string' ? props.person : `${props.person.firstName}, ${calculateAge(props.person.birthday)}`}
       </Typography>
       {typeof props.person === 'string' && <ProgressIcon />}
       {(props.main === false || props.main === undefined) && <IconButton onClick={() => { props.handleDelete(props.index) }}><HighlightOffIcon /></IconButton>}
