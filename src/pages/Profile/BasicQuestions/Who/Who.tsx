@@ -1,36 +1,20 @@
-import { Box, Button, Typography } from '@mui/material'
-import { useNavigate } from 'react-router-dom'
-import { useActive } from 'src/components/ProgressSlider/ProgressSlider'
+import { useBasicQuestions } from 'src/layouts/QuestionnaireBasic/QuestionnaireBasic'
+import Alone from './Alone'
+import Couple from './Couple'
+import Family from './Family'
+import Friends from './Friends'
 
-const Who: React.FunctionComponent = () => {
-  const navigate = useNavigate()
-  const { setActive, setPercent } = useActive()
-  const total:number = 3
+const Who = (): JSX.Element => {
+  const { questions } = useBasicQuestions()
+  const parts = {
+    Alone: <Alone />,
+    Couple: <Couple />,
+    Family: <Family />,
+    Friends: <Friends />
+  }
   return (
     <>
-      <Typography variant='h1'>Who’s searching</Typography>
-      <Box sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-        <Box sx={{ flexGrow: '1' }}>
-          text
-        </Box>
-        <Box sx={{ gap: '.5rem', display: 'flex' }}>
-          <Button variant='text'
-          sx={{ flex: '1' }}
-          onClick={() => {
-            setPercent(2, total, 'who')
-          }}>
-            50 Percent
-          </Button>
-          <Button variant='contained'
-            sx={{ color: 'white', flex: '1' }}
-            onClick={() => {
-              navigate('/profile/questionnaire-basic-info/pets')
-              setActive('pets')
-            }}>
-            Next
-          </Button>
-        </Box>
-      </Box>
+      { questions.who === undefined ? <Alone /> : parts[questions.who] }
     </>
   )
 }

@@ -4,7 +4,7 @@ import { useActive } from 'src/components/ProgressSlider/ProgressSlider'
 
 const Pets: React.FunctionComponent = () => {
   const navigate = useNavigate()
-  const { setActive, setPercent } = useActive()
+  const { setActive } = useActive()
   return (
     <>
       <Typography variant='h1'>Do you have pets?</Typography>
@@ -15,9 +15,7 @@ const Pets: React.FunctionComponent = () => {
         <Box sx={{ gap: '.5rem', display: 'flex' }}>
           <Button variant='text'
           sx={{ flex: '1' }}
-          onClick={() => {
-            setPercent(50, 'pets')
-          }}>
+          onClick={() => {}}>
             50 Percent
           </Button>
           <Button variant='contained'

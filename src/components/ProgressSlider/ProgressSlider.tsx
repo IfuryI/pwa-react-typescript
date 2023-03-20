@@ -9,8 +9,9 @@ interface Props {
 }
 
 interface ContextType {
-  setActive: React.Dispatch<React.SetStateAction<string>>
-  setPercent: React.Dispatch<React.SetStateAction<number>>
+  setActive: (active: string) => void
+  setPercent: (percent: number, total: number, to: string) => void
+  setPercentAndGo: (progress: number, total: number, to: string, active: string) => void
 }
 
 const ProgressSlider: React.FunctionComponent<Props> = (props: Props) => {
@@ -38,7 +39,6 @@ const ProgressSlider: React.FunctionComponent<Props> = (props: Props) => {
 }
 export default ProgressSlider
 
-// any type
-export const useActive: any = () => {
+export const useActive = (): ContextType => {
   return useOutletContext<ContextType>()
 }

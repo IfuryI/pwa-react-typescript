@@ -42,6 +42,11 @@ const typography: TypographyOptions = {
     fontSize: '1rem',
     lineHeight: '130%'
   },
+  body2: {
+    fontSize: '1rem',
+    lineHeight: '130%',
+    opacity: '50%'
+  },
   subtitle1: {
     fontSize: '0.75rem',
     lineHeight: '130%'
@@ -99,6 +104,23 @@ export const defaultTheme = createTheme({
         },
         containedPrimary: {
           color: '#FFFFFF'
+        }
+      }
+    },
+    MuiPaper: {
+      styleOverrides: {
+        root: {
+          borderRadius: '1rem'
+        }
+      }
+    },
+    MuiToggleButton: {
+      styleOverrides: {
+        root: {
+          borderColor: 'rgba(46,171,103,0.54)',
+          '&.Mui-selected': {
+            borderColor: 'rgba(46,171,103,1)'
+          }
         }
       }
     }

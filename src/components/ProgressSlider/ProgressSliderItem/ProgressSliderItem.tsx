@@ -2,7 +2,7 @@ import { Box, LinearProgress, Typography, useTheme } from '@mui/material'
 import { Link } from 'react-router-dom'
 import styles from '../../../styles/utility.module.scss'
 
-type SliderState = 'Active' | 'Disabled' | 'Inactive'
+export type SliderState = 'Active' | 'Disabled' | 'Inactive'
 
 export interface ProgressSliderProps {
   text: string

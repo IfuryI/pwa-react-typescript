@@ -1,22 +1,22 @@
 import { User } from "./user";
 
 export interface WhoFriends {
-    count: number;
-    people: ( string | User )[]
+    count?: number;
+    people?: ( string | User )[]
 }
 export interface WhoCouple {
-    kind: 'MF' | 'MM' | 'FF' | 'other' | undefined;
-    partner: string | User
+    kind?: 'MF' | 'MM' | 'FF' | 'other' | undefined;
+    partner?: string | User
 }
 export interface WhoFamily {
-    adults: number
-    kids: number
-    people: ( string | User )[]
+    adults?: number
+    kids?: number
+    people?: ( string | User )[]
 }
 
 export interface Pet {
-    type: 'cat' | 'dog' | 'fish' | 'bird' | 'other'
-    count: number
+    type?: 'cat' | 'dog' | 'fish' | 'bird' | 'other'
+    count?: number
 }
 
 export interface Contact {
@@ -25,14 +25,15 @@ export interface Contact {
     hidden: boolean
 }
 
-export interface QuestionnaireBasic {
-    who: WhoFriends | WhoCouple | WhoFamily | 'Alone'
-    havePets: boolean
+export interface QuestionnaireBasicType {
+    who: 'Friends' | 'Couple' | 'Family' | 'Alone' | undefined
+    whoContains?: WhoFriends | WhoFamily | WhoCouple 
+    havePets?: boolean
     pets?: Pet[]
-    smoker: boolean
+    smoker?: boolean
     smokingWhat?: string[]
-    languages: string[]
-    about: string
-    contacts: Contact[]
-    apartment: boolean
+    languages?: string[]
+    about?: string
+    contacts: Contact[] | undefined
+    apartment?: boolean
 }
