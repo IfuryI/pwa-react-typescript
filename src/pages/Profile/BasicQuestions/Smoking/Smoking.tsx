@@ -11,11 +11,11 @@ const Smoking: React.FunctionComponent = () => {
   const navigate = useNavigate()
   const options = ['cigarettes', 'vape', 'shisha', 'cigars', 'other']
 
-  const handleCheck = (e:React.ChangeEvent<HTMLInputElement>, option: string):void => {
-    if (e.target.checked){
-      setQuestions({...questions, smokingWhat: questions.smokingWhat !== undefined ? [...questions.smokingWhat, option] : [option]})
+  const handleCheck = (e: React.ChangeEvent<HTMLInputElement>, option: string): void => {
+    if (e.target.checked) {
+      setQuestions({ ...questions, smokingWhat: questions.smokingWhat !== undefined ? [...questions.smokingWhat, option] : [option] })
     } else if (questions.smokingWhat !== undefined) {
-      setQuestions({...questions, smokingWhat: questions.smokingWhat.filter((item) => ( item !== option ))})
+      setQuestions({ ...questions, smokingWhat: questions.smokingWhat.filter((item) => (item !== option)) })
     }
   }
 
@@ -48,8 +48,8 @@ const Smoking: React.FunctionComponent = () => {
             <Box className={styles.question__input}>
               <Typography variant='h2'>What do you like to smoke?</Typography>
               <Box className={styles.question__input_zeroGap}>
-                {options.map((option, index)=>(
-                  <FormControlLabel key={index} control={<Checkbox value='' checked={questions.smokingWhat?.some(what => what === option)} onChange={(e) => {handleCheck(e, option)}}/>} label={option} />
+                {options.map((option, index) => (
+                  <FormControlLabel key={index} control={ <Checkbox value='' checked={ questions.smokingWhat?.some(what => what === option) } onChange={(e) => { handleCheck(e, option) }}/> } label={option} />
                 ))}
               </Box>
             </Box>
