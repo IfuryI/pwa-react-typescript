@@ -15,8 +15,8 @@ export interface WhoFamily {
 }
 
 export interface Pet {
-    type?: 'cat' | 'dog' | 'fish' | 'bird' | 'other'
-    count?: number
+    type: 'cat' | 'dog' | 'fish' | 'bird' | 'other'
+    count: number
 }
 
 export interface Contact {

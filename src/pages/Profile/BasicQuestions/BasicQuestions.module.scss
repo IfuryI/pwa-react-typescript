@@ -1,0 +1,35 @@
+.question {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  height: calc(100% - 3.5rem);
+}
+
+.question__head {
+  display: flex;
+  align-items: center;
+}
+.question__head_text {
+  flex-grow: 1;
+}
+
+.question__content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.question__input{
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+.question__nav {
+  display: flex;
+  width: 100%;
+  gap: .5rem;
+  justify-content: space-evenly;
+}

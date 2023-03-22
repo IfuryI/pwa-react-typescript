@@ -1,0 +1,15 @@
+.petList {
+  display: flex;
+  gap: .5rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.petList__petIcon {
+  height: 3rem;
+  width: 3rem;
+  path {
+    fill: var(--text-color);
+    opacity: .5;
+  }
+}

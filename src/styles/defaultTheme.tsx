@@ -118,6 +118,9 @@ export const defaultTheme = createTheme({
       styleOverrides: {
         root: {
           borderColor: 'rgba(46,171,103,0.54)',
+          padding: '.25rem 1rem',
+          textTransform: 'none',
+          textSize: '1rem',
           '&.Mui-selected': {
             borderColor: 'rgba(46,171,103,1)'
           }
