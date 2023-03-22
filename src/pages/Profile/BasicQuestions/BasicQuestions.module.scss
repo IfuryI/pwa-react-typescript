@@ -27,6 +27,12 @@
   gap: .5rem;
 }
 
+.question__input_zeroGap{
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
 .question__nav {
   display: flex;
   width: 100%;

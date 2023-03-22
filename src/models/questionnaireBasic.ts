@@ -31,7 +31,7 @@ export interface QuestionnaireBasicType {
     havePets?: boolean
     pets?: Pet[]
     smoker?: boolean
-    smokingWhat?: string[]
+    smokingWhat: string[]
     languages?: string[]
     about?: string
     contacts: Contact[] | undefined
