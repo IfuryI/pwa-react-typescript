@@ -19,6 +19,8 @@
   gap: 1.5rem;
   flex-grow: 1;
   overflow-y: auto;
+  margin: 0 -1rem;
+  padding: 0 1rem;
 }
 
 .question__input{
@@ -37,11 +39,15 @@
   display: flex;
   width: 100%;
   gap: .5rem;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 .question__tagLine {
   display: flex;
   flex-wrap: wrap;
   gap: .5rem;
+}
+
+.question__button_half {
+  width: 50%;
 }

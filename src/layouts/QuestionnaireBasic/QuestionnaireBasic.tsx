@@ -19,9 +19,10 @@ const QuestionnaireBasic: React.FunctionComponent = () => {
 
   const [questions, setQuestions] = useState<QuestionnaireBasicType>({
     who: undefined,
-    contacts: undefined,
+    contacts: [],
     smokingWhat: [],
-    languages: []
+    languages: [],
+    apartment: undefined
   })
 
   useEffect(() => {

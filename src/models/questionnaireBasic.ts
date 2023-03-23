@@ -34,6 +34,6 @@ export interface QuestionnaireBasicType {
     smokingWhat: string[]
     languages: string[]
     about?: string
-    contacts: Contact[] | undefined
+    contacts: Contact[]
     apartment?: boolean
 }
