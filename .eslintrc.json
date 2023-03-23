@@ -20,6 +20,7 @@
         "only-warn"
     ],
     "rules": {
-        "no-extra-boolean-cast": "off"
+        "no-extra-boolean-cast": "off",
+        "@typescript-eslint/consistent-type-assertions": "off"
     }
 }

@@ -1,15 +1,17 @@
-import { type Gender, type User } from '../models/user'
+import { type Gender, type UserForm } from '../models/user'
 import { makeAutoObservable } from 'mobx'
 import { type RootStore } from './RootStore'
 
-export class UserStore implements User {
-  firstName = ''
-  lastName = ''
-  gender = 'M' as Gender
-  birthday = new Date()
-  phone = ''
-  photo = null
-  avatar = null
+export class UserStore implements UserForm {
+  email: string = ''
+  password: string = ''
+  firstName: string = ''
+  lastName: string = ''
+  gender: Gender = 'M'
+  birthday: Date = new Date()
+  phone: string | null = null
+  photo: string | null = null
+  avatar: string | null = null
 
   rootStore: RootStore
 
@@ -23,6 +25,16 @@ export class UserStore implements User {
   setGender (gender: Gender): void { this.gender = gender }
   setBirthday (birthday: Date): void { this.birthday = birthday }
   setPhone (phone: string): void { this.phone = phone }
+
+  setUser (user: UserForm): void {
+    this.firstName = user.firstName
+    this.lastName = user.lastName
+    this.gender = user.gender
+    this.birthday = user.birthday
+    this.phone = user.phone
+    this.photo = user.photo
+    this.avatar = user.avatar
+  }
 
   saveToLocalStorage = (): void => {
 

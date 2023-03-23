@@ -47,11 +47,16 @@ export const SignUp = (): JSX.Element => {
   }, [watch('password'), watch('confirmPassword'), watch('email')])
 
   const onSubmit = (data: SignUpForm): void => {
-    navigate('/auth/terms')
+    navigate('/auth/terms', {
+      state: {
+        email: data.email,
+        password: data.password
+      }
+    })
   }
 
   return <>
-  <div className={styles.headerSection}>
+    <div className={styles.headerSection}>
       <Typography variant='h1'>Sign Up</Typography>
       <Typography>Already have an account? <Link to='../login'>Log In</Link></Typography>
     </div>

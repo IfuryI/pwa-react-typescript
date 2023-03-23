@@ -7,7 +7,7 @@ import styles from './ImageCropper.module.scss'
 export interface ImageCropperProps {
   image: string
   title: string
-  acceptImage: (blobs: [Blob, Blob]) => void
+  acceptImage: (blobs: [string, string]) => void
 }
 
 export const ImageCropper = ({ image, acceptImage, title }: ImageCropperProps): JSX.Element => {
@@ -16,9 +16,9 @@ export const ImageCropper = ({ image, acceptImage, title }: ImageCropperProps): 
   const [zoom, setZoom] = useState(1)
   const [area, setArea] = useState<Area | null>(null)
 
-  const [profilePhotoBlob, setProfilePhotoBlob] = useState<Blob | null>(null)
+  const [profilePhotoBlob, setProfilePhotoBlob] = useState<string | null>(null)
 
-  const [avatarPhotoBlob, setAvatarPhotoBlob] = useState<Blob | null>(null)
+  const [avatarPhotoBlob, setAvatarPhotoBlob] = useState<string | null>(null)
 
   const [step, setStep] = useState<'profile' | 'avatar'>('profile')
 
@@ -50,15 +50,11 @@ export const ImageCropper = ({ image, acceptImage, title }: ImageCropperProps): 
     void (async () => {
       const str = await getUrl(image, area)
       if (str !== undefined) {
-        await fetch(str)
-          .then(async res => await res.blob())
-          .then((blob) => {
-            if (step === 'profile') {
-              setProfilePhotoBlob(blob)
-            } else {
-              setAvatarPhotoBlob(blob)
-            }
-          })
+        if (step === 'profile') {
+          setProfilePhotoBlob(str)
+        } else {
+          setAvatarPhotoBlob(str)
+        }
       }
     })()
   }

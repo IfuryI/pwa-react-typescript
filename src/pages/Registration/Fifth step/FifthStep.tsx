@@ -1,6 +1,5 @@
 import { Avatar, Card, CardContent, CardHeader, IconButton, Typography, useTheme } from '@mui/material'
-import { useEffect } from 'react'
-import { type User } from '../../../models/user'
+import { type UserForm } from '../../../models/user'
 import styles from './FifthStep.module.scss'
 import { calculateAge, mapToRusFormat } from 'src/utils/date-time'
 import EditIcon from '@mui/icons-material/Edit'
@@ -9,32 +8,19 @@ import { UserCard } from 'src/components/UserCard/UserCard'
 import PersonIcon from '@mui/icons-material/Person'
 
 export interface FifthStepProps {
-  user: User
+  user: UserForm
   onEditStep: (index: number) => void
 }
 
 export const FifthStep = ({ user, onEditStep }: FifthStepProps): JSX.Element => {
   const theme = useTheme()
 
-  useEffect(() => {
-    const avatarImgElement = document.querySelector('[data-id="user-avatar"]')
-    if (user.avatar != null) {
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        // @ts-expect-error
-        avatarImgElement?.setAttribute('src', reader.result)
-      }
-      reader.readAsDataURL(user.avatar)
-    }
-    return () => { }
-  }, [user])
-
   return <div className={styles.userSummaryInfo}>
     <Typography variant='h1' >Check yor data</Typography>
     <Card>
       <CardHeader className={styles.cardHeader} avatar={
         user.avatar !== null && user.avatar !== undefined
-          ? <img id={styles.userAvatar} data-id='user-avatar' src="#" alt="avatar" />
+          ? <img id={styles.userAvatar} data-id='user-avatar' src={user.avatar} alt="avatar" />
           : <Avatar><PersonIcon></PersonIcon></Avatar>
       }
         title={`${user.firstName} ${user.lastName}`}

@@ -1,4 +1,4 @@
-export type Gender = 'M' | 'F'
+export type Gender = 'M' | 'F' | 'Other'
 
 export interface PersonalInfo {
   firstName: string
@@ -7,10 +7,16 @@ export interface PersonalInfo {
   birthday: Date
 }
 
-export type User = PersonalInfo & {
+export type UserForm = PersonalInfo & {
+  email: string
+  password: string
   phone: string | null
-  photo: File | null
-  avatar: File | null
+  photo: string | null
+  avatar: string | null
+}
+
+export type AuthUser = UserForm & {
+  id: number
 }
 
 // Additional types for non-registered user
@@ -19,7 +25,7 @@ export type EmptyPersonalInfo = {
 }
 
 export type NewUser = {
-  [key in keyof User]: User[key] | undefined
+  [key in keyof UserForm]: UserForm[key] | undefined
 }
 
 ///

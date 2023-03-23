@@ -2,7 +2,7 @@ import { Typography } from '@mui/material'
 import { MuiTelInput, matchIsValidTel } from 'mui-tel-input'
 import { useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { NewUser, type User } from '../../../models/user'
+import { NewUser, type UserForm } from '../../../models/user'
 import styles from './SecondStep.module.scss'
 
 export interface SecondStepProps {

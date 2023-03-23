@@ -104,7 +104,7 @@ export const defaultTheme = createTheme({
     MuiButton: {
       styleOverrides: {
         contained: {
-          color: 'white',
+          color: 'white'
         },
         root: {
           fontWeight: 700,
