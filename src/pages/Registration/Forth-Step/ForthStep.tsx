@@ -89,7 +89,7 @@ export const ForthStep = ({ user, photoChange }: ForthStepProps): JSX.Element =>
     <input id='photo-upload'
       className={styles.hiddenInput}
       type="file"
-      accept='.jpeg,.png'
+      accept='.jpg,.jpeg,.png'
       name=""
       onChange={handleFileChange}
     />

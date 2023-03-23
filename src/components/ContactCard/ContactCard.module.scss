@@ -1,0 +1,10 @@
+.contactCard {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+}
+.contactCard__text {
+  padding-left: 1rem;
+  flex-grow: 1;
+  word-break: break-all;
+}

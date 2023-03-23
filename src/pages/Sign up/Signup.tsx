@@ -1,11 +1,12 @@
-import { Button, Divider, TextField, Typography } from '@mui/material'
-import { useEffect, useState } from 'react'
+import { Box, Button, Divider, IconButton, InputAdornment, type SxProps, TextField, Typography, useTheme } from '@mui/material'
+import { useState } from 'react'
 import { useForm, type ValidationRule } from 'react-hook-form'
-import styles from './Signup.module.scss'
-import AppleIcon from '@mui/icons-material/Apple'
-import GoogleIcon from '@mui/icons-material/Google'
-import FacebookIcon from '@mui/icons-material/Facebook'
+import { ReactComponent as GoogleIcon } from '../../assets/sm-icons/GoogleIcon.svg'
+import { ReactComponent as AppleIcon } from '../../assets/sm-icons/AppleIcon.svg'
+import { ReactComponent as FacebookIcon } from '../../assets/sm-icons/FacebookIcon.svg'
 import { Link, useNavigate } from 'react-router-dom'
+import styles from '../../styles/utility.module.scss'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
 
 interface SignUpForm {
   email: string
@@ -24,7 +25,7 @@ const minLength = (length: number): ValidationRule<number> => ({
 })
 
 export const SignUp = (): JSX.Element => {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<SignUpForm>({
+  const { register, handleSubmit, getValues, formState: { errors, isValid } } = useForm<SignUpForm>({
     defaultValues: {
       email: '',
       password: '',
@@ -33,80 +34,109 @@ export const SignUp = (): JSX.Element => {
     mode: 'all'
   })
 
-  const [submitBtnDisabled, setSubmitBtnDisabled] = useState(true)
   const navigate = useNavigate()
+  const theme = useTheme()
 
-  useEffect(() => {
-    const password = watch('password')
-    const confirmPassword = watch('confirmPassword')
-    const email = watch('email')
-    const hasErrors = !!errors.email || !!errors.password || !!errors.confirmPassword
+  const [showPassword, setShowPassword] = useState(false)
 
-    setSubmitBtnDisabled(hasErrors || !(email && password && confirmPassword && password === confirmPassword))
-    return () => { }
-  }, [watch('password'), watch('confirmPassword'), watch('email')])
+  const handleClickShowPassword = (): void => { setShowPassword((show) => !show) }
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    event.preventDefault()
+  }
 
   const onSubmit = (data: SignUpForm): void => {
     navigate('/auth/terms')
   }
 
+  const sxSMButtons: SxProps = {
+    display: 'flex',
+    gap: '1rem',
+    paddingY: '.75rem',
+    justifyContent: 'left'
+  }
+
   return <>
-  <div className={styles.headerSection}>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '.5rem', alignItems: 'center' }}>
       <Typography variant='h1'>Sign Up</Typography>
-      <Typography>Already have an account? <Link to='../login'>Log In</Link></Typography>
-    </div>
-    <div className={styles.group}>
+      <Typography variant='body1'>Already have an account? <Link to='/auth/login'><Typography component='span' sx={{ color: theme.palette.primary.main }}>Log in</Typography></Link></Typography>
+    </Box>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%', marginTop: '1.5rem', alignItems: 'center' }}>
       <TextField fullWidth label="E-mail"
+        type='email'
         error={!(errors.email == null)}
+        autoComplete='off'
         variant="outlined"
         size="small"
         {...register('email', { pattern: emailPatternValidator, required: 'Email is required' })}
         helperText={errors.email?.message ?? ''} />
 
       <TextField fullWidth label="Password"
-        type='password'
+        type={showPassword ? 'text' : 'password'}
         error={!(errors.password == null)}
+        autoComplete='new-password'
         variant="outlined"
         size="small"
         {...register('password', {
           required: 'Required',
           minLength: minLength(8)
         })}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword}>
+                {showPassword ? <Visibility /> : <VisibilityOff />}
+              </IconButton>
+            </InputAdornment>
+          )
+        }}
         helperText={errors.password?.message ?? ''} />
 
       <TextField fullWidth label="Confirm password"
-        type='password'
+        type={showPassword ? 'text' : 'password'}
         error={!(errors.confirmPassword == null)}
+        autoComplete='off'
         variant="outlined"
         size="small"
         {...register('confirmPassword', {
           required: 'Required',
-          minLength: minLength(8)
+          minLength: minLength(8),
+          validate: {
+            samePassword: value => (value === getValues().password) || 'Passwords won\'t match'
+          }
         })}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword}>
+                {showPassword ? <Visibility /> : <VisibilityOff />}
+              </IconButton>
+            </InputAdornment>
+          )
+        }}
         helperText={errors.confirmPassword?.message ?? ''} />
 
-      <Button disabled={submitBtnDisabled}
-        onClick={handleSubmit(onSubmit)}
+      <Button disabled={!isValid}
+        onClick={(e) => { void handleSubmit(onSubmit)(e) }}
         fullWidth
         variant="contained"
+        sx={{ width: '50%' }}
       >
-        Sign Up
+        Sign up
       </Button>
-    </div>
-    <div className={styles.divider}>
-      <Divider>OR</Divider>
-      <h3>Sign Up with</h3>
-    </div>
-    <div className={styles.buttons}>
-      <Button variant="outlined" size='small' startIcon={<GoogleIcon />}>
-        Google
+    </Box>
+    <Box sx={{ width: '100%', alignItems: 'center', marginY: '1.5rem' }}>
+      <Divider><Typography variant='h2'>or</Typography></Divider>
+    </Box>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '.5rem', width: '100%' }}>
+      <Button variant="outlined" sx={sxSMButtons}>
+        <GoogleIcon className={styles.smIcon} />Sign up with Google
       </Button>
-      <Button variant="outlined" size='small' startIcon={<FacebookIcon />}>
-        Facebook
+      <Button variant="outlined" sx={sxSMButtons}>
+        <FacebookIcon className={styles.smIcon} />Sign up with Facebook
       </Button>
-      <Button variant="outlined" size='small' startIcon={<AppleIcon />}>
-        Apple
+      <Button variant="outlined" sx={sxSMButtons}>
+        <AppleIcon className={styles.smIcon} />Sign up with Apple
       </Button>
-    </div>
+    </Box>
   </>
 }
