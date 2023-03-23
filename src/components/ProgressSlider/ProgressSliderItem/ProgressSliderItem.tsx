@@ -24,6 +24,7 @@ const ProgressSliderItem: React.FunctionComponent<ProgressSliderItemProps> = (pr
       to={props.item.state === undefined || props.item.state === 'Disabled' ? '#' : props.item.to}
       onClick={() => { props.item.state !== 'Disabled' && props.setActive(props.item.to) }}
       className={styles.routerLink__reset}
+      id={props.item.to}
     >
       <Box sx={{
         opacity: `${props.item.state !== 'Active' ? '50%' : '100%'}`,
