@@ -1,9 +1,9 @@
 import { Box, Button, Card, IconButton, Modal, styled, SvgIcon, TextField, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material'
-import { Contact } from 'models'
+import { type Contact } from 'models'
 import styles from './AddContact.module.scss'
 import CloseIcon from '@mui/icons-material/Close'
 import EmailIcon from '@mui/icons-material/Email'
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
+import LocalPhoneIcon from '@mui/icons-material/LocalPhone'
 import { ReactComponent as TelegramIcon } from '../../../assets/sm-icons/TelegramIcon.svg'
 import { ReactComponent as InstagramIcon } from '../../../assets/sm-icons/InstagramIcon.svg'
 import { ReactComponent as OtherIcon } from '../../../assets/sm-icons/OtherIcon.svg'
@@ -32,13 +32,13 @@ const ContactTougleGroup = styled(ToggleButtonGroup)(({ theme }) => ({
 
 const ContactToggleButton = styled(ToggleButton)(({ theme }) => ({
   color: theme.palette.primary.light,
-  "&.Mui-selected, &.Mui-selected:hover": {
+  '&.Mui-selected, &.Mui-selected:hover': {
     color: theme.palette.background.paper,
-    backgroundColor: theme.palette.primary.light,
+    backgroundColor: theme.palette.primary.light
   }
 }))
 
-const AddContact = (props: Props) => {
+const AddContact = (props: Props): JSX.Element => {
   const [contact, setContact] = useState<Contact>({
     type: 'email',
     contact: '',

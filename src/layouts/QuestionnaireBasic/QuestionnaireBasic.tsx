@@ -22,7 +22,8 @@ const QuestionnaireBasic: React.FunctionComponent = () => {
     contacts: [],
     smokingWhat: [],
     languages: [],
-    apartment: undefined
+    apartment: undefined,
+    about: ''
   })
 
   useEffect(() => {

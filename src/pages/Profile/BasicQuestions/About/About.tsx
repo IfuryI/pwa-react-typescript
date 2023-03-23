@@ -1,8 +1,8 @@
-import { Box, Button, styled, TextField, Typography } from "@mui/material"
-import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import { useActive } from "src/components/ProgressSlider/ProgressSlider"
-import { useBasicQuestions } from "src/layouts/QuestionnaireBasic/QuestionnaireBasic"
+import { Box, Button, TextField, Typography } from '@mui/material'
+import { useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
+import { useActive } from 'src/components/ProgressSlider/ProgressSlider'
+import { useBasicQuestions } from 'src/layouts/QuestionnaireBasic/QuestionnaireBasic'
 import styles from '../BasicQuestions.module.scss'
 
 const About: React.FunctionComponent = () => {
@@ -11,7 +11,7 @@ const About: React.FunctionComponent = () => {
   const navigate = useNavigate()
 
   useEffect(() => {
-    questions.about ?? '' ? setPercent(1, 1, 'about') : setPercent(0, 1, 'about')
+    questions.about !== '' ? setPercent(1, 1, 'about') : setPercent(0, 1, 'about')
   }, [questions])
 
   return (
@@ -22,7 +22,7 @@ const About: React.FunctionComponent = () => {
       <Box className={styles.question__content}>
         <TextField
           value={questions.about}
-          onChange={(e) => {setQuestions({ ...questions, about: e.target.value })}}
+          onChange={(e) => { setQuestions({ ...questions, about: e.target.value }) }}
           hiddenLabel
           fullWidth
           multiline

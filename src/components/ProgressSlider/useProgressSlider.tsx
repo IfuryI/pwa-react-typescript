@@ -22,7 +22,7 @@ const useProgressSlider = (props: Props): ReturnType => {
       )
     )
     const element = document.getElementById(active)
-    element && element.scrollIntoView({ inline: 'center', behavior: 'smooth' })
+    if (element !== null) { element.scrollIntoView({ inline: 'center', behavior: 'smooth' }) }
   }
 
   const setPercent = (progress: number, total: number, to: string): void => {
@@ -44,7 +44,7 @@ const useProgressSlider = (props: Props): ReturnType => {
       )
     )
     const element = document.getElementById(active)
-    element && element.scrollIntoView({ inline: 'center', behavior: 'smooth' })
+    if (element !== null) { element.scrollIntoView({ inline: 'center', behavior: 'smooth' }) }
   }
   return { items, setPercent, setActive, setPercentAndGo } as const
 }

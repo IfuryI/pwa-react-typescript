@@ -1,16 +1,16 @@
-import { Box, Button, Typography } from "@mui/material"
-import { Contact } from "models"
-import { useEffect, useState } from "react"
-import { useNavigate } from "react-router-dom"
-import ContactCard from "src/components/ContactCard/ContactCard"
-import AddContact from "src/components/Modals/AddContact/AddContact"
-import { useActive } from "src/components/ProgressSlider/ProgressSlider"
-import { useBasicQuestions } from "src/layouts/QuestionnaireBasic/QuestionnaireBasic"
+import { Box, Button, Typography } from '@mui/material'
+import { type Contact } from 'models'
+import { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
+import ContactCard from 'src/components/ContactCard/ContactCard'
+import AddContact from 'src/components/Modals/AddContact/AddContact'
+import { useActive } from 'src/components/ProgressSlider/ProgressSlider'
+import { useBasicQuestions } from 'src/layouts/QuestionnaireBasic/QuestionnaireBasic'
 import styles from '../BasicQuestions.module.scss'
 
 const Contacts: React.FunctionComponent = () => {
   const navigate = useNavigate()
-  const { setActive, setPercent, setPercentAndGo } = useActive()
+  const { setActive, setPercent } = useActive()
   const { questions, setQuestions } = useBasicQuestions()
   const [open, setOpen] = useState(false)
 
@@ -22,14 +22,13 @@ const Contacts: React.FunctionComponent = () => {
   }
 
   useEffect(() => {
-    questions.contacts.length > 0 ? setPercent(1,1, 'contacts') : setPercent(0,1,'contacts')
+    questions.contacts.length > 0 ? setPercent(1, 1, 'contacts') : setPercent(0, 1, 'contacts')
   }, [questions])
-  
 
   return (
     <Box className={styles.question}>
       <Box className={styles.question__head}>
-        <Typography className={styles.question__head_text} variant='h1'>What contacts you are willing to share with people you will match with?</Typography>
+        <Typography className={styles.question__head_text} variant='h1'>What contacts you are willing to share with people you will match with?</Typography>
       </Box>
       <Box className={styles.question__content}>
         <Button variant='outlined' onClick={handleOpen}>Add contact</Button>

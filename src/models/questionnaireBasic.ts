@@ -33,7 +33,7 @@ export interface QuestionnaireBasicType {
     smoker?: boolean
     smokingWhat: string[]
     languages: string[]
-    about?: string
+    about: string
     contacts: Contact[]
     apartment?: boolean
 }

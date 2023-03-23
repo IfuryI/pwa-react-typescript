@@ -48,7 +48,7 @@ const Languages: React.FunctionComponent = () => {
               <InputAdornment position='end'>
                 <SearchIcon color='primary' />
               </InputAdornment>
-            ),
+            )
           }}
           label='Language'
           variant='outlined'
@@ -62,7 +62,7 @@ const Languages: React.FunctionComponent = () => {
               label={language}
               size='small'
               deleteIcon={<CancelOutlinedIcon />}
-              onDelete={() => removeLanguage(language)}
+              onDelete={() => { removeLanguage(language) }}
             />
           ))}
         </Box>
