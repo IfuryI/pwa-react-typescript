@@ -13,12 +13,9 @@ export type User = PersonalInfo & {
   avatar: string | null
 }
 
-export type UserForm = PersonalInfo & {
+export type UserForm = User & {
   email: string
   password: string
-  phone: string | null
-  photo: string | null
-  avatar: string | null
 }
 
 export type AuthUser = UserForm & {

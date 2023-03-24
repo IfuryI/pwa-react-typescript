@@ -6,10 +6,11 @@ import EditIcon from '@mui/icons-material/Edit'
 import PermPhoneMsgIcon from '@mui/icons-material/PermPhoneMsg'
 import { UserCard } from 'src/components/UserCard/UserCard'
 import PersonIcon from '@mui/icons-material/Person'
+import { RegistrationSteps } from '../Layout'
 
 export interface FifthStepProps {
   user: UserForm
-  onEditStep: (index: number) => void
+  onEditStep: (step: RegistrationSteps) => void
 }
 
 export const FifthStep = ({ user, onEditStep }: FifthStepProps): JSX.Element => {
@@ -28,7 +29,7 @@ export const FifthStep = ({ user, onEditStep }: FifthStepProps): JSX.Element => 
         action={
           <IconButton sx={{ color: theme.palette.primary.main }}
             aria-label="edit"
-            onClick={() => { onEditStep(0) }}>
+            onClick={() => { onEditStep('personal') }}>
             <EditIcon fontSize='small' />
           </IconButton>
         }>
@@ -39,7 +40,7 @@ export const FifthStep = ({ user, onEditStep }: FifthStepProps): JSX.Element => 
           <Typography style={{ flex: 1 }} fontSize={14}>{user.phone}</Typography>
           <IconButton sx={{ color: theme.palette.primary.main }}
             aria-label="edit"
-            onClick={() => { onEditStep(1) }}>
+            onClick={() => { onEditStep('phone') }}>
             <EditIcon fontSize='small' />
           </IconButton>
         </div>
@@ -53,7 +54,7 @@ export const FifthStep = ({ user, onEditStep }: FifthStepProps): JSX.Element => 
         <IconButton sx={{ color: theme.palette.primary.main }}
           size='small'
           aria-label="edit"
-          onClick={() => { onEditStep(3) }}>
+          onClick={() => { onEditStep('photo') }}>
           <EditIcon fontSize='small' />
           <Typography fontSize={14} marginLeft='0.5rem'>Edit</Typography>
         </IconButton>

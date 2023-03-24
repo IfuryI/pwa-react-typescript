@@ -5,9 +5,10 @@ import { ReactComponent as FacebookIcon } from '../../assets/sm-icons/FacebookIc
 import { useState } from 'react'
 import { useForm, type ValidationRule } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
-import { userApiService, q } from 'api-services'
-import styles from '../../styles/utility.module.scss'
+import styles from './Login.module.scss'
+import utilityStyles from '../../styles/utility.module.scss'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
+import { userApiService } from 'api-services'
 
 
 interface SignUpForm {
@@ -46,9 +47,6 @@ export const Login = (): JSX.Element => {
     text: ''
   })
 
-  console.log(q);
-  
-
   const theme = useTheme()
   const { register, handleSubmit, formState: { errors, isValid } } = useForm<SignUpForm>({
     defaultValues: {
@@ -63,7 +61,6 @@ export const Login = (): JSX.Element => {
   const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.preventDefault()
   }
-
 
   const onSubmit = (data: SignUpForm): void => {
     void userApiService.login(data.email, data.password).then(token => {
@@ -112,7 +109,6 @@ export const Login = (): JSX.Element => {
         {...register('email', { pattern: emailPatternValidator, required: 'Email is required' })}
         helperText={errors.email?.message ?? ''} />
 
-
       <TextField fullWidth label="password"
         type={showPassword ? 'text' : 'password'}
         error={!(errors.password == null)}
@@ -144,13 +140,13 @@ export const Login = (): JSX.Element => {
     </Box>
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '.5rem', width: '100%' }}>
       <Button variant="outlined" sx={sxSMButtons}>
-        <GoogleIcon className={styles.smIcon} />Log in with Google
+        <GoogleIcon className={utilityStyles.smIcon} />Log in with Google
       </Button>
       <Button variant="outlined" sx={sxSMButtons}>
-        <FacebookIcon className={styles.smIcon} />Log in with Facebook
+        <FacebookIcon className={utilityStyles.smIcon} />Log in with Facebook
       </Button>
       <Button variant="outlined" sx={sxSMButtons}>
-        <AppleIcon className={styles.smIcon} />Log in with Apple
+        <AppleIcon className={utilityStyles.smIcon} />Log in with Apple
       </Button>
     </Box>
 

@@ -1,6 +1,6 @@
-import { Button, Step, StepLabel, Stepper } from '@mui/material'
+import { Button } from '@mui/material'
 import moment from 'moment'
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { type NewUser, type UserForm } from '../../models/user'
 import { FifthStep } from './Fifth step/FifthStep'
@@ -13,22 +13,21 @@ import { UserCreationLoader } from './UserCreationLoader/UserCreationLoader'
 import { userApiService } from 'api-services'
 import { mapUserFormToDto } from 'mapping-services'
 import { useStore } from 'src/utils/StoreProvider'
+import ProgressSlider from 'src/components/ProgressSlider/ProgressSlider'
+import useProgressSlider from 'src/components/ProgressSlider/useProgressSlider'
+import { type ProgressSliderProps } from 'src/components'
 
-interface StepItem {
-  label: string
-  index: number
-}
+export type RegistrationSteps = 'personal' | 'phone' | 'verification' | 'photo' | 'summary'
 
-const steps: StepItem[] = [
-  { label: 'Personal', index: 0 },
-  { label: 'Phone', index: 1 },
-  { label: 'Verification', index: 2 },
-  { label: 'Photo', index: 3 },
-  { label: 'Summary', index: 4 }
+const steps: ProgressSliderProps[] = [
+  { text: 'personal', progress: 0, to: 'phone', state: 'Active' },
+  { text: 'phone', progress: 0, to: 'verification' },
+  { text: 'verification', progress: 0, to: 'photo' },
+  { text: 'photo', progress: 0, to: 'summary' },
+  { text: 'summary', progress: 0, to: 'summary' },
 ]
 
 export const Layout = (): JSX.Element => {
-  const [activeStep, setActiveStep] = useState(0)
   const [firstStepValid, setFirstStepValid] = useState(false)
   const [secondStepValid, setSecondStepValid] = useState(false)
   const { email, password } = useLocation().state
@@ -44,10 +43,24 @@ export const Layout = (): JSX.Element => {
     avatar: undefined
   } as NewUser)
 
+  const { items, completeStep, setActive } = useProgressSlider({ items: steps })
+
+  const activeStep: RegistrationSteps = useMemo(() => {
+    const step = items.find(i => i.state === 'Active')
+    if (step === undefined) {
+      throw new Error('something wrong with steps!')
+    }
+    return step.text as RegistrationSteps
+  }, [items])
+
+  const nextBtnDisabled = useMemo(() => {
+    return (activeStep === 'personal' && !firstStepValid) ||
+      (activeStep === 'phone' && !secondStepValid)
+  }, [activeStep, firstStepValid, secondStepValid])
+
   const { userStore } = useStore()
 
   const [loadinMessage, setLoadinMessage] = useState('Creating your account')
-  const nextStep = (): void => { setActiveStep(activeStep + 1) }
 
   const onFinish = (): void => {
     setUserProgressVisible(true)
@@ -112,55 +125,46 @@ export const Layout = (): JSX.Element => {
   }
 
   return <div className={styles.registerationLayout}>
-    <Stepper activeStep={activeStep} alternativeLabel>
-      {steps.map((step, index) => {
-        const stepProps: { completed?: boolean } = {}
-        return (
-          <Step key={step.label} {...stepProps}>
-            <StepLabel>{step.label}</StepLabel>
-          </Step>
-        )
-      })}
-    </Stepper>
+    <ProgressSlider items={items} setActive={setActive} />
     <div className={styles.layoutContent}>
-      {activeStep === 0 && <FirstStep user={userInfo}
+      {activeStep === 'personal' && <FirstStep user={userInfo}
         stepValid={setFirstStepValid}
         userInfoChange={(updatedUserInfo: Partial<NewUser>) => {
           setUserInfo({ ...userInfo, ...updatedUserInfo })
         }} />}
-      {activeStep === 1 && <SecondStep user={userInfo}
+      {activeStep === 'phone' && <SecondStep user={userInfo}
         stepValid={setSecondStepValid}
         phoneChanged={(phone) => { setUserInfo({ ...userInfo, phone }) }}
       />}
-      {activeStep === 2 && <ThirdStep />}
-      {activeStep === 3 && <ForthStep user={userInfo}
+      {activeStep === 'verification' && <ThirdStep />}
+      {activeStep === 'photo' && <ForthStep user={userInfo}
         photoChange={({ profilePhoto, avatarPhoto }) => {
           setUserInfo({ ...userInfo, photo: profilePhoto, avatar: avatarPhoto })
         }} />
       }
-      {(activeStep === 4 && isUser(userInfo)) && <FifthStep
+      {(activeStep === 'summary' && isUser(userInfo)) && <FifthStep
         user={userInfo}
-        onEditStep={setActiveStep} />}
+        onEditStep={(step) => { setActive(step) }} />}
     </div>
     <div className={styles.buttonsContainer}>
       <div className={styles.buttonsСontainerСolumn}>
         {
-          (activeStep === 1 || activeStep === 3) &&
-          <Button fullWidth variant='outlined' onClick={nextStep}>Skip</Button>
+          (activeStep === 'phone' || activeStep === 'verification') &&
+          <Button fullWidth variant='outlined' onClick={() => { completeStep(activeStep) }}>Skip</Button>
         }
       </div>
       <div className={styles.buttonsСontainerСolumn}>
         {
-          activeStep < steps.length - 1 &&
+          activeStep !== 'summary' &&
           <Button fullWidth
             variant='contained'
-            disabled={(activeStep === 0 && !firstStepValid) || (activeStep === 1 && !secondStepValid)}
-            onClick={nextStep}>
+            disabled={nextBtnDisabled}
+            onClick={() => { completeStep(activeStep) }}>
             Next
           </Button>
         }
         {
-          activeStep === steps.length - 1 &&
+          activeStep === 'summary' &&
           <Button fullWidth
             variant='contained'
             onClick={onFinish}>
@@ -169,8 +173,9 @@ export const Layout = (): JSX.Element => {
         }
       </div>
     </div>
-    {userProgressVisible &&
+    {
+      userProgressVisible &&
       <UserCreationLoader message={loadinMessage}></UserCreationLoader>
     }
-  </div>
+  </div >
 }
