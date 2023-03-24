@@ -38,7 +38,7 @@ export const Layout = (): JSX.Element => {
     firstName: undefined,
     lastName: undefined,
     gender: 'M',
-    birthday: moment(new Date()).subtract({ years: 18}).toDate(),
+    birthday: moment(new Date()).subtract({ years: 18 }).toDate(),
     phone: undefined,
     photo: undefined,
     avatar: undefined

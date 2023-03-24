@@ -7,6 +7,12 @@ export interface PersonalInfo {
   birthday: Date
 }
 
+export type User = PersonalInfo & {
+  phone: string | null
+  photo: string | null
+  avatar: string | null
+}
+
 export type UserForm = PersonalInfo & {
   email: string
   password: string

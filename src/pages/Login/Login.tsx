@@ -1,12 +1,14 @@
-import { Alert, Button, Divider, Grow, TextField, Typography } from '@mui/material'
-import styles from './Login.module.scss'
-import AppleIcon from '@mui/icons-material/Apple'
-import GoogleIcon from '@mui/icons-material/Google'
-import FacebookIcon from '@mui/icons-material/Facebook'
-import React, { useState } from 'react'
+import { Alert, Box, Button, Divider, Grow, IconButton, InputAdornment, type SxProps, TextField, Typography, useTheme } from '@mui/material'
+import { ReactComponent as GoogleIcon } from '../../assets/sm-icons/GoogleIcon.svg'
+import { ReactComponent as AppleIcon } from '../../assets/sm-icons/AppleIcon.svg'
+import { ReactComponent as FacebookIcon } from '../../assets/sm-icons/FacebookIcon.svg'
+import { useState } from 'react'
 import { useForm, type ValidationRule } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
 import { userApiService, q } from 'api-services'
+import styles from '../../styles/utility.module.scss'
+import { Visibility, VisibilityOff } from '@mui/icons-material'
+
 
 interface SignUpForm {
   email: string
@@ -29,8 +31,14 @@ const minLength = (length: number): ValidationRule<number> => ({
   message: `Min length ${length} symbols`
 })
 
+const sxSMButtons: SxProps = {
+  display: 'flex',
+  gap: '1rem',
+  paddingY: '.75rem',
+  justifyContent: 'left'
+}
+
 export const Login = (): JSX.Element => {
-  const [submitBtnDusabled, setSubmitBtnDisabled] = useState(true)
   const navigate = useNavigate()
   const [showAlert, setShowAlert] = useState<SignInAlert>({
     visible: false,
@@ -41,7 +49,8 @@ export const Login = (): JSX.Element => {
   console.log(q);
   
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm<SignUpForm>({
+  const theme = useTheme()
+  const { register, handleSubmit, formState: { errors, isValid } } = useForm<SignUpForm>({
     defaultValues: {
       email: '',
       password: ''
@@ -49,13 +58,12 @@ export const Login = (): JSX.Element => {
     mode: 'all'
   })
 
-  React.useEffect(() => {
-    const subss = watch(({ email, password }) => {
-      const hasErrors = !(errors.email == null) || !(errors.password == null)
-      setSubmitBtnDisabled(hasErrors || !(email && password))
-    })
-    return () => { subss.unsubscribe() }
-  }, [watch, errors])
+  const [showPassword, setShowPassword] = useState(false)
+  const handleClickShowPassword = (): void => { setShowPassword((show) => !show) }
+  const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    event.preventDefault()
+  }
+
 
   const onSubmit = (data: SignUpForm): void => {
     void userApiService.login(data.email, data.password).then(token => {
@@ -90,46 +98,62 @@ export const Login = (): JSX.Element => {
   }
 
   return <>
-    <Typography variant='h1'>Log In</Typography>
-    <Typography>New to Roommate? <Link to='../signup'>Sign Up</Link></Typography>
-    <div className={styles.group}>
-      <TextField fullWidth label="E-mail"
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '.5rem', alignItems: 'center' }}>
+      <Typography variant='h1'>Log in</Typography>
+      <Typography>New to roommate.host? <Link to='/auth/signup'><Typography component='span' sx={{ color: theme.palette.primary.main }}>Sign up</Typography></Link></Typography>
+    </Box>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', marginTop: '1.5rem', width: '100%', alignItems: 'center' }}>
+      <TextField fullWidth label="e-mail"
+        type='email'
+
         error={!(errors.email == null)}
         variant="outlined"
         size="small"
         {...register('email', { pattern: emailPatternValidator, required: 'Email is required' })}
         helperText={errors.email?.message ?? ''} />
 
-      <TextField fullWidth label="Password"
-        type='password'
+
+      <TextField fullWidth label="password"
+        type={showPassword ? 'text' : 'password'}
         error={!(errors.password == null)}
         variant="outlined"
         size="small"
         {...register('password', { required: 'Password is required', minLength: minLength(8) })}
-        helperText={errors.password?.message ?? ''} />
+        helperText={errors.password?.message ?? ''}
+        InputProps={{
+          endAdornment: (
+            <InputAdornment position="end">
+              <IconButton aria-label="toggle password visibility" onClick={handleClickShowPassword} onMouseDown={handleMouseDownPassword}>
+                {showPassword ? <Visibility /> : <VisibilityOff />}
+              </IconButton>
+            </InputAdornment>
+          )
+        }}
+      />
 
-      <Button disabled={submitBtnDusabled}
-        onClick={handleSubmit(onSubmit)}
-        fullWidth
-        variant="contained">
-        Log In
+      <Button disabled={!isValid}
+        onClick={(e) => { void handleSubmit(onSubmit)(e) }}
+        variant="contained"
+        sx={{ width: '50%' }}
+      >
+        Log in
       </Button>
-    </div>
-    <div className={styles.divider}>
-      <Divider>OR</Divider>
-      <h3>Log In with</h3>
-    </div>
-    <div className={styles.buttons}>
-      <Button variant="outlined" size='small' startIcon={<GoogleIcon />}>
-        Google
+    </Box>
+    <Box sx={{ width: '100%', alignItems: 'center', marginY: '1.5rem' }}>
+      <Divider><Typography variant='h2'>or</Typography></Divider>
+    </Box>
+    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '.5rem', width: '100%' }}>
+      <Button variant="outlined" sx={sxSMButtons}>
+        <GoogleIcon className={styles.smIcon} />Log in with Google
       </Button>
-      <Button variant="outlined" size='small' startIcon={<FacebookIcon />}>
-        Facebook
+      <Button variant="outlined" sx={sxSMButtons}>
+        <FacebookIcon className={styles.smIcon} />Log in with Facebook
       </Button>
-      <Button variant="outlined" size='small' startIcon={<AppleIcon />}>
-        Apple
+      <Button variant="outlined" sx={sxSMButtons}>
+        <AppleIcon className={styles.smIcon} />Log in with Apple
       </Button>
-    </div>
+    </Box>
+
     <Grow in={showAlert.visible}>
       <Alert sx={{
         position: 'absolute',

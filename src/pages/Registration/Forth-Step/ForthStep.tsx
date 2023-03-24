@@ -1,6 +1,6 @@
 import styles from './ForthStep.module.scss'
 import { FormHelperText, IconButton, Typography, useTheme } from '@mui/material'
-import { type ChangeEvent, useEffect, useState } from 'react'
+import { type ChangeEvent, useState } from 'react'
 import { type NewUser } from '../../../models/user'
 import { ImageCropper } from './ImageCropper/ImageCropper'
 import UploadFileIcon from '@mui/icons-material/UploadFile'
