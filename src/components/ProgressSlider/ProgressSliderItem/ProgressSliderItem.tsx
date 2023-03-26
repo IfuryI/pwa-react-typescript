@@ -13,46 +13,54 @@ export interface ProgressSliderProps {
 }
 
 interface ProgressSliderItemProps {
-  item: ProgressSliderProps
+  item: ProgressSliderProps,
+  useLinks: boolean
   setActive: (active: string) => void
 }
 
-const ProgressSliderItem: React.FunctionComponent<ProgressSliderItemProps> = (props: ProgressSliderItemProps) => {
+const ProgressSliderItem = ({ item, useLinks, setActive }: ProgressSliderItemProps): JSX.Element => {
   const theme = useTheme()
-  return (
-    <Link
-      to={props.item.state === undefined || props.item.state === 'Disabled' ? '#' : props.item.to}
-      onClick={() => { props.item.state !== 'Disabled' && props.setActive(props.item.to) }}
-      className={styles.routerLink__reset}
-      id={props.item.to}
-    >
-      <Box sx={{
-        opacity: `${props.item.state !== 'Active' ? '50%' : '100%'}`,
-        textAlign: 'center',
-        paddingBottom: '1.5rem'
+  const children = <Box sx={{
+    opacity: `${item.state !== 'Active' ? '50%' : '100%'}`,
+    textAlign: 'center',
+    paddingBottom: '1.5rem'
+  }}>
+    <Typography
+      variant={`${item.state !== 'Active' ? 'subtitle1' : 'body1'}`}
+      sx={{
+        paddingX: '1rem',
+        paddingBottom: '.125rem',
+        fontWeight: item.state !== 'Active' ? '300' : '600',
+        color: item.state === undefined || item.state === 'Disabled' ? theme.palette.text.disabled : theme.palette.primary.main
       }}>
-        <Typography
-          variant={`${props.item.state !== 'Active' ? 'subtitle1' : 'body1'}`}
-          sx={{
-            paddingX: '1rem',
-            paddingBottom: '.125rem',
-            fontWeight: props.item.state !== 'Active' ? '300' : '600',
-            color: props.item.state === undefined || props.item.state === 'Disabled' ? theme.palette.text.disabled : theme.palette.primary.main
-          }}>
-          {props.item.text}
-        </Typography>
-        <LinearProgress
-          variant='determinate'
-          sx={{
-            borderRadius: 2,
-            backgroundColor: 'transparent',
-            borderWidth: 1,
-            borderColor: props.item.state === undefined || props.item.state === 'Disabled' ? theme.palette.text.disabled : theme.palette.primary.main,
-            borderStyle: 'solid'
-          }} value={props.item.progress}
-        />
-      </Box>
-    </Link>
+      {item.text}
+    </Typography>
+    <LinearProgress
+      variant='determinate'
+      sx={{
+        borderRadius: 2,
+        backgroundColor: 'transparent',
+        borderWidth: 1,
+        borderColor: item.state === undefined || item.state === 'Disabled' ? theme.palette.text.disabled : theme.palette.primary.main,
+        borderStyle: 'solid'
+      }} value={item.progress}
+    />
+  </Box>
+  return (
+    useLinks
+      ? <Link
+        to={item.state === undefined || item.state === 'Disabled' ? '#' : item.to}
+        onClick={() => { item.state !== 'Disabled' && setActive(item.to) }}
+        className={styles.routerLink__reset}
+        id={item.to}
+      >
+        {children}
+      </Link>
+      : <div onClick={() => { item.state !== 'Disabled' && setActive(item.to) }}
+        className={styles.routerLink__reset}
+        id={item.to}>
+        {children}
+      </div>
   )
 }
 export default ProgressSliderItem

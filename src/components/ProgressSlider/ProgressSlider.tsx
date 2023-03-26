@@ -5,6 +5,7 @@ import ProgressSliderItem, { type ProgressSliderProps } from './ProgressSliderIt
 
 interface Props {
   items: ProgressSliderProps[]
+  useLinks?: boolean
   setActive: (active: string) => void
 }
 
@@ -15,6 +16,7 @@ interface ContextType {
 }
 
 const ProgressSlider: React.FunctionComponent<Props> = (props: Props) => {
+  const {items, useLinks = true, setActive} = props
   return (
     <Box>
       <Box sx={{
@@ -31,9 +33,9 @@ const ProgressSlider: React.FunctionComponent<Props> = (props: Props) => {
         paddingX: '1rem',
         flex: '1'
       }}>
-        {props.items.map((item: ProgressSliderProps) => {
+        {items.map((item: ProgressSliderProps) => {
           return (
-            <ProgressSliderItem key={item.text} item={item} setActive={props.setActive} />
+            <ProgressSliderItem key={item.text} useLinks={useLinks} item={item} setActive={setActive} />
           )
         })}
       </Box>

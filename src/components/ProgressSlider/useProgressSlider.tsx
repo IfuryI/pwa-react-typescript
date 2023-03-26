@@ -24,7 +24,7 @@ const useProgressSlider = (props: Props): ReturnType => {
   const setActive = (step: string): void => {
     setItems(
       items.map((item) =>
-        item.text === step
+        item.to === step
           ? { ...item, state: 'Active' }
           : item.state === 'Active' || item.state === 'Inactive'
             ? { ...item, state: 'Inactive' }
@@ -35,9 +35,9 @@ const useProgressSlider = (props: Props): ReturnType => {
   }
 
   const completeStep = (step: string): void => {
-    const nextItem = items.find(i => i.text === step)?.to
-    if (nextItem) {
-      const newItems: ProgressSliderProps[] = items.map(i => {
+    const nextItemIndex = items.findIndex(i => i.text === step) + 1
+    if (nextItemIndex + 1 <= items.length) {
+      const newItems: ProgressSliderProps[] = items.map((i, idx) => {
         if (i.text === step) {
           return {
             ...i,
@@ -45,7 +45,7 @@ const useProgressSlider = (props: Props): ReturnType => {
             state: 'Inactive'
           }
         }
-        if (i.text === nextItem) {
+        if (idx === nextItemIndex) {
           return {
             ...i,
             state: 'Active'
@@ -54,7 +54,7 @@ const useProgressSlider = (props: Props): ReturnType => {
         return i
       })
       setItems(newItems)
-      scrollToStep(nextItem)
+      scrollToStep(items[nextItemIndex].text)
     }
   }
 

@@ -20,11 +20,11 @@ import { type ProgressSliderProps } from 'src/components'
 export type RegistrationSteps = 'personal' | 'phone' | 'verification' | 'photo' | 'summary'
 
 const steps: ProgressSliderProps[] = [
-  { text: 'personal', progress: 0, to: 'phone', state: 'Active' },
-  { text: 'phone', progress: 0, to: 'verification' },
-  { text: 'verification', progress: 0, to: 'photo' },
-  { text: 'photo', progress: 0, to: 'summary' },
-  { text: 'summary', progress: 0, to: 'summary' },
+  { text: 'personal', progress: 0, to: 'personal', state: 'Active' },
+  { text: 'phone', progress: 0, to: 'phone', state: 'Disabled' },
+  { text: 'verification', progress: 0, to: 'verification', state: 'Disabled' },
+  { text: 'photo', progress: 0, to: 'photo', state: 'Disabled' },
+  { text: 'summary', progress: 0, to: 'summary', state: 'Disabled' }
 ]
 
 export const Layout = (): JSX.Element => {
@@ -125,7 +125,7 @@ export const Layout = (): JSX.Element => {
   }
 
   return <div className={styles.registerationLayout}>
-    <ProgressSlider items={items} setActive={setActive} />
+    <ProgressSlider items={items} useLinks={false} setActive={setActive} />
     <div className={styles.layoutContent}>
       {activeStep === 'personal' && <FirstStep user={userInfo}
         stepValid={setFirstStepValid}
