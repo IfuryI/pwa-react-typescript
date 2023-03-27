@@ -1,6 +1,6 @@
 import { Box, Button, IconButton, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material'
 import { type User } from 'models'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AddPerson from 'src/components/Modals/AddPerson/AddPerson'
 import PersonCard from 'src/components/PersonCard/PersonCard'
@@ -11,34 +11,25 @@ import { ReactComponent as SwitchIcon } from '../../../../assets/icons/switch.sv
 import styles from './Who.module.scss'
 
 const Couple: React.FunctionComponent = () => {
-  const [couple, setCouple] = useState<WhoCouple>()
-  const [completed, setCompleted] = useState<number>(1)
   const navigate = useNavigate()
   const { setActive, setPercent } = useActive()
   const { questions, setQuestions } = useBasicQuestions()
   const [open, setOpen] = useState(false)
-  const total: number = 3
 
   const handleOpen = (): void => { setOpen(true) }
   const handleClose = (): void => { setOpen(false) }
   const addPerson = (person: string | User): void => {
-    setCouple({ ...couple, partner: person })
+    setQuestions({
+      ...questions,
+      whoContains: { ...questions.whoContains, partner: person }
+    })
   }
   const handleDelete = (index: number): void => {
-    setCouple({ ...couple, partner: undefined })
+    setQuestions({
+      ...questions,
+      whoContains: { ...questions.whoContains, partner: undefined }
+    })
   }
-
-  useEffect(() => {
-    questions.whoContains !== undefined && (
-      setCouple(questions.whoContains as WhoCouple)
-    )
-  }, [])
-
-  useEffect(() => {
-    setQuestions({ ...questions, whoContains: couple })
-  }, [couple])
-
-
 
   return (
     <Box className={styles.who}>
@@ -55,10 +46,10 @@ const Couple: React.FunctionComponent = () => {
           size='small'
           fullWidth
           color='primary'
-          value={couple?.kind}
+          value={(questions.whoContains as WhoCouple).kind}
           exclusive
           onChange={(e, value) => {
-            setCouple({ ...couple, kind: value })
+            setQuestions({ ...questions, whoContains: { ...questions.whoContains, kind: value } })
           }}>
           <ToggleButton value='MF'>MF</ToggleButton>
           <ToggleButton value='MM'>MM</ToggleButton>
@@ -71,7 +62,8 @@ const Couple: React.FunctionComponent = () => {
         <Button variant='outlined' onClick={handleOpen}>Add partner</Button>
       </Box>
       <Box className={styles.who__persons}>
-        {couple?.partner !== undefined && <PersonCard person={couple?.partner} waiting index={0} handleDelete={handleDelete} />}
+        {(questions.whoContains as WhoCouple).partner !== '' &&
+          <PersonCard person={(questions.whoContains as WhoCouple).partner} waiting index={0} handleDelete={handleDelete} />}
       </Box>
       <Box className={styles.who__nav}>
         <Button

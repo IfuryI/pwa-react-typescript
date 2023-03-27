@@ -6,7 +6,7 @@ export interface WhoFriends {
 }
 export interface WhoCouple {
   kind?: 'MF' | 'MM' | 'FF' | 'other' | undefined
-  partner?: string | User
+  partner: string | User
 }
 export interface WhoFamily {
   adults: number
