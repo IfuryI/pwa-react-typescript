@@ -39,7 +39,6 @@ const useProgressSlider = (props: Props): ReturnType => {
       }
       )
     )
-    console.log(items)
     scrollToStep(active)
   }, [active])
 
