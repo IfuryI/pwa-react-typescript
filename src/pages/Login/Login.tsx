@@ -1,17 +1,25 @@
-import { Box, Button, Divider, IconButton, InputAdornment, type SxProps, TextField, Typography, useTheme } from '@mui/material'
+import { Alert, Box, Button, Divider, Grow, IconButton, InputAdornment, type SxProps, TextField, Typography, useTheme } from '@mui/material'
 import { ReactComponent as GoogleIcon } from '../../assets/sm-icons/GoogleIcon.svg'
 import { ReactComponent as AppleIcon } from '../../assets/sm-icons/AppleIcon.svg'
 import { ReactComponent as FacebookIcon } from '../../assets/sm-icons/FacebookIcon.svg'
 import { useState } from 'react'
 import { useForm, type ValidationRule } from 'react-hook-form'
 import { Link, useNavigate } from 'react-router-dom'
-import styles from '../../styles/utility.module.scss'
+import styles from './Login.module.scss'
+import utilityStyles from '../../styles/utility.module.scss'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
+import { userApiService } from 'api-services'
 
 
 interface SignUpForm {
   email: string
   password: string
+}
+
+interface SignInAlert {
+  visible: boolean
+  severity: 'error' | 'info' | 'success' | 'warning'
+  text: string
 }
 
 const emailPatternValidator = {
@@ -33,6 +41,12 @@ const sxSMButtons: SxProps = {
 
 export const Login = (): JSX.Element => {
   const navigate = useNavigate()
+  const [showAlert, setShowAlert] = useState<SignInAlert>({
+    visible: false,
+    severity: 'success',
+    text: ''
+  })
+
   const theme = useTheme()
   const { register, handleSubmit, formState: { errors, isValid } } = useForm<SignUpForm>({
     defaultValues: {
@@ -48,9 +62,36 @@ export const Login = (): JSX.Element => {
     event.preventDefault()
   }
 
-
   const onSubmit = (data: SignUpForm): void => {
-    navigate('/profile')
+    void userApiService.login(data.email, data.password).then(token => {
+      if (token === null) {
+        setShowAlert({
+          visible: true,
+          severity: 'error',
+          text: 'Something went wrong😮'
+        })
+        setTimeout(() => {
+          setShowAlert({
+            ...showAlert,
+            visible: false
+          })
+        }, 1500)
+      } else {
+        //save token to singleton service
+        setShowAlert({
+          visible: true,
+          severity: 'success',
+          text: 'Welcome back!'
+        })
+        setTimeout(() => {
+          setShowAlert({
+            ...showAlert,
+            visible: false
+          })
+          navigate('/profile')
+        }, 1500)
+      }
+    })
   }
 
   return <>
@@ -67,7 +108,6 @@ export const Login = (): JSX.Element => {
         size="small"
         {...register('email', { pattern: emailPatternValidator, required: 'Email is required' })}
         helperText={errors.email?.message ?? ''} />
-
 
       <TextField fullWidth label="password"
         type={showPassword ? 'text' : 'password'}
@@ -100,15 +140,25 @@ export const Login = (): JSX.Element => {
     </Box>
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '.5rem', width: '100%' }}>
       <Button variant="outlined" sx={sxSMButtons}>
-        <GoogleIcon className={styles.smIcon} />Log in with Google
+        <GoogleIcon className={utilityStyles.smIcon} />Log in with Google
       </Button>
       <Button variant="outlined" sx={sxSMButtons}>
-        <FacebookIcon className={styles.smIcon} />Log in with Facebook
+        <FacebookIcon className={utilityStyles.smIcon} />Log in with Facebook
       </Button>
       <Button variant="outlined" sx={sxSMButtons}>
-        <AppleIcon className={styles.smIcon} />Log in with Apple
+        <AppleIcon className={utilityStyles.smIcon} />Log in with Apple
       </Button>
     </Box>
 
+    <Grow in={showAlert.visible}>
+      <Alert sx={{
+        position: 'absolute',
+        bottom: 0,
+        width: '100%'
+      }} severity={showAlert.severity}>
+        <Typography variant='body1'>{showAlert.text}</Typography>
+      </Alert>
+    </Grow>
+    {showAlert.visible && <div className={styles.transparentBackdrop}></div>}
   </>
 }

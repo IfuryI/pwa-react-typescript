@@ -8,7 +8,7 @@ import MainLayout from '../layouts/Main/MainLayout'
 import { NotFound } from '../pages/NotFound'
 import QuestionnaireBasic from 'src/layouts/QuestionnaireBasic/QuestionnaireBasic'
 import BasicInfo from './profile/questionnaire/BasicInfo'
-import AuthRoutes from './auth'
+import AuthRoutes from './auth/auth'
 import { AuthLayout } from 'src/layouts/Auth/AuthLayout'
 
 const Router: React.FunctionComponent = () => {

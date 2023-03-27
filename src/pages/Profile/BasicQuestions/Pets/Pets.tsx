@@ -35,7 +35,12 @@ const Pets: React.FunctionComponent = () => {
 
   const addPet = (type: string): void => {
     if (questions.pets?.some((pet: Pet) => (pet.type === type)) === true) {
-      setQuestions({ ...questions, pets: questions.pets.map((pet) => ((pet.type === type && pet.count !== undefined) ? { ...pet, count: Number(pet.count) + 1 } : { ...pet })) })
+      setQuestions({
+        ...questions,
+        pets: questions.pets.map((pet) => ((pet.type === type && pet.count !== undefined)
+          ? { ...pet, count: Number(pet.count) + 1 }
+          : { ...pet }))
+      })
     } else if (questions.pets !== undefined) {
       setQuestions({ ...questions, pets: [...questions.pets, { type, count: 1 }] })
     } else {

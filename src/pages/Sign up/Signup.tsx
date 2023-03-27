@@ -1,11 +1,11 @@
-import { Box, Button, Divider, IconButton, InputAdornment, type SxProps, TextField, Typography, useTheme } from '@mui/material'
+import { Button, Divider, IconButton, InputAdornment, SxProps, TextField, Typography, useTheme } from '@mui/material'
 import { useState } from 'react'
 import { useForm, type ValidationRule } from 'react-hook-form'
-import { ReactComponent as GoogleIcon } from '../../assets/sm-icons/GoogleIcon.svg'
+import { Link, useNavigate } from 'react-router-dom'
+import styles from './Signup.module.scss'
 import { ReactComponent as AppleIcon } from '../../assets/sm-icons/AppleIcon.svg'
 import { ReactComponent as FacebookIcon } from '../../assets/sm-icons/FacebookIcon.svg'
-import { Link, useNavigate } from 'react-router-dom'
-import styles from '../../styles/utility.module.scss'
+import { ReactComponent as GoogleIcon } from '../../assets/sm-icons/GoogleIcon.svg'
 import { Visibility, VisibilityOff } from '@mui/icons-material'
 
 interface SignUpForm {
@@ -45,22 +45,25 @@ export const SignUp = (): JSX.Element => {
   }
 
   const onSubmit = (data: SignUpForm): void => {
-    navigate('/auth/terms')
+    navigate('/auth/terms', {
+      state: {
+        email: data.email,
+        password: data.password
+      }
+    })
   }
 
-  const sxSMButtons: SxProps = {
-    display: 'flex',
-    gap: '1rem',
-    paddingY: '.75rem',
-    justifyContent: 'left'
+  const iconsProps: SxProps = {
+    widows: '20px',
+    height: '20px'
   }
 
   return <>
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '.5rem', alignItems: 'center' }}>
+    <div className={styles.headerSection}>
       <Typography variant='h1'>Sign Up</Typography>
       <Typography variant='body1'>Already have an account? <Link to='/auth/login'><Typography component='span' sx={{ color: theme.palette.primary.main }}>Log in</Typography></Link></Typography>
-    </Box>
-    <Box sx={{ display: 'flex', flexDirection: 'column', gap: '1rem', width: '100%', marginTop: '1.5rem', alignItems: 'center' }}>
+    </div>
+    <div className={styles.group}>
       <TextField fullWidth label="E-mail"
         type='email'
         error={!(errors.email == null)}
@@ -117,14 +120,12 @@ export const SignUp = (): JSX.Element => {
 
       <Button disabled={!isValid}
         onClick={(e) => { void handleSubmit(onSubmit)(e) }}
-        fullWidth
         variant="contained"
-        sx={{ width: '50%' }}
-      >
+        sx={{width: '60%'}}>
         Sign up
       </Button>
-    </Box>
-    <Box sx={{ width: '100%', alignItems: 'center', marginY: '1.5rem' }}>
+    </div>
+    {/* <Box sx={{ width: '100%', alignItems: 'center', marginY: '1.5rem' }}>
       <Divider><Typography variant='h2'>or</Typography></Divider>
     </Box>
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: '.5rem', width: '100%' }}>
@@ -137,6 +138,24 @@ export const SignUp = (): JSX.Element => {
       <Button variant="outlined" sx={sxSMButtons}>
         <AppleIcon className={styles.smIcon} />Sign up with Apple
       </Button>
-    </Box>
+    </Box> */}
+    <div className={styles.divider}>
+      <Divider>OR</Divider>
+      <Typography variant='h2'>Sign Up with</Typography>
+    </div>
+    <div className={styles.buttons}>
+      <Button variant="outlined" size='small' startIcon={
+        <GoogleIcon width={20} height={20}/>}>
+        Google
+      </Button>
+      <Button variant="outlined" size='small' startIcon={
+        <FacebookIcon width={20} height={20}/>}>
+        Facebook
+      </Button>
+      <Button variant="outlined" size='small' startIcon={
+        <AppleIcon width={20} height={20} />}>
+        Apple
+      </Button>
+    </div>
   </>
 }

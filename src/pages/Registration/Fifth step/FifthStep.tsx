@@ -1,40 +1,27 @@
 import { Avatar, Card, CardContent, CardHeader, IconButton, Typography, useTheme } from '@mui/material'
-import { useEffect } from 'react'
-import { type User } from '../../../models/user'
+import { type UserForm } from '../../../models/user'
 import styles from './FifthStep.module.scss'
 import { calculateAge, mapToRusFormat } from 'src/utils/date-time'
 import EditIcon from '@mui/icons-material/Edit'
 import PermPhoneMsgIcon from '@mui/icons-material/PermPhoneMsg'
 import { UserCard } from 'src/components/UserCard/UserCard'
 import PersonIcon from '@mui/icons-material/Person'
+import { RegistrationSteps } from '../Layout'
 
 export interface FifthStepProps {
-  user: User
-  onEditStep: (index: number) => void
+  user: UserForm
+  onEditStep: (step: RegistrationSteps) => void
 }
 
 export const FifthStep = ({ user, onEditStep }: FifthStepProps): JSX.Element => {
   const theme = useTheme()
-
-  useEffect(() => {
-    const avatarImgElement = document.querySelector('[data-id="user-avatar"]')
-    if (user.avatar != null) {
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        // @ts-expect-error
-        avatarImgElement?.setAttribute('src', reader.result)
-      }
-      reader.readAsDataURL(user.avatar)
-    }
-    return () => { }
-  }, [user])
 
   return <div className={styles.userSummaryInfo}>
     <Typography variant='h1' >Check yor data</Typography>
     <Card>
       <CardHeader className={styles.cardHeader} avatar={
         user.avatar !== null && user.avatar !== undefined
-          ? <img id={styles.userAvatar} data-id='user-avatar' src="#" alt="avatar" />
+          ? <img id={styles.userAvatar} data-id='user-avatar' src={user.avatar} alt="avatar" />
           : <Avatar><PersonIcon></PersonIcon></Avatar>
       }
         title={`${user.firstName} ${user.lastName}`}
@@ -42,7 +29,7 @@ export const FifthStep = ({ user, onEditStep }: FifthStepProps): JSX.Element => 
         action={
           <IconButton sx={{ color: theme.palette.primary.main }}
             aria-label="edit"
-            onClick={() => { onEditStep(0) }}>
+            onClick={() => { onEditStep('personal') }}>
             <EditIcon fontSize='small' />
           </IconButton>
         }>
@@ -53,7 +40,7 @@ export const FifthStep = ({ user, onEditStep }: FifthStepProps): JSX.Element => 
           <Typography style={{ flex: 1 }} fontSize={14}>{user.phone}</Typography>
           <IconButton sx={{ color: theme.palette.primary.main }}
             aria-label="edit"
-            onClick={() => { onEditStep(1) }}>
+            onClick={() => { onEditStep('phone') }}>
             <EditIcon fontSize='small' />
           </IconButton>
         </div>
@@ -67,7 +54,7 @@ export const FifthStep = ({ user, onEditStep }: FifthStepProps): JSX.Element => 
         <IconButton sx={{ color: theme.palette.primary.main }}
           size='small'
           aria-label="edit"
-          onClick={() => { onEditStep(3) }}>
+          onClick={() => { onEditStep('photo') }}>
           <EditIcon fontSize='small' />
           <Typography fontSize={14} marginLeft='0.5rem'>Edit</Typography>
         </IconButton>

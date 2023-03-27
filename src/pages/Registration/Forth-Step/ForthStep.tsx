@@ -1,6 +1,6 @@
 import styles from './ForthStep.module.scss'
 import { FormHelperText, IconButton, Typography, useTheme } from '@mui/material'
-import { type ChangeEvent, useEffect, useState } from 'react'
+import { type ChangeEvent, useState } from 'react'
 import { type NewUser } from '../../../models/user'
 import { ImageCropper } from './ImageCropper/ImageCropper'
 import UploadFileIcon from '@mui/icons-material/UploadFile'
@@ -10,12 +10,12 @@ import { calculateAge } from 'src/utils/date-time'
 
 export interface ForthStepProps {
   user: NewUser
-  photoChange: ({ profilePhoto, avatarPhoto }: { profilePhoto: File, avatarPhoto: File }) => void
+  photoChange: ({ profilePhoto, avatarPhoto }: { profilePhoto: string, avatarPhoto: string }) => void
 }
 
 export const ForthStep = ({ user, photoChange }: ForthStepProps): JSX.Element => {
   const theme = useTheme()
-  const [image, setImage] = useState<File | null | undefined>(user.photo)
+  const [image, setImage] = useState<string | null | undefined>(user.photo)
   const [imageSizeError, setImageSizeError] = useState(false)
   const [test, setTest] = useState('')
   const [cropVisible, setCropVisible] = useState(false)
@@ -28,18 +28,6 @@ export const ForthStep = ({ user, photoChange }: ForthStepProps): JSX.Element =>
     reader.readAsDataURL(photo)
     return reader
   }
-
-  useEffect(() => {
-    const img = document.querySelector('[data-id="img"]')
-    if ((image != null) && !imageSizeError) {
-      const reader = new FileReader()
-      reader.onloadend = () => {
-        img?.setAttribute('src', reader.result as string)
-      }
-      reader.readAsDataURL(image)
-    }
-    return () => { }
-  }, [image, imageSizeError])
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>): void => {
     if ((e.target.files != null)) {
@@ -77,9 +65,7 @@ export const ForthStep = ({ user, photoChange }: ForthStepProps): JSX.Element =>
 
     {imageSizeError && <FormHelperText error={true}>Up to 20MB files are allowed</FormHelperText>}
 
-    {cropVisible && <ImageCropper title='Profile photo' image={test} acceptImage={(blobs) => {
-      const profilePhoto = new File([blobs[0]], 'profile')
-      const avatarPhoto = new File([blobs[1]], 'avatar')
+    {cropVisible && <ImageCropper title='Profile photo' image={test} acceptImage={([profilePhoto, avatarPhoto]) => {
       photoChange({ profilePhoto, avatarPhoto })
       setImage(profilePhoto)
       setCropVisible(false);
@@ -89,7 +75,7 @@ export const ForthStep = ({ user, photoChange }: ForthStepProps): JSX.Element =>
     <input id='photo-upload'
       className={styles.hiddenInput}
       type="file"
-      accept='.jpg,.jpeg,.png'
+      accept='.jpeg,.jpg,.png'
       name=""
       onChange={handleFileChange}
     />

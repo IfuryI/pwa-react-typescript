@@ -10,19 +10,52 @@ interface ReturnType {
   setActive: (active: string) => void
   setPercent: (percent: number, total: number, to: string) => void
   setPercentAndGo: (progress: number, total: number, to: string, active: string) => void
+  completeStep: (step: string) => void
 }
 
 const useProgressSlider = (props: Props): ReturnType => {
   const [items, setItems] = useState<ProgressSliderProps[]>(props.items)
 
-  const setActive = (active: string): void => {
+  const scrollToStep = (step: string): void => {
+    const element = document.getElementById(step)
+    if (element !== null) { element.scrollIntoView({ inline: 'center', behavior: 'smooth' }) }
+  }
+
+  const setActive = (step: string): void => {
     setItems(
       items.map((item) =>
-        item.to === active ? { ...item, state: 'Active' } : item.state === 'Active' || item.state === 'Inactive' ? { ...item, state: 'Inactive' } : { ...item, state: 'Disabled' }
+        item.to === step
+          ? { ...item, state: 'Active' }
+          : item.state === 'Active' || item.state === 'Inactive'
+            ? { ...item, state: 'Inactive' }
+            : { ...item, state: 'Disabled' }
       )
     )
-    const element = document.getElementById(active)
-    if (element !== null) { element.scrollIntoView({ inline: 'center', behavior: 'smooth' }) }
+    scrollToStep(step)
+  }
+
+  const completeStep = (step: string): void => {
+    const nextItemIndex = items.findIndex(i => i.text === step) + 1
+    if (nextItemIndex + 1 <= items.length) {
+      const newItems: ProgressSliderProps[] = items.map((i, idx) => {
+        if (i.text === step) {
+          return {
+            ...i,
+            progress: 100,
+            state: 'Inactive'
+          }
+        }
+        if (idx === nextItemIndex) {
+          return {
+            ...i,
+            state: 'Active'
+          }
+        }
+        return i
+      })
+      setItems(newItems)
+      scrollToStep(items[nextItemIndex].text)
+    }
   }
 
   const setPercent = (progress: number, total: number, to: string): void => {
@@ -46,6 +79,6 @@ const useProgressSlider = (props: Props): ReturnType => {
     const element = document.getElementById(active)
     if (element !== null) { element.scrollIntoView({ inline: 'center', behavior: 'smooth' }) }
   }
-  return { items, setPercent, setActive, setPercentAndGo } as const
+  return { items, setPercent, setActive, setPercentAndGo, completeStep } as const
 }
 export default useProgressSlider

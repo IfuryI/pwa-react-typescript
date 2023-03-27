@@ -15,7 +15,7 @@ export interface FirstStepProps {
 }
 
 export const FirstStep = ({ user, stepValid, userInfoChange }: FirstStepProps): JSX.Element => {
-  const { register, control, handleSubmit, watch, formState: { errors } } = useForm<EmptyPersonalInfo>({
+  const { register, control, watch, formState: { errors } } = useForm<EmptyPersonalInfo>({
     defaultValues: {
       firstName: user.firstName,
       lastName: user.lastName,
@@ -27,10 +27,9 @@ export const FirstStep = ({ user, stepValid, userInfoChange }: FirstStepProps): 
 
   useEffect(() => {
     const subss = watch(({ firstName, lastName, gender, birthday }) => {
-      const valid = !!firstName && !!lastName // || !errors.birthday;
+      const valid = !!firstName && !!lastName 
       stepValid(valid)
       userInfoChange({ firstName, lastName, birthday, gender })
-      // setSubmitBtnDisabled(hasErrors || !(email && password && termsAccepted))
     })
     return () => { subss.unsubscribe() }
   }, [watch, errors, stepValid])
