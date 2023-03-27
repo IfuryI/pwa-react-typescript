@@ -12,7 +12,7 @@ import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined'
 const Languages: React.FunctionComponent = () => {
   const [search, setSearch] = useState<string>('')
   const [langList, setLangList] = useState(languages)
-  const { setActive, setPercent, setPercentAndGo } = useActive()
+  const { setActive, setPercentAndGo } = useActive()
   const { questions, setQuestions } = useBasicQuestions()
   const navigate = useNavigate()
 
@@ -20,12 +20,8 @@ const Languages: React.FunctionComponent = () => {
     setLangList(languages.filter(language => language.name.toLowerCase().includes(search.toLowerCase())))
   }, [search])
 
-  useEffect(() => {
-    questions.languages.length > 0 ? setPercent(1, 1, 'languages') : setPercent(0, 1, 'languages')
-  }, [questions])
-
   const addLanguage = (language: string): void => {
-    if (questions.languages.some(lang => lang === language) === false) {
+    if (!questions.languages.some(lang => lang === language)) {
       setQuestions({ ...questions, languages: [...questions.languages, language] })
     }
   }

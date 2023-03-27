@@ -1,18 +1,13 @@
 import { Box, Button, TextField, Typography } from '@mui/material'
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useActive } from 'src/components/ProgressSlider/ProgressSlider'
 import { useBasicQuestions } from 'src/layouts/QuestionnaireBasic/QuestionnaireBasic'
 import styles from '../BasicQuestions.module.scss'
 
 const About: React.FunctionComponent = () => {
-  const { setActive, setPercent, setPercentAndGo } = useActive()
+  const { setActive, setPercentAndGo } = useActive()
   const { questions, setQuestions } = useBasicQuestions()
   const navigate = useNavigate()
-
-  useEffect(() => {
-    questions.about !== '' ? setPercent(1, 1, 'about') : setPercent(0, 1, 'about')
-  }, [questions])
 
   return (
     <Box className={styles.question}>

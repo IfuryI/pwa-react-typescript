@@ -10,13 +10,11 @@ import PersonCard from 'src/components/PersonCard/PersonCard'
 import AddPerson from 'src/components/Modals/AddPerson/AddPerson'
 
 const Friends: React.FunctionComponent = () => {
-  const [friends, setFriends] = useState<WhoFriends>({ people: [] })
-  const [completed, setCompleted] = useState<number>(1)
+  const [friends, setFriends] = useState<WhoFriends>({ count: 0, people: [] })
   const navigate = useNavigate()
   const { setActive, setPercent } = useActive()
   const { questions, setQuestions } = useBasicQuestions()
   const [open, setOpen] = useState(false)
-  const total: number = 3
 
   const handleOpen = (): void => { setOpen(true) }
   const handleClose = (): void => { setOpen(false) }
@@ -41,14 +39,7 @@ const Friends: React.FunctionComponent = () => {
 
   useEffect(() => {
     setQuestions({ ...questions, whoContains: friends })
-    const isCount: number = friends?.count !== undefined && friends?.count > 0 ? 1 : 0
-    const isFriends: number = friends?.people !== undefined && friends?.people.length > 0 ? 1 : 0
-    setCompleted(1 + isCount + isFriends)
   }, [friends])
-
-  useEffect(() => {
-    setPercent(completed, total, 'who')
-  }, [completed])
 
   return (
     <Box className={styles.who}>
@@ -81,7 +72,9 @@ const Friends: React.FunctionComponent = () => {
         <Button variant='outlined' onClick={handleOpen}>Add friend</Button>
       </Box>
       <Box className={styles.who__persons}>
-        {friends?.people !== undefined && (friends?.people.length > 0 && friends.people.map((friend, index) => <PersonCard key={index} person={friend} waiting index={index} handleDelete={handleDelete} />))}
+        {friends?.people !== undefined && (friends?.people.length > 0 &&
+          friends.people.map((friend, index) =>
+            <PersonCard key={index} person={friend} waiting index={index} handleDelete={handleDelete} />))}
       </Box>
       <Box className={styles.who__nav}>
         <Button

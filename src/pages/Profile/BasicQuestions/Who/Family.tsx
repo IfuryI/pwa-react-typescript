@@ -10,7 +10,7 @@ import AddPerson from 'src/components/Modals/AddPerson/AddPerson'
 import PersonCard from 'src/components/PersonCard/PersonCard'
 
 const Family: React.FunctionComponent = () => {
-  const [family, setFamily] = useState<WhoFamily>({ people: [] })
+  const [family, setFamily] = useState<WhoFamily>({ adults: 0, kids: 0, people: [] })
   const [completed, setCompleted] = useState<number>(1)
   const navigate = useNavigate()
   const { setActive, setPercent } = useActive()
@@ -41,10 +41,7 @@ const Family: React.FunctionComponent = () => {
 
   useEffect(() => {
     setQuestions({ ...questions, whoContains: family })
-    const isKids: number = family?.kids !== undefined && family?.kids > 0 ? 1 : 0
-    const isAdults: number = family?.adults !== undefined && family?.adults > 0 ? 1 : 0
-    const isFamily: number = family?.people !== undefined && family?.people.length > 0 ? 1 : 0
-    setCompleted(1 + isKids + isAdults + isFamily)
+    
   }, [family])
 
   useEffect(() => {

@@ -1,5 +1,4 @@
 import { Box, Button, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material'
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PetButton from 'src/components/Buttons/PetButton/PetButton'
 import { useActive } from 'src/components/ProgressSlider/ProgressSlider'
@@ -16,7 +15,7 @@ import PetList from 'src/components/PetList/PetList'
 
 const Pets: React.FunctionComponent = () => {
   const navigate = useNavigate()
-  const { setActive, setPercent, setPercentAndGo } = useActive()
+  const { setActive, setPercentAndGo } = useActive()
   const { questions, setQuestions } = useBasicQuestions()
   const petTypes = [
     { type: 'cat', icon: CatSvg },
@@ -25,13 +24,6 @@ const Pets: React.FunctionComponent = () => {
     { type: 'bird', icon: BirdSvg },
     { type: 'other', icon: OtherSvg }
   ]
-
-  useEffect(() => {
-    const isHavePets: number = questions.havePets === undefined || questions.havePets === null ? 0 : 1
-    const total: number = (questions.havePets === true) ? 2 : 1
-    const isPets: number = questions.pets?.some((pet: Pet) => (pet.count > 0)) === true && questions.havePets === true ? 1 : 0
-    setPercent(isHavePets + isPets, total, 'pets')
-  }, [questions])
 
   const addPet = (type: string): void => {
     if (questions.pets?.some((pet: Pet) => (pet.type === type)) === true) {
@@ -50,7 +42,12 @@ const Pets: React.FunctionComponent = () => {
 
   const deletePet = (type: string): void => {
     if (questions.pets?.some((pet: Pet) => (pet.type === type)) === true) {
-      setQuestions({ ...questions, pets: questions.pets.map((pet) => ((pet.type === type && pet.count !== undefined) ? { ...pet, count: pet.count - 1 } : { ...pet })) })
+      setQuestions({
+        ...questions,
+        pets: questions.pets.map((pet) => ((pet.type === type && pet.count !== undefined)
+          ? { ...pet, count: pet.count - 1 }
+          : { ...pet }))
+      })
     }
   }
 

@@ -1,7 +1,7 @@
 import { User } from "./user"
 
 export interface WhoFriends {
-  count?: number
+  count: number
   people: (string | User)[]
 }
 export interface WhoCouple {
@@ -9,8 +9,8 @@ export interface WhoCouple {
   partner?: string | User
 }
 export interface WhoFamily {
-  adults?: number
-  kids?: number
+  adults: number
+  kids: number
   people: (string | User)[]
 }
 

@@ -36,14 +36,9 @@ const Couple: React.FunctionComponent = () => {
 
   useEffect(() => {
     setQuestions({ ...questions, whoContains: couple })
-    const isKind: number = couple?.kind !== undefined ? 1 : 0
-    const isPartner: number = couple?.partner !== undefined ? 1 : 0
-    setCompleted(1 + isKind + isPartner)
   }, [couple])
 
-  useEffect(() => {
-    setPercent(completed, total, 'who')
-  }, [completed])
+
 
   return (
     <Box className={styles.who}>

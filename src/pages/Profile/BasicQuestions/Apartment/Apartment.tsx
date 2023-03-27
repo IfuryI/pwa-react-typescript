@@ -1,5 +1,4 @@
 import { Box, Button, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material'
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useActive } from 'src/components/ProgressSlider/ProgressSlider'
 import { useBasicQuestions } from 'src/layouts/QuestionnaireBasic/QuestionnaireBasic'
@@ -10,9 +9,6 @@ const Apartment: React.FunctionComponent = () => {
   const { setPercent } = useActive()
   const { questions, setQuestions } = useBasicQuestions()
 
-  useEffect(() => {
-    questions?.apartment !== undefined && questions?.apartment !== null ? setPercent(1, 1, 'apartment') : setPercent(0, 1, 'apartment')
-  }, [questions])
   return (
     <Box className={styles.question}>
       <Box className={styles.question__head}>

@@ -1,12 +1,11 @@
 import { Box, Button, Checkbox, FormControlLabel, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material'
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useActive } from 'src/components/ProgressSlider/ProgressSlider'
 import { useBasicQuestions } from 'src/layouts/QuestionnaireBasic/QuestionnaireBasic'
 import styles from '../BasicQuestions.module.scss'
 
 const Smoking: React.FunctionComponent = () => {
-  const { setActive, setPercent, setPercentAndGo } = useActive()
+  const { setActive, setPercentAndGo } = useActive()
   const { questions, setQuestions } = useBasicQuestions()
   const navigate = useNavigate()
   const options = ['cigarettes', 'vape', 'shisha', 'cigars', 'other']
@@ -18,13 +17,6 @@ const Smoking: React.FunctionComponent = () => {
       setQuestions({ ...questions, smokingWhat: questions.smokingWhat.filter((item) => (item !== option)) })
     }
   }
-
-  useEffect(() => {
-    const isSmoking: number = questions.smoker === undefined || questions.smoker === null ? 0 : 1
-    const total: number = (questions.smoker === true) ? 2 : 1
-    const isSmokingWhat: number = questions.smokingWhat?.length > 0 && questions.smoker === true ? 1 : 0
-    setPercent(isSmoking + isSmokingWhat, total, 'smoking')
-  }, [questions])
 
   return (
     <Box className={styles.question}>
@@ -49,7 +41,14 @@ const Smoking: React.FunctionComponent = () => {
               <Typography variant='h2'>What do you like to smoke?</Typography>
               <Box className={styles.question__input_zeroGap}>
                 {options.map((option, index) => (
-                  <FormControlLabel key={index} control={ <Checkbox value='' checked={ questions.smokingWhat?.some(what => what === option) } onChange={(e) => { handleCheck(e, option) }}/> } label={option} />
+                  <FormControlLabel
+                    key={index}
+                    control={<Checkbox
+                      value=''
+                      checked={questions.smokingWhat?.some(what => what === option)}
+                      onChange={(e) => { handleCheck(e, option) }}
+                    />}
+                    label={option} />
                 ))}
               </Box>
             </Box>
