@@ -1,12 +1,10 @@
 import { Box, Button, Typography } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
-import { useActive } from 'src/components/ProgressSlider/ProgressSlider'
 import { useBasicQuestions } from 'src/layouts/QuestionnaireBasic/QuestionnaireBasic'
 import styles from './Who.module.scss'
 
 const Alone: React.FunctionComponent = () => {
   const navigate = useNavigate()
-  const { setActive } = useActive()
   const { questions, setQuestions } = useBasicQuestions()
   return (
     <Box className={styles.AloneBox}>

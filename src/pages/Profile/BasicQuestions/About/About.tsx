@@ -10,7 +10,7 @@ const About: React.FunctionComponent = () => {
   const { questions, setQuestions } = useBasicQuestions()
   const navigate = useNavigate()
 
-  useEffect(()=>{ setActive('about') }, [])
+  useEffect(() => { setActive('about') }, [])
   return (
     <Box className={styles.question}>
       <Box className={styles.question__head}>

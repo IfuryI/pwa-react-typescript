@@ -3,7 +3,6 @@ import styles from './Who.module.scss'
 import { ReactComponent as SwitchIcon } from '../../../../assets/icons/switch.svg'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useActive } from 'src/components/ProgressSlider/ProgressSlider'
 import { useBasicQuestions } from 'src/layouts/QuestionnaireBasic/QuestionnaireBasic'
 import { type User, type WhoFriends } from 'models'
 import PersonCard from 'src/components/PersonCard/PersonCard'
@@ -11,7 +10,6 @@ import AddPerson from 'src/components/Modals/AddPerson/AddPerson'
 
 const Friends: React.FunctionComponent = () => {
   const navigate = useNavigate()
-  const { setActive } = useActive()
   const { questions, setQuestions } = useBasicQuestions()
   const [open, setOpen] = useState(false)
 

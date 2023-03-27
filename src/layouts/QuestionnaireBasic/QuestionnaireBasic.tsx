@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { Outlet, useOutletContext } from 'react-router-dom'
 import ProgressSlider from 'src/components/ProgressSlider/ProgressSlider'
 import useProgressSlider from 'src/components/ProgressSlider/useProgressSlider'
-import { WhoCouple, WhoFamily, WhoFriends, type Pet, type QuestionnaireBasicType } from 'src/models/questionnaireBasic'
+import { type WhoCouple, type WhoFamily, type WhoFriends, type Pet, type QuestionnaireBasicType } from 'src/models/questionnaireBasic'
 
 const QuestionnaireBasic: React.FunctionComponent = () => {
   const { items, setPercent, setActive, setPercentAndGo } = useProgressSlider({
@@ -30,17 +30,35 @@ const QuestionnaireBasic: React.FunctionComponent = () => {
     if (questions.who === 'Alone') {
       setPercent(1, 1, 'who')
     } else if (questions.who === 'Couple') {
-      const isKind: number = (questions.whoContains as WhoCouple)?.kind ? 1 : 0
+      const isKind: number = (questions.whoContains as WhoCouple)?.kind !== undefined &&
+        (questions.whoContains as WhoCouple)?.kind !== null
+        ? 1
+        : 0
       const isPartner: number = (questions.whoContains as WhoCouple)?.partner !== undefined ? 1 : 0
       setPercent(1 + isKind + isPartner, 3, 'who')
     } else if (questions.who === 'Friends') {
-      const isCount: number = (questions.whoContains as WhoFriends)?.count !== null && (questions.whoContains as WhoFriends)?.count > 0 ? 1 : 0
-      const isFriends: number = (questions.whoContains as WhoFriends)?.people !== undefined && (questions.whoContains as WhoFriends)?.people.length > 0 ? 1 : 0
+      const isCount: number = (questions.whoContains as WhoFriends)?.count !== null &&
+        (questions.whoContains as WhoFriends)?.count > 0
+        ? 1
+        : 0
+      const isFriends: number = (questions.whoContains as WhoFriends)?.people !== undefined &&
+        (questions.whoContains as WhoFriends)?.people.length > 0
+        ? 1
+        : 0
       setPercent(1 + isCount + isFriends, 3, 'who')
     } else if (questions.who === 'Family') {
-      const isKids: number = (questions.whoContains as WhoFamily)?.kids !== undefined && (questions.whoContains as WhoFamily)?.kids > 0 ? 1 : 0
-      const isAdults: number = (questions.whoContains as WhoFamily)?.adults !== undefined && (questions.whoContains as WhoFamily)?.adults > 0 ? 1 : 0
-      const isFamily: number = (questions.whoContains as WhoFamily)?.people !== undefined && (questions.whoContains as WhoFamily)?.people.length > 0 ? 1 : 0
+      const isKids: number = (questions.whoContains as WhoFamily)?.kids !== undefined &&
+        (questions.whoContains as WhoFamily)?.kids > 0
+        ? 1
+        : 0
+      const isAdults: number = (questions.whoContains as WhoFamily)?.adults !== undefined &&
+        (questions.whoContains as WhoFamily)?.adults > 0
+        ? 1
+        : 0
+      const isFamily: number = (questions.whoContains as WhoFamily)?.people !== undefined &&
+        (questions.whoContains as WhoFamily)?.people.length > 0
+        ? 1
+        : 0
       setPercent(1 + isKids + isAdults + isFamily, 4, 'who')
     }
   }, [questions.who, questions.whoContains])

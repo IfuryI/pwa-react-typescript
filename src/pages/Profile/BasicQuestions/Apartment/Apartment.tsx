@@ -10,7 +10,7 @@ const Apartment: React.FunctionComponent = () => {
   const { setActive, setPercent } = useActive()
   const { questions, setQuestions } = useBasicQuestions()
 
-useEffect(() => { setActive('apartment') }, [])
+  useEffect(() => { setActive('apartment') }, [])
 
   return (
     <Box className={styles.question}>

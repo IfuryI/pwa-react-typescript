@@ -28,15 +28,15 @@ const useProgressSlider = (props: Props): ReturnType => {
     active !== '' && setItems(
       items.map((item) => {
         if (item.to === active) {
-          item.state = 'Active'  
+          item.state = 'Active'
           found = true
-        } else if (item.state === 'Active' || item.state === 'Inactive' || !found || props.finished ) {
+        } else if (item.state === 'Active' || item.state === 'Inactive' || !found || props.finished === true) {
           item.state = 'Inactive'
         } else {
           item.state = 'Disabled'
         }
         return item
-      }        
+      }
       )
     )
     console.log(items)
@@ -80,7 +80,9 @@ const useProgressSlider = (props: Props): ReturnType => {
       items.map((item) => {
         let state: SliderState, percent
         item.to === to && progress !== null ? percent = 100 / total * progress : percent = item.progress
-        item.to === active ? state = 'Active' : item.state === 'Active' || item.state === 'Inactive' ? state = 'Inactive' : state = 'Disabled'
+        item.to === active
+          ? state = 'Active'
+          : item.state === 'Active' || item.state === 'Inactive' ? state = 'Inactive' : state = 'Disabled'
         return { ...item, state, progress: percent }
       }
       )

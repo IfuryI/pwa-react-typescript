@@ -26,14 +26,9 @@ const Pets: React.FunctionComponent = () => {
     { type: 'other', icon: OtherSvg }
   ]
 
-  let loaded = false
   useEffect(() => {
-    if (loaded === false) {
-      setActive('pets')
-      loaded = true
-    }
+    setActive('pets')
   }, [])
-
 
   const addPet = (type: string): void => {
     if (questions.pets?.some((pet: Pet) => (pet.type === type)) === true) {

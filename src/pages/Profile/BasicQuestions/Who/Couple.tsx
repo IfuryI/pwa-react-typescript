@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AddPerson from 'src/components/Modals/AddPerson/AddPerson'
 import PersonCard from 'src/components/PersonCard/PersonCard'
-import { useActive } from 'src/components/ProgressSlider/ProgressSlider'
 import { useBasicQuestions } from 'src/layouts/QuestionnaireBasic/QuestionnaireBasic'
 import { type WhoCouple } from 'src/models/questionnaireBasic'
 import { ReactComponent as SwitchIcon } from '../../../../assets/icons/switch.svg'
@@ -12,7 +11,6 @@ import styles from './Who.module.scss'
 
 const Couple: React.FunctionComponent = () => {
   const navigate = useNavigate()
-  const { setActive } = useActive()
   const { questions, setQuestions } = useBasicQuestions()
   const [open, setOpen] = useState(false)
 

@@ -11,7 +11,7 @@ const Smoking: React.FunctionComponent = () => {
   const navigate = useNavigate()
   const options = ['cigarettes', 'vape', 'shisha', 'cigars', 'other']
 
-  useEffect (() => {setActive('smoking')}, [])
+  useEffect(() => { setActive('smoking') }, [])
 
   const handleCheck = (e: React.ChangeEvent<HTMLInputElement>, option: string): void => {
     if (e.target.checked) {

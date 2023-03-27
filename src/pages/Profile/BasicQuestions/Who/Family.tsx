@@ -2,7 +2,6 @@ import { Box, Button, IconButton, ToggleButton, ToggleButtonGroup, Typography } 
 import { type User, type WhoFamily } from 'models'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useActive } from 'src/components/ProgressSlider/ProgressSlider'
 import { useBasicQuestions } from 'src/layouts/QuestionnaireBasic/QuestionnaireBasic'
 import styles from './Who.module.scss'
 import { ReactComponent as SwitchIcon } from '../../../../assets/icons/switch.svg'
@@ -11,7 +10,6 @@ import PersonCard from 'src/components/PersonCard/PersonCard'
 
 const Family: React.FunctionComponent = () => {
   const navigate = useNavigate()
-  const { setActive } = useActive()
   const { questions, setQuestions } = useBasicQuestions()
   const [open, setOpen] = useState(false)
 
