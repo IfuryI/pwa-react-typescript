@@ -12,7 +12,7 @@ import styles from './Who.module.scss'
 
 const Couple: React.FunctionComponent = () => {
   const navigate = useNavigate()
-  const { setActive, setPercent } = useActive()
+  const { setActive } = useActive()
   const { questions, setQuestions } = useBasicQuestions()
   const [open, setOpen] = useState(false)
 
@@ -36,7 +36,6 @@ const Couple: React.FunctionComponent = () => {
       <Box className={styles.who__head}>
         <Typography variant='h1'>Couple</Typography>
         <IconButton onClick={() => {
-          setPercent(0, 1, 'who')
           setQuestions({ ...questions, who: undefined, whoContains: undefined })
         }}><SwitchIcon /></IconButton>
       </Box>

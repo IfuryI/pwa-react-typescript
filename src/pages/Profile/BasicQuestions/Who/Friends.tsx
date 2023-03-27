@@ -1,7 +1,7 @@
 import { Box, Button, IconButton, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material'
 import styles from './Who.module.scss'
 import { ReactComponent as SwitchIcon } from '../../../../assets/icons/switch.svg'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useActive } from 'src/components/ProgressSlider/ProgressSlider'
 import { useBasicQuestions } from 'src/layouts/QuestionnaireBasic/QuestionnaireBasic'
@@ -10,43 +10,49 @@ import PersonCard from 'src/components/PersonCard/PersonCard'
 import AddPerson from 'src/components/Modals/AddPerson/AddPerson'
 
 const Friends: React.FunctionComponent = () => {
-  const [friends, setFriends] = useState<WhoFriends>({ count: 0, people: [] })
   const navigate = useNavigate()
-  const { setActive, setPercent } = useActive()
+  const { setActive } = useActive()
   const { questions, setQuestions } = useBasicQuestions()
   const [open, setOpen] = useState(false)
 
   const handleOpen = (): void => { setOpen(true) }
   const handleClose = (): void => { setOpen(false) }
   const addPerson = (person: string | User): void => {
-    if (friends.people !== undefined) {
-      setFriends({ ...friends, people: [...friends.people, person] })
+    if ((questions.whoContains as WhoFriends).people !== undefined) {
+      setQuestions({
+        ...questions,
+        whoContains: {
+          ...questions.whoContains,
+          people: [...(questions.whoContains as WhoFriends).people, person]
+        }
+      })
     } else {
-      setFriends({ ...friends, people: [person] })
+      setQuestions({
+        ...questions,
+        whoContains: {
+          ...questions.whoContains,
+          people: [person]
+        }
+      })
     }
   }
   const handleDelete = (index: number): void => {
-    if (friends.people !== undefined) {
-      setFriends({ ...friends, people: friends.people.filter((s, i) => i !== index) })
+    if ((questions.whoContains as WhoFriends).people !== undefined) {
+      setQuestions({
+        ...questions,
+        whoContains: {
+          ...questions.whoContains,
+          people: (questions.whoContains as WhoFriends).people.filter((s, i) => i !== index)
+        }
+      })
     }
   }
-
-  useEffect(() => {
-    questions.whoContains !== undefined && (
-      setFriends(questions.whoContains as WhoFriends)
-    )
-  }, [])
-
-  useEffect(() => {
-    setQuestions({ ...questions, whoContains: friends })
-  }, [friends])
 
   return (
     <Box className={styles.who}>
       <Box className={styles.who__head}>
         <Typography variant='h1'>Friends</Typography>
         <IconButton onClick={() => {
-          setPercent(0, 1, 'who')
           setQuestions({ ...questions, who: undefined, whoContains: undefined })
         }}><SwitchIcon /></IconButton>
       </Box>
@@ -56,10 +62,16 @@ const Friends: React.FunctionComponent = () => {
           size='small'
           fullWidth
           color='primary'
-          value={friends?.count}
+          value={(questions.whoContains as WhoFriends).count}
           exclusive
           onChange={(e, value) => {
-            setFriends({ ...friends, count: value })
+            setQuestions({
+              ...questions,
+              whoContains: {
+                ...questions.whoContains,
+                count: value
+              }
+            })
           }}>
           <ToggleButton value='2'>2</ToggleButton>
           <ToggleButton value='3'>3</ToggleButton>
@@ -72,8 +84,8 @@ const Friends: React.FunctionComponent = () => {
         <Button variant='outlined' onClick={handleOpen}>Add friend</Button>
       </Box>
       <Box className={styles.who__persons}>
-        {friends?.people !== undefined && (friends?.people.length > 0 &&
-          friends.people.map((friend, index) =>
+        {(questions.whoContains as WhoFriends)?.people !== undefined && ((questions.whoContains as WhoFriends)?.people.length > 0 &&
+          (questions.whoContains as WhoFriends).people.map((friend, index) =>
             <PersonCard key={index} person={friend} waiting index={index} handleDelete={handleDelete} />))}
       </Box>
       <Box className={styles.who__nav}>
