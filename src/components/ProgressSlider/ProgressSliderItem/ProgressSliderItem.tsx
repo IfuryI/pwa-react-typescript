@@ -13,7 +13,7 @@ export interface ProgressSliderProps {
 }
 
 interface ProgressSliderItemProps {
-  item: ProgressSliderProps,
+  item: ProgressSliderProps
   useLinks: boolean
   setActive: (active: string) => void
 }
@@ -50,7 +50,6 @@ const ProgressSliderItem = ({ item, useLinks, setActive }: ProgressSliderItemPro
     useLinks
       ? <Link
         to={item.state === undefined || item.state === 'Disabled' ? '#' : item.to}
-        onClick={() => { item.state !== 'Disabled' && setActive(item.to) }}
         className={styles.routerLink__reset}
         id={item.to}
       >

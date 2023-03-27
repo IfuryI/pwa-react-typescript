@@ -7,7 +7,7 @@ import { WhoCouple, WhoFamily, WhoFriends, type Pet, type QuestionnaireBasicType
 const QuestionnaireBasic: React.FunctionComponent = () => {
   const { items, setPercent, setActive, setPercentAndGo } = useProgressSlider({
     items: [
-      { text: 'who', progress: 0, to: 'who', state: 'Active' },
+      { text: 'who', progress: 0, to: 'who' },
       { text: 'pets', progress: 0, to: 'pets' },
       { text: 'smoking', progress: 0, to: 'smoking' },
       { text: 'languages', progress: 0, to: 'languages' },

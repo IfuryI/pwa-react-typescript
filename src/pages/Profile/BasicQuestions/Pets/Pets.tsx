@@ -12,10 +12,11 @@ import { ReactComponent as BirdSvg } from '../../../../assets/icons/pets/Bird.sv
 import { ReactComponent as OtherSvg } from '../../../../assets/icons/pets/Other.svg'
 import { type Pet } from 'models'
 import PetList from 'src/components/PetList/PetList'
+import { useEffect } from 'react'
 
 const Pets: React.FunctionComponent = () => {
   const navigate = useNavigate()
-  const { setActive, setPercentAndGo } = useActive()
+  const { setActive, setPercent } = useActive()
   const { questions, setQuestions } = useBasicQuestions()
   const petTypes = [
     { type: 'cat', icon: CatSvg },
@@ -24,6 +25,15 @@ const Pets: React.FunctionComponent = () => {
     { type: 'bird', icon: BirdSvg },
     { type: 'other', icon: OtherSvg }
   ]
+
+  let loaded = false
+  useEffect(() => {
+    if (loaded === false) {
+      setActive('pets')
+      loaded = true
+    }
+  }, [])
+
 
   const addPet = (type: string): void => {
     if (questions.pets?.some((pet: Pet) => (pet.type === type)) === true) {
@@ -90,7 +100,7 @@ const Pets: React.FunctionComponent = () => {
           fullWidth
           onClick={() => {
             setQuestions({ ...questions, havePets: undefined, pets: undefined })
-            setPercentAndGo(0, 1, 'pets', 'smoking')
+            setPercent(0, 1, 'pets')
             navigate('/profile/questionnaire-basic-info/smoking')
           }}>
           Skip
@@ -99,7 +109,6 @@ const Pets: React.FunctionComponent = () => {
           fullWidth
           onClick={() => {
             navigate('/profile/questionnaire-basic-info/smoking')
-            setActive('smoking')
           }}>
           Next
         </Button>

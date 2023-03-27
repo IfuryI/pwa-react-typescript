@@ -15,7 +15,6 @@ const Alone: React.FunctionComponent = () => {
         <Box className={styles.AloneBox__ButtonList}>
           <Button variant='contained'
             onClick={() => {
-              setActive('pets')
               setQuestions({ ...questions, who: 'Alone', whoContains: undefined })
               navigate('/profile/questionnaire-basic-info/pets')
             }}>

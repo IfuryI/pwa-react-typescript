@@ -62,7 +62,7 @@ const Friends: React.FunctionComponent = () => {
           size='small'
           fullWidth
           color='primary'
-          value={(questions.whoContains as WhoFriends).count}
+          value={(questions.whoContains as WhoFriends)?.count}
           exclusive
           onChange={(e, value) => {
             setQuestions({
@@ -94,7 +94,6 @@ const Friends: React.FunctionComponent = () => {
           variant='contained'
           onClick={() => {
             navigate('/profile/questionnaire-basic-info/pets')
-            setActive('pets')
           }}>Next</Button>
       </Box>
       <AddPerson open={open} handleClose={handleClose} who='friend' addPerson={addPerson} />

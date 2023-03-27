@@ -45,7 +45,7 @@ const Couple: React.FunctionComponent = () => {
           size='small'
           fullWidth
           color='primary'
-          value={(questions.whoContains as WhoCouple).kind}
+          value={(questions.whoContains as WhoCouple)?.kind}
           exclusive
           onChange={(e, value) => {
             setQuestions({ ...questions, whoContains: { ...questions.whoContains, kind: value } })
@@ -61,7 +61,7 @@ const Couple: React.FunctionComponent = () => {
         <Button variant='outlined' onClick={handleOpen}>Add partner</Button>
       </Box>
       <Box className={styles.who__persons}>
-        {(questions.whoContains as WhoCouple).partner !== '' &&
+        {(questions.whoContains as WhoCouple)?.partner !== undefined &&
           <PersonCard person={(questions.whoContains as WhoCouple).partner} waiting index={0} handleDelete={handleDelete} />}
       </Box>
       <Box className={styles.who__nav}>
@@ -70,7 +70,6 @@ const Couple: React.FunctionComponent = () => {
           variant='contained'
           onClick={() => {
             navigate('/profile/questionnaire-basic-info/pets')
-            setActive('pets')
           }}>Next</Button>
       </Box>
       <AddPerson open={open} handleClose={handleClose} who='partner' addPerson={addPerson} />

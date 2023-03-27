@@ -1,14 +1,17 @@
 import { Box, Button, Checkbox, FormControlLabel, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material'
+import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useActive } from 'src/components/ProgressSlider/ProgressSlider'
 import { useBasicQuestions } from 'src/layouts/QuestionnaireBasic/QuestionnaireBasic'
 import styles from '../BasicQuestions.module.scss'
 
 const Smoking: React.FunctionComponent = () => {
-  const { setActive, setPercentAndGo } = useActive()
+  const { setActive, setPercent } = useActive()
   const { questions, setQuestions } = useBasicQuestions()
   const navigate = useNavigate()
   const options = ['cigarettes', 'vape', 'shisha', 'cigars', 'other']
+
+  useEffect (() => {setActive('smoking')}, [])
 
   const handleCheck = (e: React.ChangeEvent<HTMLInputElement>, option: string): void => {
     if (e.target.checked) {
@@ -60,7 +63,7 @@ const Smoking: React.FunctionComponent = () => {
           fullWidth
           onClick={() => {
             setQuestions({ ...questions, smoker: undefined, smokingWhat: [] })
-            setPercentAndGo(0, 1, 'smoking', 'languages')
+            setPercent(0, 1, 'smoking')
             navigate('/profile/questionnaire-basic-info/languages')
           }}>
           Skip
@@ -69,7 +72,6 @@ const Smoking: React.FunctionComponent = () => {
           fullWidth
           onClick={() => {
             navigate('/profile/questionnaire-basic-info/languages')
-            setActive('languages')
           }}>
           Next
         </Button>

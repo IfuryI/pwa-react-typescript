@@ -12,10 +12,11 @@ import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined'
 const Languages: React.FunctionComponent = () => {
   const [search, setSearch] = useState<string>('')
   const [langList, setLangList] = useState(languages)
-  const { setActive, setPercentAndGo } = useActive()
+  const { setActive, setPercent } = useActive()
   const { questions, setQuestions } = useBasicQuestions()
   const navigate = useNavigate()
 
+  useEffect(() => { setActive('languages') }, [])
   useEffect(() => {
     setLangList(languages.filter(language => language.name.toLowerCase().includes(search.toLowerCase())))
   }, [search])
@@ -75,7 +76,7 @@ const Languages: React.FunctionComponent = () => {
           fullWidth
           onClick={() => {
             setQuestions({ ...questions, languages: [] })
-            setPercentAndGo(0, 1, 'languages', 'about')
+            setPercent(0, 1, 'languages')
             navigate('/profile/questionnaire-basic-info/about')
           }}>
           Skip
@@ -84,7 +85,6 @@ const Languages: React.FunctionComponent = () => {
           fullWidth
           onClick={() => {
             navigate('/profile/questionnaire-basic-info/about')
-            setActive('about')
           }}>
           Next
         </Button>

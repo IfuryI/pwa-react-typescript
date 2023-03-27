@@ -1,6 +1,6 @@
 import { Box, Button, Typography } from '@mui/material'
 import { type Contact } from 'models'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import ContactCard from 'src/components/ContactCard/ContactCard'
 import AddContact from 'src/components/Modals/AddContact/AddContact'
@@ -21,6 +21,7 @@ const Contacts: React.FunctionComponent = () => {
     setQuestions({ ...questions, contacts: [...questions.contacts, contact] })
   }
 
+  useEffect(() => { setActive('contacts') }, [])
   return (
     <Box className={styles.question}>
       <Box className={styles.question__head}>
@@ -40,7 +41,6 @@ const Contacts: React.FunctionComponent = () => {
           className={styles.question__button_half}
           onClick={() => {
             navigate('/profile/questionnaire-basic-info/apartment')
-            setActive('apartment')
           }}>
           Next
         </Button>

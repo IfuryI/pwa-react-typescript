@@ -124,7 +124,6 @@ const Family: React.FunctionComponent = () => {
           variant='contained'
           onClick={() => {
             navigate('/profile/questionnaire-basic-info/pets')
-            setActive('pets')
           }}>Next</Button>
       </Box>
       <AddPerson open={open} handleClose={handleClose} who='family member' addPerson={addPerson} />
