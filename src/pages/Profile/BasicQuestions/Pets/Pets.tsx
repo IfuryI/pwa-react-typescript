@@ -1,5 +1,4 @@
 import { Box, Button, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material'
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import PetButton from 'src/components/Buttons/PetButton/PetButton'
 import { useActive } from 'src/components/ProgressSlider/ProgressSlider'
@@ -13,10 +12,11 @@ import { ReactComponent as BirdSvg } from '../../../../assets/icons/pets/Bird.sv
 import { ReactComponent as OtherSvg } from '../../../../assets/icons/pets/Other.svg'
 import { type Pet } from 'models'
 import PetList from 'src/components/PetList/PetList'
+import { useEffect } from 'react'
 
 const Pets: React.FunctionComponent = () => {
   const navigate = useNavigate()
-  const { setActive, setPercent, setPercentAndGo } = useActive()
+  const { setActive, setPercent } = useActive()
   const { questions, setQuestions } = useBasicQuestions()
   const petTypes = [
     { type: 'cat', icon: CatSvg },
@@ -27,11 +27,8 @@ const Pets: React.FunctionComponent = () => {
   ]
 
   useEffect(() => {
-    const isHavePets: number = questions.havePets === undefined || questions.havePets === null ? 0 : 1
-    const total: number = (questions.havePets === true) ? 2 : 1
-    const isPets: number = questions.pets?.some((pet: Pet) => (pet.count > 0)) === true && questions.havePets === true ? 1 : 0
-    setPercent(isHavePets + isPets, total, 'pets')
-  }, [questions])
+    setActive('pets')
+  }, [])
 
   const addPet = (type: string): void => {
     if (questions.pets?.some((pet: Pet) => (pet.type === type)) === true) {
@@ -50,7 +47,12 @@ const Pets: React.FunctionComponent = () => {
 
   const deletePet = (type: string): void => {
     if (questions.pets?.some((pet: Pet) => (pet.type === type)) === true) {
-      setQuestions({ ...questions, pets: questions.pets.map((pet) => ((pet.type === type && pet.count !== undefined) ? { ...pet, count: pet.count - 1 } : { ...pet })) })
+      setQuestions({
+        ...questions,
+        pets: questions.pets.map((pet) => ((pet.type === type && pet.count !== undefined)
+          ? { ...pet, count: pet.count - 1 }
+          : { ...pet }))
+      })
     }
   }
 
@@ -93,7 +95,7 @@ const Pets: React.FunctionComponent = () => {
           fullWidth
           onClick={() => {
             setQuestions({ ...questions, havePets: undefined, pets: undefined })
-            setPercentAndGo(0, 1, 'pets', 'smoking')
+            setPercent(0, 1, 'pets')
             navigate('/profile/questionnaire-basic-info/smoking')
           }}>
           Skip
@@ -102,7 +104,6 @@ const Pets: React.FunctionComponent = () => {
           fullWidth
           onClick={() => {
             navigate('/profile/questionnaire-basic-info/smoking')
-            setActive('smoking')
           }}>
           Next
         </Button>

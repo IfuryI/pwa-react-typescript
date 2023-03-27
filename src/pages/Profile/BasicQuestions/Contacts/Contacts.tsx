@@ -10,7 +10,7 @@ import styles from '../BasicQuestions.module.scss'
 
 const Contacts: React.FunctionComponent = () => {
   const navigate = useNavigate()
-  const { setActive, setPercent } = useActive()
+  const { setActive } = useActive()
   const { questions, setQuestions } = useBasicQuestions()
   const [open, setOpen] = useState(false)
 
@@ -21,14 +21,13 @@ const Contacts: React.FunctionComponent = () => {
     setQuestions({ ...questions, contacts: [...questions.contacts, contact] })
   }
 
-  useEffect(() => {
-    questions.contacts.length > 0 ? setPercent(1, 1, 'contacts') : setPercent(0, 1, 'contacts')
-  }, [questions])
-
+  useEffect(() => { setActive('contacts') }, [])
   return (
     <Box className={styles.question}>
       <Box className={styles.question__head}>
-        <Typography className={styles.question__head_text} variant='h1'>What contacts you are willing to share with people you will match with?</Typography>
+        <Typography className={styles.question__head_text} variant='h1'>
+          What contacts you are willing to share with people you will match with?
+        </Typography>
       </Box>
       <Box className={styles.question__content}>
         <Button variant='outlined' onClick={handleOpen}>Add contact</Button>
@@ -42,7 +41,6 @@ const Contacts: React.FunctionComponent = () => {
           className={styles.question__button_half}
           onClick={() => {
             navigate('/profile/questionnaire-basic-info/apartment')
-            setActive('apartment')
           }}>
           Next
         </Button>

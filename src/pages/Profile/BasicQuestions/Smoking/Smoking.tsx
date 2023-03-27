@@ -6,10 +6,12 @@ import { useBasicQuestions } from 'src/layouts/QuestionnaireBasic/QuestionnaireB
 import styles from '../BasicQuestions.module.scss'
 
 const Smoking: React.FunctionComponent = () => {
-  const { setActive, setPercent, setPercentAndGo } = useActive()
+  const { setActive, setPercent } = useActive()
   const { questions, setQuestions } = useBasicQuestions()
   const navigate = useNavigate()
   const options = ['cigarettes', 'vape', 'shisha', 'cigars', 'other']
+
+  useEffect(() => { setActive('smoking') }, [])
 
   const handleCheck = (e: React.ChangeEvent<HTMLInputElement>, option: string): void => {
     if (e.target.checked) {
@@ -18,13 +20,6 @@ const Smoking: React.FunctionComponent = () => {
       setQuestions({ ...questions, smokingWhat: questions.smokingWhat.filter((item) => (item !== option)) })
     }
   }
-
-  useEffect(() => {
-    const isSmoking: number = questions.smoker === undefined || questions.smoker === null ? 0 : 1
-    const total: number = (questions.smoker === true) ? 2 : 1
-    const isSmokingWhat: number = questions.smokingWhat?.length > 0 && questions.smoker === true ? 1 : 0
-    setPercent(isSmoking + isSmokingWhat, total, 'smoking')
-  }, [questions])
 
   return (
     <Box className={styles.question}>
@@ -49,7 +44,14 @@ const Smoking: React.FunctionComponent = () => {
               <Typography variant='h2'>What do you like to smoke?</Typography>
               <Box className={styles.question__input_zeroGap}>
                 {options.map((option, index) => (
-                  <FormControlLabel key={index} control={ <Checkbox value='' checked={ questions.smokingWhat?.some(what => what === option) } onChange={(e) => { handleCheck(e, option) }}/> } label={option} />
+                  <FormControlLabel
+                    key={index}
+                    control={<Checkbox
+                      value=''
+                      checked={questions.smokingWhat?.some(what => what === option)}
+                      onChange={(e) => { handleCheck(e, option) }}
+                    />}
+                    label={option} />
                 ))}
               </Box>
             </Box>
@@ -61,7 +63,7 @@ const Smoking: React.FunctionComponent = () => {
           fullWidth
           onClick={() => {
             setQuestions({ ...questions, smoker: undefined, smokingWhat: [] })
-            setPercentAndGo(0, 1, 'smoking', 'languages')
+            setPercent(0, 1, 'smoking')
             navigate('/profile/questionnaire-basic-info/languages')
           }}>
           Skip
@@ -70,7 +72,6 @@ const Smoking: React.FunctionComponent = () => {
           fullWidth
           onClick={() => {
             navigate('/profile/questionnaire-basic-info/languages')
-            setActive('languages')
           }}>
           Next
         </Button>

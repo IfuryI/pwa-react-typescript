@@ -7,12 +7,11 @@ import styles from '../BasicQuestions.module.scss'
 
 const Apartment: React.FunctionComponent = () => {
   const navigate = useNavigate()
-  const { setPercent } = useActive()
+  const { setActive, setPercent } = useActive()
   const { questions, setQuestions } = useBasicQuestions()
 
-  useEffect(() => {
-    questions?.apartment !== undefined && questions?.apartment !== null ? setPercent(1, 1, 'apartment') : setPercent(0, 1, 'apartment')
-  }, [questions])
+  useEffect(() => { setActive('apartment') }, [])
+
   return (
     <Box className={styles.question}>
       <Box className={styles.question__head}>

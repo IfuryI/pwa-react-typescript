@@ -1,16 +1,16 @@
 import { User } from "./user"
 
 export interface WhoFriends {
-  count?: number
+  count: number
   people: (string | User)[]
 }
 export interface WhoCouple {
   kind?: 'MF' | 'MM' | 'FF' | 'other' | undefined
-  partner?: string | User
+  partner: string | User
 }
 export interface WhoFamily {
-  adults?: number
-  kids?: number
+  adults: number
+  kids: number
   people: (string | User)[]
 }
 

@@ -6,14 +6,11 @@ import { useBasicQuestions } from 'src/layouts/QuestionnaireBasic/QuestionnaireB
 import styles from '../BasicQuestions.module.scss'
 
 const About: React.FunctionComponent = () => {
-  const { setActive, setPercent, setPercentAndGo } = useActive()
+  const { setActive, setPercent } = useActive()
   const { questions, setQuestions } = useBasicQuestions()
   const navigate = useNavigate()
 
-  useEffect(() => {
-    questions.about !== '' ? setPercent(1, 1, 'about') : setPercent(0, 1, 'about')
-  }, [questions])
-
+  useEffect(() => { setActive('about') }, [])
   return (
     <Box className={styles.question}>
       <Box className={styles.question__head}>
@@ -35,7 +32,7 @@ const About: React.FunctionComponent = () => {
           fullWidth
           onClick={() => {
             setQuestions({ ...questions, about: '' })
-            setPercentAndGo(0, 1, 'about', 'contacts')
+            setPercent(0, 1, 'about')
             navigate('/profile/questionnaire-basic-info/contacts')
           }}>
           Skip
@@ -44,7 +41,6 @@ const About: React.FunctionComponent = () => {
           fullWidth
           onClick={() => {
             navigate('/profile/questionnaire-basic-info/contacts')
-            setActive('contacts')
           }}>
           Next
         </Button>
